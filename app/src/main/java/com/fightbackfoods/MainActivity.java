@@ -16,6 +16,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.facebook.Profile;
+import com.facebook.login.LoginManager;
+import com.fightbackfoods.model.User;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -24,8 +26,9 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Profile.getCurrentProfile();
-        if (Profile.getCurrentProfile()==null ){
+        Api.initialized(getApplicationContext());
+
+        if (Profile.getCurrentProfile()==null&& User.getCurrentUser().getUserId() ==0 ){
             Intent intent
                     = new Intent(MainActivity.this,LoginActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -92,22 +95,38 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_articles) {
             // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.nav_food_tracker) {
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_journal) {
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_lifestyle) {
 
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+        }else if (id == R.id.nav_logout) {
+            logout();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void logout() {
+
+        User.clearPref();
+        /*recreate();
+            *//*
+            startActivity(getIntent());
+            finish();
+
+*/
+
+        LoginManager.getInstance().logOut();
+        Intent login = new Intent(MainActivity.this, LoginActivity.class);
+        //closeDrawer();
+
+        startActivity(login);
+        finish();
     }
 }

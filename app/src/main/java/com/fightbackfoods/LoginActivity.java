@@ -3,6 +3,7 @@ package com.fightbackfoods;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
@@ -24,12 +25,15 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.accessibility.AccessibilityManager;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -85,6 +89,7 @@ public class LoginActivity extends AppCompatActivity {
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
       //  populateAutoComplete();
+        getSupportActionBar().hide(); //<< this
 
         mPasswordView = (EditText) findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -102,6 +107,8 @@ public class LoginActivity extends AppCompatActivity {
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
+               /* InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(view.getWindowToken(),0);*/
                 attemptLogin();
             }
         });
@@ -122,16 +129,12 @@ public class LoginActivity extends AppCompatActivity {
                 new FacebookCallback<LoginResult>() {
                     @Override
                     public void onSuccess(LoginResult loginResult) {
-                        Log.d(TAG, "fb login success");
                         GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken(),
                                 new GraphRequest.GraphJSONObjectCallback() {
                                     String email ="";
                                     String location ="";
                                     @Override
                                     public void onCompleted(final JSONObject object, GraphResponse response) {
-                                        Log.v("LoginActivity", response.toString());
-
-                                        Log.v("LoginActivity", object.toString());
 
                                         try {
                                             email = object.getString("email");
@@ -221,6 +224,7 @@ public class LoginActivity extends AppCompatActivity {
             main.putExtra("imageUrl", profile.getProfilePictureUri(200,200).toString());
 */
         main .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        User.setCurrentUser(user);
         startActivity(main);
         finish();
 
@@ -239,7 +243,8 @@ public class LoginActivity extends AppCompatActivity {
         if (mProgressView.getVisibility() == View.VISIBLE) {
             return;
         }
-
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(),0);
         // Reset errors.
         mEmailView.setError(null);
         mPasswordView.setError(null);
@@ -282,15 +287,15 @@ public class LoginActivity extends AppCompatActivity {
             api.login(email, password, new Callback<Response>() {
                 @Override
                 public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
-                    Log.d(TAG, "login response ");
                     showProgress(false);
 
                     if(response.isSuccessful()){
                         Response mResponse = response.body();
-                        Log.d(TAG, response.toString());
                         if(mResponse.getStatus().equalsIgnoreCase("success")){
                             User user = mResponse.getUser();
                             nextActivity(user);
+                        }else{
+                            Toast.makeText(LoginActivity.this, mResponse.getMessage(), Toast.LENGTH_LONG).show();
                         }
                     }
 
@@ -298,6 +303,8 @@ public class LoginActivity extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Call<Response> call, Throwable t) {
+                    t.printStackTrace();
+
                     showProgress(false);
 
                 }

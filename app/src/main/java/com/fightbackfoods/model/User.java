@@ -70,7 +70,7 @@ public class User {
 
     @SerializedName("birthday")
     @Expose
-    private String birthday;
+    private String birthday;                        //yyyy-MM-dd
 
     @SerializedName("avatar")
     @Expose
@@ -85,6 +85,22 @@ public class User {
     @Expose
     private long updated_at;
 
+    @SerializedName("email")
+    @Expose
+    private String email;
+
+    public User() {
+
+    }
+
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
     public long getUserId() {
         return userId;
@@ -231,6 +247,9 @@ public class User {
         SharedPreferences sharedPref =  Api.getApplicationContext().getSharedPreferences(USER_SHARED_PREF, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putString("first_name", user.getFirstName());
+        editor.putString("email", user.getEmail());
+        editor.putLong("user_id", user.getUserId());
+
         editor.putString("last_name", user.getLastName());
         editor.putString("avatar", user.getAvatar());
       //  editor.putLong("gender", TextUtils.parseLong(user.getGenderId()));
@@ -239,4 +258,44 @@ public class User {
 
         editor.apply();
     }
+
+    /**
+     * Getter for the User that is currently logged in to the application.
+     * @return The User that is currently logged in to the application.
+     */
+    public static User getCurrentUser()
+    {
+        final SharedPreferences sharedPref = Api.getApplicationContext().getSharedPreferences(USER_SHARED_PREF, Context.MODE_PRIVATE);
+
+        return User.fromSharedPref(sharedPref);
+    }
+    private static User fromSharedPref(SharedPreferences sharedPref){
+
+        User user = new User();
+
+       user.setEmail(sharedPref.getString("email", ""));
+        user.setFirstName(sharedPref.getString("first_name",""));
+        user.setLastName(sharedPref.getString("last_name",""));
+        user.setAvatar(sharedPref.getString("avatar",""));
+        user.setUserId(sharedPref.getLong("user_id", 0));
+
+        return user;
+    }
+    public static String getCurrentUserId() {
+        final SharedPreferences sharedPref = Api.getApplicationContext().getSharedPreferences(USER_SHARED_PREF, Context.MODE_PRIVATE);
+        return sharedPref.getString("fbid", "");
+    }
+    /**
+     * Getter for the User that is currently logged in to the application.
+     * @return The User that is currently logged in to the application.
+     */
+    public static void clearPref()   {
+        final SharedPreferences sharedPref = Api.getApplicationContext().getSharedPreferences(USER_SHARED_PREF, Context.MODE_PRIVATE);
+
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.clear();
+        editor.apply();
+
+    }
+
 }
