@@ -4,7 +4,7 @@ import com.fightbackfoods.model.User;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public abstract class Response {
+public class Response {
 
     @SerializedName("status")
     @Expose
@@ -64,5 +64,8 @@ public abstract class Response {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Response() {
     }
 }

@@ -5,23 +5,23 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="Import" />
+            android:id="@+id/nav_journal"
+            android:icon="@drawable/ic_menu_my_calendar"
+            android:title="Journals" />
         <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="Gallery" />
+            android:id="@+id/nav_food_tracker"
+            android:icon="@drawable/ic_menu_agenda"
+            android:title="Food Tracker" />
         <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
+            android:id="@+id/nav_articles"
+            android:icon="@drawable/ic_menu_today"
+            android:title="Articles" />
         <item
-            android:id="@+id/nav_manage"
+            android:id="@+id/nav_lifestyle"
             android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
+            android:title="Lifestyle" />
     </group>
-
+<!--
     <item android:title="Communicate">
         <menu>
             <item
@@ -33,6 +33,13 @@
                 android:icon="@drawable/ic_menu_send"
                 android:title="Send" />
         </menu>
-    </item>
+    </item>-->
+
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_logout"
+            android:title="Logout" />
+    </group>
 
 </menu>
