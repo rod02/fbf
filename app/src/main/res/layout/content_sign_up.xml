@@ -2,9 +2,8 @@
 <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_marginTop="20dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".SignUpActivity"
     tools:showIn="@layout/activity_sign_up">
@@ -25,7 +24,7 @@
                 android:id="@+id/tv_email"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="15dp"
+                android:layout_marginBottom="30dp"
                 android:layout_marginTop="10dp"
                 android:text="@string/prompt_email" />
 
@@ -35,7 +34,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_below="@+id/tv_email"
-                android:layout_marginBottom="15dp"
+                android:layout_marginBottom="30dp"
                 android:text="@string/prompt_password" />
 
             <TextView
@@ -43,7 +42,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_password"
-                android:layout_marginBottom="15dp"
+                android:layout_marginBottom="30dp"
                 android:text="@string/first_name" />
 
             <TextView
@@ -51,7 +50,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_first_name"
-                android:layout_marginBottom="15dp"
+                android:layout_marginBottom="30dp"
                 android:text="@string/last_name" />
 
             <TextView
@@ -59,23 +58,23 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_last_name"
-                android:layout_marginBottom="15dp"
+                android:layout_marginBottom="30dp"
                 android:text="@string/birthday" />
 
             <TextView
-                android:id="@+id/tv__zipcode"
+                android:id="@+id/tv_zipcode"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_birthday"
-                android:layout_marginBottom="15dp"
+                android:layout_marginBottom="30dp"
                 android:text="@string/zipcode" />
 
             <TextView
                 android:id="@+id/tv_gender"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/tv__zipcode"
-                android:layout_marginBottom="15dp"
+                android:layout_below="@+id/tv_zipcode"
+                android:layout_marginBottom="30dp"
                 android:text="@string/gender" />
 
             <TextView
@@ -83,7 +82,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_gender"
-                android:layout_marginBottom="15dp"
+                android:layout_marginBottom="30dp"
                 android:text="@string/cancer_type" />
 
             <TextView
@@ -91,7 +90,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_cancer_type"
-                android:layout_marginBottom="15dp"
+                android:layout_marginBottom="30dp"
                 android:text="@string/cancer_stage" />
 
             <TextView
@@ -99,7 +98,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_cancer_stage"
-                android:layout_marginBottom="15dp"
+                android:layout_marginBottom="30dp"
                 android:text="@string/mobility" />
 
             <TextView
@@ -107,7 +106,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_mobility"
-                android:layout_marginBottom="15dp"
+                android:layout_marginBottom="30dp"
                 android:text="@string/current_treatment" />
 
             <TextView
@@ -115,8 +114,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_current_treatment"
-                android:layout_marginBottom="15dp"
+                android:layout_marginBottom="30dp"
                 android:text="@string/food_restrictions" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:orientation="horizontal">
+
+                <requestFocus />
+            </LinearLayout>
 
             <EditText
                 android:id="@+id/et_email"
@@ -126,10 +135,37 @@
                 android:layout_alignLeft="@+id/et_current_treatment"
                 android:layout_marginBottom="15dp"
                 android:background="@drawable/edit_text_border_color"
-                android:ems="10"
+                android:ems="20"
                 android:fontFamily="sans-serif"
                 android:inputType="textEmailAddress"
-                android:singleLine="true" />
+                android:padding="5dp"
+                android:singleLine="true"
+                android:textSize="14sp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/et_email"
+                android:layout_alignRight="@+id/et_email"
+                android:layout_alignTop="@+id/et_email"
+                android:orientation="horizontal">
+
+                <ProgressBar
+                    android:id="@+id/pb_email"
+                    style="?android:attr/progressBarStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:visibility="gone" />
+
+                <ImageView
+                    android:id="@+id/iv_email_check"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:visibility="gone"
+                    app:srcCompat="@mipmap/ic_check" />
+            </LinearLayout>
 
             <EditText
                 android:id="@+id/et_password"
@@ -137,10 +173,21 @@
                 android:layout_height="wrap_content"
                 android:layout_alignBaseline="@+id/tv_password"
                 android:layout_alignLeft="@+id/et_email"
-                android:layout_marginBottom="15dp"
                 android:background="@drawable/edit_text_border_color"
                 android:ems="10"
-                android:inputType="textPassword" />
+                android:inputType="textPassword"
+                android:padding="5dp"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignRight="@+id/et_password"
+                android:layout_below="@+id/et_password"
+                android:layout_marginTop="2dp"
+                android:text="Minimum length of 4 characters"
+                android:textSize="8sp"
+                android:textStyle="italic" />
 
             <EditText
                 android:id="@+id/et_first_name"
@@ -151,7 +198,9 @@
                 android:layout_marginBottom="15dp"
                 android:background="@drawable/edit_text_border_color"
                 android:ems="10"
-                android:inputType="textPersonName" />
+                android:inputType="textPersonName"
+                android:padding="5dp"
+                android:textSize="14sp" />
 
             <EditText
                 android:id="@+id/et_last_name"
@@ -162,7 +211,9 @@
                 android:layout_marginBottom="15dp"
                 android:background="@drawable/edit_text_border_color"
                 android:ems="10"
-                android:inputType="textPersonName" />
+                android:inputType="textPersonName"
+                android:padding="5dp"
+                android:textSize="14sp" />
 
             <EditText
                 android:id="@+id/et_birthday"
@@ -172,33 +223,42 @@
                 android:layout_alignLeft="@+id/et_current_treatment"
                 android:layout_marginBottom="15dp"
                 android:background="@drawable/edit_text_border_color"
+                android:clickable="true"
                 android:ems="10"
-                android:inputType="textPersonName" />
+                android:focusable="false"
+                android:inputType="date"
+                android:padding="5dp"
+                android:textSize="14sp" />
 
             <EditText
                 android:id="@+id/et_zipCode"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignBaseline="@+id/tv__zipcode"
+                android:layout_alignBaseline="@+id/tv_zipcode"
                 android:layout_alignLeft="@+id/et_current_treatment"
                 android:layout_marginBottom="15dp"
                 android:background="@drawable/edit_text_border_color"
                 android:ems="10"
-                android:inputType="textPersonName" />
+                android:inputType="textPostalAddress"
+                android:padding="5dp"
+                android:textSize="14sp" />
 
             <Spinner
                 android:id="@+id/sp_gender"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignLeft="@+id/et_current_treatment"
-                android:layout_alignTop="@+id/tv_gender" />
+                android:layout_alignTop="@+id/tv_gender"
+                android:entries="@array/gender" />
 
             <Spinner
                 android:id="@+id/sp_cancer_stage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignLeft="@+id/et_current_treatment"
-                android:layout_alignTop="@+id/tv_cancer_stage" />
+                android:layout_alignTop="@+id/tv_cancer_stage"
+                android:entries="@array/cancer_stage" />
+
 
             <EditText
                 android:id="@+id/et_current_treatment"
@@ -209,24 +269,26 @@
                 android:layout_toRightOf="@+id/tv_current_treatment"
                 android:background="@drawable/edit_text_border_color"
                 android:ems="10"
-                android:inputType="textPersonName" />
+                android:inputType="textPersonName"
+                android:padding="5dp"
+                android:textSize="14sp" />
 
-            <EditText
-                android:id="@+id/et_mobility"
+            <Spinner
+                android:id="@+id/sp_mobility"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignBaseline="@+id/tv_mobility"
                 android:layout_alignLeft="@+id/et_current_treatment"
-                android:background="@drawable/edit_text_border_color"
                 android:ems="10"
-                android:inputType="textPersonName" />
+                android:entries="@array/mobility" />
 
             <Spinner
                 android:id="@+id/sp_cancer_type"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignLeft="@+id/et_current_treatment"
-                android:layout_alignTop="@+id/tv_cancer_type" />
+                android:layout_alignTop="@+id/tv_cancer_type"
+                android:entries="@array/cancer_type" />
 
             <EditText
                 android:id="@+id/et_food_restrictions"
@@ -237,7 +299,9 @@
                 android:layout_below="@+id/tv_food_restrictions"
                 android:background="@drawable/edit_text_border_color"
                 android:ems="10"
-                android:inputType="textPersonName" />
+                android:inputType="textPersonName"
+                android:padding="5dp"
+                android:textSize="14sp" />
 
 
         </RelativeLayout>

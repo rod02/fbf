@@ -1,8 +1,11 @@
 package com.fightbackfoods.interfaces;
 
 import com.fightbackfoods.model.User;
+import com.google.gson.Gson;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
 
 public class Response {
 
@@ -25,6 +28,54 @@ public class Response {
     @SerializedName("user")
     @Expose
     User user;
+
+    @SerializedName("error_messages")
+    @Expose
+    List<String> errorMessages;
+
+    @SerializedName("required")
+    @Expose
+    List<String> required;
+
+    @SerializedName("alphaOnly")
+    @Expose
+    List<String> alphaOnly;
+
+    @SerializedName("numberOnly")
+    @Expose
+    List<String> numberOnly;
+
+    public List<String> getErrorMessages() {
+        return errorMessages;
+    }
+
+    public void setErrorMessages(List<String> errorMessages) {
+        this.errorMessages = errorMessages;
+    }
+
+    public List<String> getRequired() {
+        return required;
+    }
+
+    public void setRequired(List<String> required) {
+        this.required = required;
+    }
+
+    public List<String> getAlphaOnly() {
+        return alphaOnly;
+    }
+
+    public void setAlphaOnly(List<String> alphaOnly) {
+        this.alphaOnly = alphaOnly;
+    }
+
+    public List<String> getNumberOnly() {
+        return numberOnly;
+    }
+
+    public void setNumberOnly(List<String> numberOnly) {
+        this.numberOnly = numberOnly;
+    }
 
     public String getStatus() {
         return status;
@@ -67,5 +118,11 @@ public class Response {
     }
 
     public Response() {
+    }
+
+
+    @Override
+    public String toString(){
+        return  new Gson().toJson(this,Response.class).toString();
     }
 }

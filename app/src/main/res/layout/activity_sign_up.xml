@@ -49,6 +49,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_centerInParent="true"
+                    android:adjustViewBounds="true"
+                    android:paddingBottom="40dp"
                     android:scaleType="fitCenter"
                     android:scaleX="0.6"
                     android:scaleY="0.6"
@@ -60,7 +62,8 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:tint="@android:color/holo_red_light"
-                    app:srcCompat="@drawable/ic_delete" />
+                    android:visibility="invisible"
+                    app:srcCompat="@android:drawable/ic_delete" />
             </RelativeLayout>
 
 
@@ -68,7 +71,38 @@
     </android.support.design.widget.AppBarLayout>
 
     <include
-        layout="@layout/content_sign_up"
-        android:layout_marginTop="20dp" />
+        layout="@layout/content_sign_up"/>
+
+    <RelativeLayout
+        android:id="@+id/lay_progress"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/text_shadow"
+        android:clickable="true"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:visibility="gone">
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="@android:style/Widget.DeviceDefault.Light.ProgressBar.Inverse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="false"
+            android:layout_centerHorizontal="true"
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
+            android:layout_margin="10dp" />
+
+        <TextView
+            android:id="@+id/tv_progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/progressBar"
+            android:layout_centerHorizontal="true"
+            android:text="@string/please_wait"
+            android:textColor="@color/light_font"
+            android:visibility="visible" />
+    </RelativeLayout>
 
 </android.support.design.widget.CoordinatorLayout>

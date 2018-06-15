@@ -46,4 +46,13 @@
     <string name="submit">Submit</string>
 
 
+    <!-- Strings related to forgot password -->
+    <string name="please_enter_email">Please enter email</string>
+    <string name="send">Send</string>
+    <string name="cancel">Cancel</string>
+    <string name="reset_password">Reset Password</string>
+    <string name="please_wait">Please wait...</string>
+    <string name="uploading_image">Uploading image...</string>
+
+
 </resources>

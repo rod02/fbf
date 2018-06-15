@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="gender">
+        <item></item>
+        <item>Male</item>
+        <item>Female</item>
+        <item>Private</item>
+    </string-array>
+
+    <string-array name="cancer_stage">
+        <item></item>
+        <item>Stage 0</item>
+        <item>Stage 1</item>
+        <item>Stage 2</item>
+        <item>Stage 3</item>
+        <item>Stage 4</item>
+    </string-array>
+    <string-array name="cancer_type">
+        <item></item>
+        <item>Acute granulocytic leukemia</item>
+        <item>Acute lymphocytic leukemia</item>
+        <item>Acute myelogenous leukemia</item>
+        <item>Adenocarcinoma</item>
+        <item>Adenosarcoma</item>
+    </string-array>
+
+    <string-array name="mobility">
+        <item></item>
+        <item>Immobile</item>
+        <item>Semi-mobile</item>
+        <item>Fully-mobile</item>
+    </string-array>
+
+    <string-array name="treatments">
+        <item></item>
+        <item>Chemotherapy</item>
+        <item>Hormone Therapy</item>
+        <item>Precision Medicine</item>
+        <item>Radiation Therapy</item>
+        <item>Surgery</item>
+        <item>Stem Cell Transplant</item>
+        <item>Immunotherapy</item>
+        <item>Targeted Therapy</item>
+    </string-array>
+
+
+
+
+</resources>

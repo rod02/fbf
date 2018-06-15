@@ -2,9 +2,10 @@ package com.fightbackfoods.model;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.text.TextUtils;
+
 
 import com.fightbackfoods.Api;
+import com.fightbackfoods.utils.TextUtils;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -83,7 +84,7 @@ public class User {
 
     @SerializedName("updated_at")
     @Expose
-    private long updated_at;
+    private long updatedAt;
 
     @SerializedName("email")
     @Expose
@@ -222,12 +223,12 @@ public class User {
         this.createdAt = createdAt;
     }
 
-    public long getUpdated_at() {
-        return updated_at;
+    public long getUpdatedAt() {
+        return updatedAt;
     }
 
-    public void setUpdated_at(long updated_at) {
-        this.updated_at = updated_at;
+    public void setUpdatedAt(long updated_at) {
+        this.updatedAt = updated_at;
     }
 
 
@@ -249,12 +250,29 @@ public class User {
         editor.putString("first_name", user.getFirstName());
         editor.putString("email", user.getEmail());
         editor.putLong("user_id", user.getUserId());
+        editor.putLong("user_detail_id", user.getUserDetailId());
 
         editor.putString("last_name", user.getLastName());
+        editor.putString("middle_name", user.getMiddleName());
+
         editor.putString("avatar", user.getAvatar());
-      //  editor.putLong("gender", TextUtils.parseLong(user.getGenderId()));
-        editor.putLong("createdAt", user.getCreatedAt());
-        editor.putLong("updatedAt",user.getUpdated_at());
+
+        editor.putString("zip_code", user.getZipCode());
+
+        try {
+            editor.putLong("gender_id", user.getGenderId());
+        }catch (NullPointerException e){
+            e.printStackTrace();
+        }
+        editor.putString("cancer_stage_id", user.getCancerStageId());
+
+        editor.putLong("created_at", user.getCreatedAt());
+        editor.putLong("updated_at",user.getUpdatedAt());
+        editor.putString("birthday", user.getBirthday());
+        editor.putString("cancer_type_id", user.getCancerTypeId());
+        editor.putString("mobility_id", user.getMobilityId());
+        editor.putString("food_restriction_id", user.getFoodRestrictionId());
+        editor.putString("treatment_id", user.getTreatmentId());
 
         editor.apply();
     }
@@ -276,9 +294,20 @@ public class User {
        user.setEmail(sharedPref.getString("email", ""));
         user.setFirstName(sharedPref.getString("first_name",""));
         user.setLastName(sharedPref.getString("last_name",""));
+        user.setMiddleName(sharedPref.getString("middle_name",""));
+        user.setBirthday(sharedPref.getString("birthday",""));
+        user.setGenderId(sharedPref.getLong("gender_id",0));
+        user.setZipCode(sharedPref.getString("zip_code",""));
         user.setAvatar(sharedPref.getString("avatar",""));
         user.setUserId(sharedPref.getLong("user_id", 0));
-
+        user.setUserDetailId(sharedPref.getLong("user_detail_id", 0));
+        user.setCancerStageId(sharedPref.getString("cancer_stage_id", ""));
+        user.setCancerTypeId(sharedPref.getString("cancer_type_id", ""));
+        user.setMobilityId(sharedPref.getString("mobility_id", ""));
+        user.setTreatmentId(sharedPref.getString("treatment_id", ""));
+        user.setFoodRestrictionId(sharedPref.getString("food_restriction_id", ""));
+        user.setCreatedAt(sharedPref.getLong("created_at", 0));
+        user.setUpdatedAt(sharedPref.getLong("updated_at", 0));
         return user;
     }
     public static String getCurrentUserId() {

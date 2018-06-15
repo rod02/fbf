@@ -6,6 +6,10 @@ import android.support.annotation.NonNull;
 import com.fightbackfoods.interfaces.ApiConnect;
 import com.fightbackfoods.interfaces.Response;
 
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
@@ -80,4 +84,22 @@ public class Api {
         add.enqueue(callback);
     }
 
+    public void resetPassword(String email, Callback<Response> callback) {
+        apiConnect.resetPassword(email).enqueue(callback);
+    }
+
+    public void signUp(Map<String, String> user, Callback<Response> callback) {
+        apiConnect.signUp(user).enqueue(callback);
+    }
+
+    public void updateAvatar(String userId, String image64, Callback<JSONObject> callback) {
+        Map<String, String> map = new HashMap<>();
+        map.put("userId", userId);
+        map.put("b64img", image64);
+        apiConnect.updateAvatar(map).enqueue(callback);
+    }
+
+    public void updateAvatar(Map<String, String> map, Callback<JSONObject> callback) {
+        apiConnect.updateAvatar(map).enqueue(callback);
+    }
 }

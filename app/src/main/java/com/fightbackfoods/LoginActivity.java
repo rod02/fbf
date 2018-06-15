@@ -4,10 +4,12 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.app.LoaderManager.LoaderCallbacks;
 
@@ -23,8 +25,10 @@ import android.provider.ContactsContract;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.view.accessibility.AccessibilityManager;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
@@ -59,6 +63,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 
 import static android.Manifest.permission.READ_CONTACTS;
+import static java.security.AccessController.getContext;
 
 /**
  * A login screen that offers login via email/password.
@@ -80,6 +85,7 @@ public class LoginActivity extends AppCompatActivity {
     private CallbackManager callbackManager;
     private ProfileTracker profileTracker;
     private TextView tvSignUp;
+    private TextView tvForgotPassword;
 
 
 
@@ -99,6 +105,14 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 signUp();
+            }
+        });
+
+        tvForgotPassword = (TextView) findViewById(R.id.tv_forgot_password);
+        tvForgotPassword.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                forgotPassword();
             }
         });
 
@@ -233,6 +247,81 @@ public class LoginActivity extends AppCompatActivity {
         finish();
     }
 
+    private void forgotPassword() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
+        builder.setTitle(R.string.reset_password);
+        View view = LayoutInflater.from(LoginActivity.this).inflate(R.layout.forgot_password, null, false);
+        // Set up the input
+        final EditText input = (EditText) view.findViewById(R.id.et_email);
+        // Set up the buttons
+        Button btnSend = (Button) view.findViewById(R.id.btn_send);
+        Button btnCancel = (Button) view.findViewById(R.id.btn_cancel);
+        builder.setView(view);
+
+        final AlertDialog dialog = builder.show();
+        btnCancel.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                dialog.cancel();
+            }
+        });
+        btnSend.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String email = input.getText().toString();
+                boolean cancel = false;
+                // Check for a valid email address.
+                if (TextUtils.isEmpty(email)) {
+                    input.setError(getString(R.string.error_field_required));
+                    cancel = true;
+                } else if (!isEmailValid(email)) {
+                    input.setError(getString(R.string.error_invalid_email));
+                    cancel = true;
+                }
+                if (!cancel){
+
+                    if(!Api.isInitialized()){
+                        Api.initialized(getApplicationContext());
+                    }
+                    Api.getInstance().resetPassword(email, new Callback<Response>() {
+                        @Override
+                        public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
+
+                            if(response.isSuccessful()){
+                                Response mResponse = response.body();
+
+                                if(mResponse.getStatus().equalsIgnoreCase("success")){
+                                    dialog.dismiss();
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
+                                    builder.setTitle(R.string.reset_password);
+                                    builder.setMessage(mResponse.getMessage());
+                                    builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            dialog.dismiss();
+                                        }
+                                    });
+                                    builder.show();
+                                }
+                            }else{
+                                input.setError(response.message());
+
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<Response> call, Throwable t) {
+                            t.printStackTrace();
+                        }
+                    });
+                }
+
+            }
+        });
+    }
+
     private void nextActivity(User user) {
         showProgress(false);
 
@@ -262,8 +351,7 @@ public class LoginActivity extends AppCompatActivity {
         if (mProgressView.getVisibility() == View.VISIBLE) {
             return;
         }
-        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(),0);
+        hideSreenKeyboard(true);
         // Reset errors.
         mEmailView.setError(null);
         mPasswordView.setError(null);
@@ -332,20 +420,22 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
+    private void hideSreenKeyboard(boolean hide) {
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(),0);
+    }
+
     private boolean isEmailValid(String email) {
-        //TODO: Replace this with your own logic
         return email.contains("@");
     }
 
     private boolean isPasswordValid(String password) {
-        //TODO: Replace this with your own logic
-        return password.length() > 4;
+        return password.length() >= 4;
     }
 
     /**
      * Shows the progress UI and hides the login form.
      */
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
     private void showProgress(final boolean show) {
         // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
         // for very easy animations. If available, use these APIs to fade-in
