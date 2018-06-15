@@ -79,6 +79,7 @@ public class LoginActivity extends AppCompatActivity {
     private LoginButton loginButton;
     private CallbackManager callbackManager;
     private ProfileTracker profileTracker;
+    private TextView tvSignUp;
 
 
 
@@ -89,7 +90,17 @@ public class LoginActivity extends AppCompatActivity {
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
       //  populateAutoComplete();
-        getSupportActionBar().hide(); //<< this
+
+        getSupportActionBar().hide();
+
+
+        tvSignUp = (TextView) findViewById(R.id.tv_sign_up);
+        tvSignUp.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                signUp();
+            }
+        });
 
         mPasswordView = (EditText) findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -212,6 +223,14 @@ public class LoginActivity extends AppCompatActivity {
                 // App code
             }
         });*/
+    }
+
+    private void signUp() {
+
+        Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
+        intent .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+        finish();
     }
 
     private void nextActivity(User user) {

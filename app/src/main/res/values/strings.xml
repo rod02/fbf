@@ -31,5 +31,19 @@
 
 
 
+    <!-- Strings related to sign Up -->
+    <string name="title_activity_sign_up">Sign Up</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="birthday">Birthday</string>
+    <string name="zipcode">ZipCode</string>
+    <string name="gender">Gender</string>
+    <string name="cancer_type">Cancer Type</string>
+    <string name="cancer_stage">Cancer Stage</string>
+    <string name="mobility">Mobility</string>
+    <string name="current_treatment">Current Treatment</string>
+    <string name="food_restrictions">Food Restrictions</string>
+    <string name="submit">Submit</string>
+
 
 </resources>
