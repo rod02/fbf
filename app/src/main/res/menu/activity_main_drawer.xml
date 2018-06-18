@@ -5,41 +5,56 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_journal"
-            android:icon="@drawable/ic_menu_my_calendar"
-            android:title="Journals" />
+            android:id="@+id/nav_food_nutrient_report"
+            android:icon="@mipmap/ic_food_nutrient_report"
+            android:title="@string/title_food_nutrient_report" />
         <item
-            android:id="@+id/nav_food_tracker"
-            android:icon="@drawable/ic_menu_agenda"
-            android:title="Food Tracker" />
+            android:id="@+id/nav_goals"
+            android:icon="@mipmap/ic_goals"
+            android:title="@string/title_goals"/>
         <item
-            android:id="@+id/nav_articles"
-            android:icon="@drawable/ic_menu_today"
-            android:title="Articles" />
+            android:id="@+id/nav_food"
+            android:title="@string/title_food" />
         <item
-            android:id="@+id/nav_lifestyle"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Lifestyle" />
+            android:id="@+id/nav_activity"
+            android:title="@string/title_activity" />
+
+        <item
+            android:id="@+id/nav_saved"
+            android:icon="@mipmap/ic_saved"
+            android:title="@string/title_save" />
+        <item
+            android:id="@+id/nav_inbox"
+            android:icon="@mipmap/ic_inbox"
+            android:title="@string/title_inbox" />
+        <item
+            android:id="@+id/nav_trending"
+            android:icon="@mipmap/ic_trending"
+            android:title="@string/title_trending" />
+        <item
+            android:id="@+id/nav_profile_settings"
+            android:icon="@mipmap/ic_profile_settings"
+            android:title="@string/title_profile_settings" />
+
+
+
     </group>
-<!--
-    <item android:title="Communicate">
-        <menu>
-            <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
-            <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
-        </menu>
-    </item>-->
 
 
-    <group android:checkableBehavior="single">
+    <group
+        android:id="@+id/account"
+        android:title=""
+
+        >
+        <item
+            android:id="@+id/nav_account_settings"
+            android:title="@string/title_account_settings" />
+        <item
+            android:id="@+id/nav_contact_us"
+            android:title="@string/title_contact_us" />
         <item
             android:id="@+id/nav_logout"
-            android:title="Logout" />
+            android:title="@string/logout" />
     </group>
 
 </menu>

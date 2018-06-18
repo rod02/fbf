@@ -132,7 +132,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignBaseline="@+id/tv_email"
-                android:layout_alignLeft="@+id/et_current_treatment"
+                android:layout_alignLeft="@+id/sp_current_treatment"
                 android:layout_marginBottom="15dp"
                 android:background="@drawable/edit_text_border_color"
                 android:ems="20"
@@ -194,7 +194,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignBaseline="@+id/tv_first_name"
-                android:layout_alignLeft="@+id/et_current_treatment"
+                android:layout_alignLeft="@+id/sp_current_treatment"
                 android:layout_marginBottom="15dp"
                 android:background="@drawable/edit_text_border_color"
                 android:ems="10"
@@ -207,7 +207,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignBaseline="@+id/tv_last_name"
-                android:layout_alignLeft="@+id/et_current_treatment"
+                android:layout_alignLeft="@+id/sp_current_treatment"
                 android:layout_marginBottom="15dp"
                 android:background="@drawable/edit_text_border_color"
                 android:ems="10"
@@ -220,7 +220,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignBaseline="@+id/tv_birthday"
-                android:layout_alignLeft="@+id/et_current_treatment"
+                android:layout_alignLeft="@+id/sp_current_treatment"
                 android:layout_marginBottom="15dp"
                 android:background="@drawable/edit_text_border_color"
                 android:clickable="true"
@@ -235,7 +235,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignBaseline="@+id/tv_zipcode"
-                android:layout_alignLeft="@+id/et_current_treatment"
+                android:layout_alignLeft="@+id/sp_current_treatment"
                 android:layout_marginBottom="15dp"
                 android:background="@drawable/edit_text_border_color"
                 android:ems="10"
@@ -247,7 +247,7 @@
                 android:id="@+id/sp_gender"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/et_current_treatment"
+                android:layout_alignLeft="@+id/sp_current_treatment"
                 android:layout_alignTop="@+id/tv_gender"
                 android:entries="@array/gender" />
 
@@ -255,30 +255,30 @@
                 android:id="@+id/sp_cancer_stage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/et_current_treatment"
+                android:layout_alignLeft="@+id/sp_current_treatment"
                 android:layout_alignTop="@+id/tv_cancer_stage"
                 android:entries="@array/cancer_stage" />
 
 
-            <EditText
-                android:id="@+id/et_current_treatment"
+    
+            <Spinner
+                android:id="@+id/sp_current_treatment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+
                 android:layout_alignBaseline="@+id/tv_current_treatment"
                 android:layout_marginLeft="20dp"
                 android:layout_toRightOf="@+id/tv_current_treatment"
-                android:background="@drawable/edit_text_border_color"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:padding="5dp"
+                android:entries="@array/treatments"
                 android:textSize="14sp" />
+
 
             <Spinner
                 android:id="@+id/sp_mobility"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignBaseline="@+id/tv_mobility"
-                android:layout_alignLeft="@+id/et_current_treatment"
+                android:layout_alignLeft="@+id/sp_current_treatment"
                 android:ems="10"
                 android:entries="@array/mobility" />
 
@@ -286,7 +286,7 @@
                 android:id="@+id/sp_cancer_type"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/et_current_treatment"
+                android:layout_alignLeft="@+id/sp_current_treatment"
                 android:layout_alignTop="@+id/tv_cancer_type"
                 android:entries="@array/cancer_type" />
 
@@ -295,7 +295,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignBaseline="@+id/tv_food_restrictions"
-                android:layout_alignLeft="@+id/et_current_treatment"
+                android:layout_alignLeft="@+id/sp_current_treatment"
                 android:layout_below="@+id/tv_food_restrictions"
                 android:background="@drawable/edit_text_border_color"
                 android:ems="10"

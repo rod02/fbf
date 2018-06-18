@@ -57,7 +57,9 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -93,6 +95,8 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        Api.initialized(getApplicationContext());
+
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
       //  populateAutoComplete();
@@ -100,6 +104,13 @@ public class LoginActivity extends AppCompatActivity {
         getSupportActionBar().hide();
 
 
+        if (Profile.getCurrentProfile()!=null|| User.getCurrentUser().getUserId() !=0 ){
+            Intent intent
+                    = new Intent(LoginActivity.this,   MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+            finish();
+        }
         tvSignUp = (TextView) findViewById(R.id.tv_sign_up);
         tvSignUp.setOnClickListener(new OnClickListener() {
             @Override
@@ -154,6 +165,7 @@ public class LoginActivity extends AppCompatActivity {
                 new FacebookCallback<LoginResult>() {
                     @Override
                     public void onSuccess(LoginResult loginResult) {
+                        showProgress(true);
                         GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken(),
                                 new GraphRequest.GraphJSONObjectCallback() {
                                     String email ="";
@@ -168,11 +180,11 @@ public class LoginActivity extends AppCompatActivity {
                                             email = "noemail@gmail.com";
                                         }
                                         String birthday = object.optString("birthday",""); // 01/31/1980 format
-                                        try {
+                                       /* try {
                                             location = object.getJSONObject("location").optString("name","");
                                         } catch (JSONException e) {
                                             e.printStackTrace();
-                                        }
+                                        }*/
 
                                         if(Profile.getCurrentProfile()==null){
                                             profileTracker = new ProfileTracker() {
@@ -182,10 +194,8 @@ public class LoginActivity extends AppCompatActivity {
 
                                                     profileTracker.stopTracking();
                                                     String photoUrl = newProfile.getProfilePictureUri(200,200).toString();
+                                                    signUp(email, photoUrl, Profile.getCurrentProfile());
 
-                                                    User user = new User(email, newProfile.getName(),photoUrl);
-                                                    User.setCurrentUser(user);
-                                                    nextActivity( user);
                                                 }
                                             };
                                             profileTracker.startTracking();
@@ -219,24 +229,47 @@ public class LoginActivity extends AppCompatActivity {
 
                     }
                 });
-/*
-        // Callback registration
-        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+
+    }
+
+    private void signUp(String email, final String photoUrl, Profile currentProfile) {
+
+        final Map<String, String> map = new HashMap<>();
+        map.put("email", email);
+        map.put("fbid", currentProfile.getId());
+        map.put("firstName", currentProfile.getFirstName());
+        map.put("lastName", currentProfile.getLastName());
+
+        Api.getInstance().fbSignIn(map, new Callback<Response>() {
+
             @Override
-            public void onSuccess(LoginResult loginResult) {
-                // App code
+            public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
+                if(response.isSuccessful()){
+                    Response mResponse = response.body();
+                    if(mResponse.getStatus().equalsIgnoreCase("success")){
+                        User user = mResponse.getUser();
+                        user.setAvatar(photoUrl);
+                        nextActivity(user);
+                        return;
+                    }
+
+                    Toast.makeText(LoginActivity.this, mResponse.getMessage(), Toast.LENGTH_LONG).show();
+
+                }
+                showProgress(false);
+
+                //Toast.makeText(LoginActivity.this, response.message(), Toast.LENGTH_LONG).show();
             }
 
             @Override
-            public void onCancel() {
-                // App code
-            }
+            public void onFailure(Call<Response> call, Throwable t) {
+                t.printStackTrace();
+                Toast.makeText(LoginActivity.this, t.getLocalizedMessage(), Toast.LENGTH_LONG).show();
 
-            @Override
-            public void onError(FacebookException exception) {
-                // App code
+                showProgress(false);
+
             }
-        });*/
+        });
     }
 
     private void signUp() {
@@ -326,11 +359,6 @@ public class LoginActivity extends AppCompatActivity {
         showProgress(false);
 
         Intent main = new Intent(LoginActivity.this, MainActivity.class);
-/*
-            main.putExtra("name", profile.getFirstName());
-            main.putExtra("surname", profile.getLastName());
-            main.putExtra("imageUrl", profile.getProfilePictureUri(200,200).toString());
-*/
         main .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         User.setCurrentUser(user);
         startActivity(main);
@@ -339,6 +367,8 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void nextActivity(Profile currentProfile, String email, String birthday) {
+        String photoUrl = currentProfile.getProfilePictureUri(200,200).toString();
+        signUp(email, photoUrl, Profile.getCurrentProfile());
     }
 
 

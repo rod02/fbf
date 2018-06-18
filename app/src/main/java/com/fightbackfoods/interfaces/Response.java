@@ -45,6 +45,12 @@ public class Response {
     @Expose
     List<String> numberOnly;
 
+    @SerializedName("img_url")
+    @Expose
+    String imgUrl;
+
+
+
     public List<String> getErrorMessages() {
         return errorMessages;
     }
@@ -107,6 +113,15 @@ public class Response {
 
     public void setRequest(String request) {
         this.request = request;
+    }
+
+
+    public String getImgUrl() {
+        return imgUrl;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
     }
 
     public User getUser() {

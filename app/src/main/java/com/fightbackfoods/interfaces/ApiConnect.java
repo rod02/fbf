@@ -28,5 +28,9 @@ public interface ApiConnect {
 
     @FormUrlEncoded
     @POST("user/avatar/update")
-    Call<JSONObject> updateAvatar(@FieldMap Map<String, String> map);
+    Call<Response> updateAvatar(@FieldMap Map<String, String> map);
+
+    @FormUrlEncoded
+    @POST("fb/signin")
+    Call<Response> fbSignIn(@FieldMap Map<String, String> map);
 }

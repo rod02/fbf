@@ -208,6 +208,9 @@ public class User {
     }
 
     public String getAvatar() {
+        if(avatar!=null){
+            if(!avatar.contains("http"))avatar ="http://"+avatar;
+        }
         return avatar;
     }
 
@@ -283,9 +286,14 @@ public class User {
      */
     public static User getCurrentUser()
     {
-        final SharedPreferences sharedPref = Api.getApplicationContext().getSharedPreferences(USER_SHARED_PREF, Context.MODE_PRIVATE);
+        try {
+            SharedPreferences sharedPref = Api.getApplicationContext().getSharedPreferences(USER_SHARED_PREF, Context.MODE_PRIVATE);
+            return User.fromSharedPref(sharedPref);
 
-        return User.fromSharedPref(sharedPref);
+        }catch (NullPointerException e){
+            return new User();
+        }
+
     }
     private static User fromSharedPref(SharedPreferences sharedPref){
 
@@ -310,21 +318,38 @@ public class User {
         user.setUpdatedAt(sharedPref.getLong("updated_at", 0));
         return user;
     }
-    public static String getCurrentUserId() {
+    public static long getCurrentUserId() {
         final SharedPreferences sharedPref = Api.getApplicationContext().getSharedPreferences(USER_SHARED_PREF, Context.MODE_PRIVATE);
-        return sharedPref.getString("fbid", "");
+        return sharedPref.getLong("user_id", 0);
     }
     /**
      * Getter for the User that is currently logged in to the application.
      * @return The User that is currently logged in to the application.
      */
     public static void clearPref()   {
-        final SharedPreferences sharedPref = Api.getApplicationContext().getSharedPreferences(USER_SHARED_PREF, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = getPref();
 
-        SharedPreferences.Editor editor = sharedPref.edit();
         editor.clear();
         editor.apply();
 
     }
 
+    private static SharedPreferences.Editor getPref() {
+        return Api.getApplicationContext().getSharedPreferences(USER_SHARED_PREF, Context.MODE_PRIVATE).edit();
+    }
+
+    public String getSimpleName() {
+        String s = getFirstName() + "";
+        s += getMiddleName()==null? "": " " +getMiddleName();
+        return s + " " +getLastName();
+    }
+
+    public void setAvatar(String imgUrl, boolean b) {
+        this.setAvatar(imgUrl);
+        if(b){
+            SharedPreferences.Editor editor = getPref();
+            editor.putString("avatar", imgUrl);
+            editor.apply();
+        }
+    }
 }

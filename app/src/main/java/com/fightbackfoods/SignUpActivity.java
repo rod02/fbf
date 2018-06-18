@@ -70,8 +70,8 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     Spinner spGender;
     @BindView(R.id.sp_cancer_stage)
     Spinner spCancerStage;
-    @BindView(R.id.et_current_treatment)
-    EditText etCurrentTreatment;
+    @BindView(R.id.sp_current_treatment)
+    Spinner spCurrentTreatment;
     @BindView(R.id.sp_mobility)
     Spinner spMobility;
     @BindView(R.id.sp_cancer_type)
@@ -227,22 +227,10 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             Api.getInstance().signUp(getUserFromViews(), new Callback<Response>() {
                 @Override
                 public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
-                    Log.d(TAG, "onResponse signup ");
-                    Log.d(TAG, " "+ response.toString());
-                    Log.d(TAG, " "+ response.isSuccessful());
+
                     if(response.isSuccessful()){
-                        Log.d(TAG, " "+ "sccess");
-                        Log.d(TAG, " "+ response.body());
-
-                        Response mResponse = response.body();
-
-                        Log.d(TAG, " "+ "mResponse"+ " "+mResponse.toString());
-                        Log.d(TAG, " "+ "mResponse"+ " "+mResponse.getStatus());
-                        Log.d(TAG, " "+ "mResponse"+ " "+mResponse.toString());
-
+                       Response mResponse = response.body();
                         if(mResponse.getStatus().equalsIgnoreCase("success")){
-                            Log.d(TAG, " "+ mResponse.toString());
-
                             User user = mResponse.getUser();
                             User.setCurrentUser(user);
                             TokenManager.setToken(mResponse.getToken(),true);
@@ -281,28 +269,29 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
     private void uploadImage(String image64) {
         tvProgress.setText(R.string.uploading_image);
-        Api.getInstance().updateAvatar(User.getCurrentUserId(), image64, new Callback<JSONObject>() {
+        Api.getInstance().updateAvatar(String.valueOf(User.getCurrentUserId()), image64, new Callback<Response>() {
             @Override
-            public void onResponse(Call<JSONObject> call, retrofit2.Response<JSONObject> response) {
-                /*if(response.isSuccessful()){
-                    Log.d(TAG, "resp upload image");
-                    Log.d(TAG, "" + response.toString());
-                    JSONObject json = response.body();
-                    Log.d(TAG, "" + json.toString());
-
-                    if(json.optString("status","").equalsIgnoreCase("success")){
+            public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
+                if(response.isSuccessful()){
+                    Response json = response.body();
+                    if(json.getStatus().equalsIgnoreCase("success")){
+                        User.getCurrentUser().setAvatar(json.getImgUrl(), true);
                         nextActivity();
+                        return;
+
                     }
                     showProgress(false);
 
                 }else {
                     showProgress(false);
-                }*/
+                }
+                Toast.makeText(SignUpActivity.this, "failed to upload image",Toast.LENGTH_LONG).show();
                 nextActivity();
             }
 
             @Override
-            public void onFailure(Call<JSONObject> call, Throwable t) {
+            public void onFailure(Call<Response> call, Throwable t) {
+                showProgress(false);
 
             }
         });
@@ -329,7 +318,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         user.put("cancerType", String.valueOf(spCancerType.getSelectedItemPosition()));
         user.put("cancerStage", String.valueOf(spCancerStage.getSelectedItemPosition()));
         user.put("mobility", String.valueOf(spMobility.getSelectedItemPosition()));
-        user.put("currentTreatment", etCurrentTreatment.getText().toString());
+        user.put("currentTreatment", String.valueOf(spCurrentTreatment.getSelectedItemPosition()));
         user.put("foodRestriction",etFoodRestrictions.getText().toString());
         if(image64==null)user.put("avatar", "");
 

@@ -92,14 +92,19 @@ public class Api {
         apiConnect.signUp(user).enqueue(callback);
     }
 
-    public void updateAvatar(String userId, String image64, Callback<JSONObject> callback) {
+    public void updateAvatar(String userId, String image64, Callback<Response> callback) {
         Map<String, String> map = new HashMap<>();
         map.put("userId", userId);
         map.put("b64img", image64);
         apiConnect.updateAvatar(map).enqueue(callback);
     }
 
-    public void updateAvatar(Map<String, String> map, Callback<JSONObject> callback) {
+    public void updateAvatar(Map<String, String> map, Callback<Response> callback) {
         apiConnect.updateAvatar(map).enqueue(callback);
+    }
+
+    public void fbSignIn(Map<String, String> map, Callback<Response> callback) {
+        apiConnect.fbSignIn(map).enqueue(callback);
+
     }
 }
