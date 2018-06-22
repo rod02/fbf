@@ -6,11 +6,11 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_food_nutrient_report"
-            android:icon="@mipmap/ic_food_nutrient_report"
+            android:icon="@drawable/ic_food_nutrient_report"
             android:title="@string/title_food_nutrient_report" />
         <item
             android:id="@+id/nav_goals"
-            android:icon="@mipmap/ic_goals"
+            android:icon="@drawable/ic_goals"
             android:title="@string/title_goals"/>
         <item
             android:id="@+id/nav_food"
@@ -21,19 +21,19 @@
 
         <item
             android:id="@+id/nav_saved"
-            android:icon="@mipmap/ic_saved"
+            android:icon="@drawable/ic_saved"
             android:title="@string/title_save" />
         <item
             android:id="@+id/nav_inbox"
-            android:icon="@mipmap/ic_inbox"
+            android:icon="@drawable/ic_inbox"
             android:title="@string/title_inbox" />
         <item
             android:id="@+id/nav_trending"
-            android:icon="@mipmap/ic_trending"
+            android:icon="@drawable/ic_trending"
             android:title="@string/title_trending" />
         <item
             android:id="@+id/nav_profile_settings"
-            android:icon="@mipmap/ic_profile_settings"
+            android:icon="@drawable/ic_profile_settings"
             android:title="@string/title_profile_settings" />
 
 

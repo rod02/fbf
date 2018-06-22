@@ -2,10 +2,19 @@
 <resources>
     <color name="colorPrimary">#14c945</color>
     <color name="colorPrimaryDark">#FF12AC1A</color>
-    <color name="colorAccent">#FF03FFE2</color>
+    <color name="colorAccent">#03ffe2</color>
 
     <color name="light_font">#FBFBFB</color>
     <color name="grey_font">#ff9e9e9e</color>
     <color name="text_shadow">#7f000000</color>
     <color name="text_shadow_white">#FFFFFF</color>
+
+    <color name="face_happy_checked">#FFD700</color>
+    <color name="face_neutral_checked">#ADD8E6</color>
+    <color name="face_sad_checked">#dba9ff</color>
+    <color name="btn_post">#ED2E6C</color>
+    <color name="text_link_pressed">#0000ff</color>
+    <color name="btn_post_pressed">#FF1493</color>
+
+
 </resources>

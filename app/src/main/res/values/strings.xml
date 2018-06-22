@@ -85,6 +85,15 @@
 
 
 
+    <!-- Strings related to journal -->
+    <string name="journal_header">How are you feeling today?</string>
+    <string name="mentally_i_am">Mentally I am</string>
+    <string name="physically_i_am">Physically I am</string>
+    <string name="today_could_use_some">Today I could use some:</string>
+    <string name="jor_could_use_some_hint_text">ex. Encouragement, Help with groceries</string>
+    <string name="add_journal_entry">+ Add Journal Entry optional)</string>
+    <string name="post_to_fb">Post to FB</string>
+    <string name="action_post">Post</string>
 
 
 </resources>

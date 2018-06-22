@@ -1,5 +1,6 @@
 package com.fightbackfoods;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -18,16 +19,22 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.facebook.Profile;
 import com.facebook.login.LoginManager;
+import com.fightbackfoods.model.Journal;
 import com.fightbackfoods.model.User;
 import com.makeramen.roundedimageview.RoundedImageView;
 
@@ -52,6 +59,40 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         init();
         initDrawer();
+
+        showJournal();
+
+    }
+
+    private void showJournal() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        View view = LayoutInflater.from(MainActivity.this).inflate(R.layout.content_journal,
+                null, false);
+        LinearLayout layPost = view.findViewById(R.id.lay_post);
+        final ImageView ivClose = view.findViewById(R.id.iv_close);
+        builder.setView(view);
+        builder.setCancelable(false);
+        layPost.setTag(view);
+
+        final AlertDialog dialog = builder.show();
+        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+
+        ivClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.cancel();
+            }
+        });
+        layPost.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Journal j = Journal.getFromViews((View) v.getTag());
+                Toast.makeText(MainActivity.this, j.getMessage()+ " save", Toast.LENGTH_LONG).show();
+                dialog.dismiss();
+            }
+        });
+
     }
 
     private void init() {

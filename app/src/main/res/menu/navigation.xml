@@ -8,16 +8,16 @@
 
     <item
         android:id="@+id/nav_food"
-        android:icon="@mipmap/ic_food"
+        android:icon="@drawable/ic_food"
         android:title="@string/title_food" />
 
     <item
         android:id="@+id/nav_lifestyle"
-        android:icon="@mipmap/ic_lifestyle"
+        android:icon="@drawable/ic_lifestyle"
         android:title="@string/title_lifestyle" />
 
     <item
         android:id="@+id/nav_community"
-        android:icon="@mipmap/ic_community"
+        android:icon="@drawable/ic_community"
         android:title="@string/title_community" />
 </menu>

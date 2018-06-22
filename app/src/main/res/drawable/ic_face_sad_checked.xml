@@ -1,0 +1,7 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <bitmap
+            android:src="@drawable/ic_face_sad_not_checked"
+            android:tint="@color/face_sad_checked"/>
+    </item>
+</layer-list>

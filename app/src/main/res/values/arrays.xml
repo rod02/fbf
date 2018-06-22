@@ -43,8 +43,9 @@
         <item>Immunotherapy</item>
         <item>Targeted Therapy</item>
     </string-array>
-
-
+    <string-array name="post_share_option">
+        <item>Share with friends / followers</item>
+        </string-array>
 
 
 </resources>
