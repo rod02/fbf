@@ -5,7 +5,6 @@
     <string name="prompt_double_back_exit">Press back again to exit</string>
 
 
-
     <!-- Strings related to drawer -->
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -66,9 +65,9 @@
     <string name="title_food">Food</string>
     <string name="title_lifestyle">Lifestyle</string>
     <string name="title_community">Community</string>
-    <string name="title_activity_main2">Main2Activity</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    <string name="title_education">Education</string>
 
 
     <!-- Strings related to drawer navigation -->
@@ -84,7 +83,6 @@
     <string name="title_profile_settings">Profile Settings</string>
 
 
-
     <!-- Strings related to journal -->
     <string name="journal_header">How are you feeling today?</string>
     <string name="mentally_i_am">Mentally I am</string>
@@ -94,6 +92,32 @@
     <string name="add_journal_entry">+ Add Journal Entry optional)</string>
     <string name="post_to_fb">Post to FB</string>
     <string name="action_post">Post</string>
+
+    <string name="user_profile_photo">""</string>
+    <string name="im_feeling">I\'m Feeling</string>
+
+    <string name="article_sample_value">Good nutrition is one of the keys to a healthy life. You can improve your health by keeping a balanced diet. You should eat foods that contain vitamins and minerals. This includes fruits, vegetables, whole grains, dairy, and a source of protein.
+
+Ask yourself the following questions. If you answer yes to any of them, talk to your doctor about your health. You may need to improve your eating habits for better nutrition.</string>
+    <string name="daily_score">Daily Score</string>
+    <string name="weekly_score">Weekly Score</string>
+    <string name="add_food">Add a Food</string>
+    <string name="add_drink">Add a Drink</string>
+    <string name="my_foods">My Foods</string>
+    <string name="text_separator">\u0020—\u0020</string>
+    <string name="rice_and_beans">Rice and beans with chicken</string>
+    <string name="food_qty_sample">2 servings | 100 cal</string>
+    <string name="my_drinks">My Drinks</string>
+    <string name="my_daily_goals">My Daily Goals</string>
+    <string name="good_nutrients">Good Nutrients</string>
+    <string name="calories">Calories </string>
+    <string name="proteins">Proteins</string>
+    <string name="carbs">Carbs</string>
+    <string name="bad_nutrients">Bad Nutrients</string>
+    <string name="saturated_fat">Saturated Fat</string>
+    <string name="trans_fat">Trans Fat</string>
+    <string name="summary">Summary</string>
+    <string name="super_foods">Super Foods</string>
 
 
 </resources>

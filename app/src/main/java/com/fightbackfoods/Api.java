@@ -57,7 +57,7 @@ public class Api {
         instance = new Api(applicationContext);
     }
 
-    static boolean isInitialized() {
+    public static boolean isInitialized() {
         return instance!=null;
     }
 

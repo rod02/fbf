@@ -23,4 +23,33 @@
 
     <dimen name="rb_size">30dp</dimen>
 
+
+
+    <dimen name="btn_fab_size">56dp</dimen>
+    <dimen name="btn_fab_margins">16dp</dimen>
+    <dimen name="btn_fab_margin_bottom">50dp</dimen>
+
+    <dimen name="default_elevation">8dp</dimen>
+    <dimen name="comment_avatar_size">56dp</dimen>
+    <dimen name="user_profile_avatar_size">88dp</dimen>
+    <dimen name="global_menu_avatar_size">64dp</dimen>
+    <dimen name="publish_photo_thumbnail_size">96dp</dimen>
+    <dimen name="toolbar_face_icon_size">30dp</dimen>
+    <dimen name="toolbar_face_textsize">12sp</dimen>
+    <dimen name="item_article_image_height">120dp</dimen>
+    <dimen name="text_regular_margin">16dp</dimen>
+    <dimen name="food_score_big_text_size">66dp</dimen>
+    <dimen name="icon_size_small">20dp</dimen>
+    <dimen name="btn_rounded_box_radius">5dp</dimen>
+    <dimen name="lay_regular_padding">10dp</dimen>
+    <dimen name="header_text">20sp</dimen>
+    <dimen name="item_my_food_qty_text">10sp</dimen>
+    <dimen name="lay_regular_margin">10dp</dimen>
+    <dimen name="icon_size_regular">30dp</dimen>
+    <dimen name="header2_text">14sp</dimen>
+    <dimen name="text_regular">12sp</dimen>
+    <dimen name="text_regular_space">5dp</dimen>
+    <dimen name="progress_bar_horizontal_width">120dp</dimen>
+
+
 </resources>

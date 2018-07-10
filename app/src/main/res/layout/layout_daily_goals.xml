@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:padding="@dimen/lay_regular_padding">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/text_regular_margin"
+                android:text="@string/my_daily_goals"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/header_text"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginEnd="@dimen/lay_regular_margin"
+                android:layout_weight="1"
+                android:background="@color/gray" />
+
+            <android.support.v7.widget.AppCompatImageView
+
+                android:id="@+id/btn_daily_goals_settings"
+                android:layout_width="@dimen/icon_size_regular"
+                android:layout_height="@dimen/icon_size_regular"
+                app:srcCompat="@drawable/ic_profile_settings"
+                app:tint="@color/ic_settings" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/lay_regular_margin"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/text_regular_space"
+                android:layout_marginTop="@dimen/text_regular_space"
+                android:text="@string/good_nutrients"
+                android:textColor="@color/black"
+                android:textSize="@dimen/header2_text" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/tv_sat_fat_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/calories"
+                        android:textSize="@dimen/text_regular" />
+
+                    <ProgressBar
+                        android:id="@+id/pb_calories"
+                        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tv_sat_fat_label"
+                        android:progress="75"
+                        android:progressTint="@color/colorPrimary" />
+
+                    <TextView
+                        android:id="@+id/tv_calories_total"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignEnd="@+id/pb_calories"
+                        android:layout_below="@+id/pb_calories"
+                        android:text="2000"
+                        android:textSize="@dimen/text_regular" />
+
+                    <TextView
+                        android:id="@+id/tv_calories_percent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/pb_calories"
+                        android:text="75%"
+                        android:textSize="@dimen/text_regular" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/tv_protein_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/proteins"
+                        android:textSize="@dimen/text_regular" />
+
+                    <ProgressBar
+                        android:id="@+id/pb_protein"
+                        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tv_protein_label"
+                        android:progress="75"
+
+                        android:progressTint="@color/colorPrimary" />
+
+                    <TextView
+                        android:id="@+id/tv_protein_total"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignEnd="@+id/pb_protein"
+                        android:layout_below="@+id/pb_protein"
+                        android:text="890"
+                        android:textSize="@dimen/text_regular" />
+
+                    <TextView
+                        android:id="@+id/tv_protein_percent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/pb_protein"
+                        android:text="55%"
+                        android:textSize="@dimen/text_regular" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/tv_carbs_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/carbs"
+                        android:textSize="@dimen/text_regular" />
+
+                    <ProgressBar
+                        android:id="@+id/pb_carbs"
+                        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tv_carbs_label"
+                        android:progress="75"
+
+                        android:progressTint="@color/colorPrimary" />
+
+                    <TextView
+                        android:id="@+id/tv_carbs_total"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignEnd="@+id/pb_carbs"
+                        android:layout_below="@+id/pb_carbs"
+                        android:text="890"
+                        android:textSize="@dimen/text_regular" />
+
+                    <TextView
+                        android:id="@+id/tv_carbs_percent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/pb_carbs"
+                        android:text="75%"
+                        android:textSize="@dimen/text_regular" />
+                </RelativeLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/lay_regular_margin"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/text_regular_space"
+                android:layout_marginTop="@dimen/text_regular_space"
+                android:text="@string/bad_nutrients"
+                android:textColor="@color/black"
+                android:textSize="@dimen/header2_text" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/tv_sat_fat_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/saturated_fat"
+                        android:textSize="@dimen/text_regular" />
+
+                    <ProgressBar
+                        android:id="@+id/pb_calories"
+                        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tv_sat_fat_label"
+                        android:progress="75"
+                        android:progressTint="@color/colorPrimary" />
+
+                    <TextView
+                        android:id="@+id/tv_calories_total"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignEnd="@+id/pb_calories"
+                        android:layout_below="@+id/pb_calories"
+                        android:text="2000"
+                        android:textSize="@dimen/text_regular" />
+
+                    <TextView
+                        android:id="@+id/tv_calories_percent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/pb_calories"
+                        android:text="75%"
+                        android:textSize="@dimen/text_regular" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/tv_sat_fat_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/trans_fat"
+                        android:textSize="@dimen/text_regular" />
+
+                    <ProgressBar
+                        android:id="@+id/pb_sat_fat"
+                        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tv_sat_fat_label"
+                        android:progress="75"
+
+                        android:progressTint="@color/colorPrimary" />
+
+                    <TextView
+                        android:id="@+id/tv_sat_fat_total"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignEnd="@+id/pb_sat_fat"
+                        android:layout_below="@+id/pb_sat_fat"
+                        android:text="890"
+                        android:textSize="@dimen/text_regular" />
+
+                    <TextView
+                        android:id="@+id/tv_sat_fat_percent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/pb_sat_fat"
+                        android:text="55%"
+                        android:textSize="@dimen/text_regular" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/tv_add_sugar_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/carbs"
+                        android:textSize="@dimen/text_regular" />
+
+                    <ProgressBar
+                        android:id="@+id/pb_add_sugar"
+                        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tv_add_sugar_label"
+                        android:progress="75"
+
+                        android:progressTint="@color/colorPrimary" />
+
+                    <TextView
+                        android:id="@+id/tv_add_sugar_total"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignEnd="@+id/pb_add_sugar"
+                        android:layout_below="@+id/pb_add_sugar"
+                        android:text="890"
+                        android:textSize="@dimen/text_regular" />
+
+                    <TextView
+                        android:id="@+id/tv_add_sugar_percent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/pb_add_sugar"
+                        android:text="75%"
+                        android:textSize="@dimen/text_regular" />
+                </RelativeLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <View
+            android:id="@+id/divider4"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="15dp"
+            android:background="@color/gray" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/super_foods" />
+
+            <TextView
+                android:id="@+id/tv_super_foods_valur"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0 of 2" />
+
+            <TextView
+                android:id="@+id/tv_water_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:text="Water" />
+
+            <TextView
+                android:id="@+id/tv_goal_water_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="3L to 12L" />
+
+            <Button
+                android:id="@+id/btn_summary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/summary"
+                android:theme="@style/AppTheme.Button.Blue"/>
+        </LinearLayout>
+
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>

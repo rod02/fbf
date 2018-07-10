@@ -4,7 +4,7 @@
     <item
         android:id="@+id/nav_home"
         android:icon="@drawable/ic_home_black_24dp"
-        android:title="@string/title_home" />
+        android:title="@string/title_dashboard" />
 
     <item
         android:id="@+id/nav_food"
@@ -15,7 +15,10 @@
         android:id="@+id/nav_lifestyle"
         android:icon="@drawable/ic_lifestyle"
         android:title="@string/title_lifestyle" />
-
+    <item
+        android:id="@+id/nav_education"
+        android:icon="@drawable/ic_education"
+        android:title="@string/title_education" />
     <item
         android:id="@+id/nav_community"
         android:icon="@drawable/ic_community"
