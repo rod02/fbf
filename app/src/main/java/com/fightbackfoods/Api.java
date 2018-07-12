@@ -3,10 +3,17 @@ package com.fightbackfoods;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
+import com.fightbackfoods.api.Response;
+import com.fightbackfoods.api.ResponseCancerStages;
+import com.fightbackfoods.api.ResponseCancerType;
+import com.fightbackfoods.api.ResponseHeightUnit;
+import com.fightbackfoods.api.ResponseMobility;
+import com.fightbackfoods.api.ResponseTreatment;
+import com.fightbackfoods.api.ResponseVisibility;
+import com.fightbackfoods.api.ResponseWeightUnit;
 import com.fightbackfoods.interfaces.ApiConnect;
-import com.fightbackfoods.interfaces.Response;
-
-import org.json.JSONObject;
+import com.fightbackfoods.api.ResponseUser;
+import com.fightbackfoods.api.ResponseGender;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -20,11 +27,20 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Api {
 
+
     ApiConnect apiConnect;
     Retrofit retrofit ;
     private static Context applicationContext;
+    private Map<String, String> optionsToken = getOptionsToken();
+    private Map<String, String> getOptionsToken(){
+        Map<String, String> map = new HashMap<>();
+        map.put("userId", "1");
+        map.put("token", "5aba5b26e93dbasd");
+        return map;
+    }
 
     private static final long TIMEOUT_CONNECT = 60;
+    public static final int MAX_RETRY_COUNT = 3;
 
     private static final String BASE_URL = "http://fightbackfoods.eautobid.com/api/";
 
@@ -78,33 +94,65 @@ public class Api {
     }
 
 
-    public void login(String email, String password, Callback<Response> callback){
-        Call<Response> add = apiConnect.login(email, password);
+    public void login(String email, String password, Callback<ResponseUser> callback){
+        Call<ResponseUser> add = apiConnect.login(email, password);
 
         add.enqueue(callback);
     }
 
-    public void resetPassword(String email, Callback<Response> callback) {
+    public void resetPassword(String email, Callback<ResponseUser> callback) {
         apiConnect.resetPassword(email).enqueue(callback);
     }
 
-    public void signUp(Map<String, String> user, Callback<Response> callback) {
+    public void signUp(Map<String, String> user, Callback<ResponseUser> callback) {
         apiConnect.signUp(user).enqueue(callback);
     }
 
-    public void updateAvatar(String userId, String image64, Callback<Response> callback) {
+    public void updateAvatar(String userId, String image64, Callback<ResponseUser> callback) {
         Map<String, String> map = new HashMap<>();
         map.put("userId", userId);
         map.put("b64img", image64);
         apiConnect.updateAvatar(map).enqueue(callback);
     }
 
-    public void updateAvatar(Map<String, String> map, Callback<Response> callback) {
+    public void updateAvatar(Map<String, String> map, Callback<ResponseUser> callback) {
         apiConnect.updateAvatar(map).enqueue(callback);
     }
 
-    public void fbSignIn(Map<String, String> map, Callback<Response> callback) {
+    public void fbSignIn(Map<String, String> map, Callback<ResponseUser> callback) {
         apiConnect.fbSignIn(map).enqueue(callback);
 
+    }
+    public void getGenders(Callback<ResponseGender> callback) {
+        apiConnect.getGenders(optionsToken).enqueue(callback);
+
+    }
+
+    public void getCancerTypes(Callback<ResponseCancerType> callback) {
+        apiConnect.getCancerTypes(optionsToken).enqueue(callback);
+    }
+
+    public void getCancerStages(Callback<ResponseCancerStages> callback) {
+        apiConnect.getCancerStages(optionsToken).enqueue(callback);
+    }
+
+    public void getTreatments(Callback<ResponseTreatment> callback) {
+        apiConnect.getTreatments(optionsToken).enqueue(callback);
+    }
+
+    public void getMobilities(Callback<ResponseMobility> callback) {
+        apiConnect.getMobilities(optionsToken).enqueue(callback);
+    }
+
+    public void getHeightUnits(Callback<ResponseHeightUnit> callback) {
+        apiConnect.getHeightUnits(optionsToken).enqueue(callback);
+    }
+
+    public void getVisibilities(Callback<ResponseVisibility> callback) {
+        apiConnect.getVisibilities(optionsToken).enqueue(callback);
+    }
+
+    public void getWeightUnits(Callback<ResponseWeightUnit> callback) {
+        apiConnect.getWeightUnits(optionsToken).enqueue(callback);
     }
 }

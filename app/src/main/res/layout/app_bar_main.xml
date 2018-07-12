@@ -16,13 +16,15 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/toolbar_bg"
             android:paddingBottom="5dp"
+            android:background="@color/toolbar_bg"
+
             app:popupTheme="@style/AppTheme.PopupOverlay">
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+
                 android:gravity="center_vertical|center">
 
                 <ImageView

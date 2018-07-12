@@ -34,6 +34,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.animation.OvershootInterpolator;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -50,6 +51,7 @@ import com.fightbackfoods.adapter.FeedAdapter;
 import com.fightbackfoods.adapter.FeedItemAnimator;
 import com.fightbackfoods.model.Journal;
 import com.fightbackfoods.model.User;
+import com.fightbackfoods.utils.Validate;
 import com.fightbackfoods.view.FeedContextMenu;
 import com.fightbackfoods.view.FeedContextMenuManager;
 import com.makeramen.roundedimageview.RoundedImageView;
@@ -107,10 +109,10 @@ public class MainActivity extends BaseDrawerActivity implements FeedAdapter.OnFe
         // setupFeed();
 
 
-        if (savedInstanceState == null) {
+        if (savedInstanceState == null && Validate.isLoggedIn() ) {
             pendingIntroAnimation = true;
         } else {
-            feedAdapter.updateItems(false);
+            //feedAdapter.updateItems(false);
         }
 
     }
@@ -151,7 +153,7 @@ public class MainActivity extends BaseDrawerActivity implements FeedAdapter.OnFe
     private void init() {
         Api.initialized(getApplicationContext());
 
-        if (Profile.getCurrentProfile() == null && User.getCurrentUser().getUserId() == 0) {
+        if (!Validate.isLoggedIn()) {
             Intent intent
                     = new Intent(MainActivity.this, LoginActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -315,7 +317,14 @@ public class MainActivity extends BaseDrawerActivity implements FeedAdapter.OnFe
                     @Override
                     public void onAnimationEnd(Animator animation) {
                         //startContentAnimation();
-                        showJournal();
+                        try {
+                            showJournal();
+                        }catch (WindowManager.BadTokenException e){
+
+                        }catch (NullPointerException e){
+
+                        }
+
 
                     }
                 })

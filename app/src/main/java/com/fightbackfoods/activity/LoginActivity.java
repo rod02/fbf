@@ -36,7 +36,7 @@ import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.fightbackfoods.Api;
 import com.fightbackfoods.R;
-import com.fightbackfoods.interfaces.Response;
+import com.fightbackfoods.api.ResponseUser;
 import com.fightbackfoods.model.User;
 
 import org.json.JSONObject;
@@ -221,33 +221,44 @@ public class LoginActivity extends AppCompatActivity {
         map.put("firstName", currentProfile.getFirstName());
         map.put("lastName", currentProfile.getLastName());
 
-        Api.getInstance().fbSignIn(map, new Callback<Response>() {
+        Api.getInstance().fbSignIn(map, new Callback<ResponseUser>() {
 
             @Override
-            public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
-                if(response.isSuccessful()){
-                    Response mResponse = response.body();
-                    if(mResponse.getStatus().equalsIgnoreCase("success")){
-                        User user = mResponse.getUser();
-                        user.setAvatar(photoUrl);
-                        nextActivity(user);
-                        return;
-                    }
+            public void onResponse(Call<ResponseUser> call, retrofit2.Response<ResponseUser> response) {
+                try {
+                    if(response.isSuccessful()){
+                        ResponseUser mResponse = response.body();
 
-                    Toast.makeText(LoginActivity.this, mResponse.getMessage(), Toast.LENGTH_LONG).show();
+                        if(mResponse.getStatus().equalsIgnoreCase("success")){
+                            User user = mResponse.getUser();
+                            user.setAvatar(photoUrl);
+                            nextActivity(user);
+                            return;
+                        }
+
+                        Toast.makeText(LoginActivity.this, mResponse.getMessage(), Toast.LENGTH_LONG).show();
+
+                    }
+                    showProgress(false);
+                }catch (NullPointerException e){
 
                 }
-                showProgress(false);
+
 
                 //Toast.makeText(LoginActivity.this, response.message(), Toast.LENGTH_LONG).show();
             }
 
             @Override
-            public void onFailure(Call<Response> call, Throwable t) {
+            public void onFailure(Call<ResponseUser> call, Throwable t) {
                 t.printStackTrace();
-                Toast.makeText(LoginActivity.this, t.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                try {
+                    Toast.makeText(LoginActivity.this, t.getLocalizedMessage(), Toast.LENGTH_LONG).show();
 
-                showProgress(false);
+                    showProgress(false);
+                }catch (NullPointerException e){
+
+                }
+
 
             }
         });
@@ -256,9 +267,9 @@ public class LoginActivity extends AppCompatActivity {
     private void signUp() {
 
         Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
-        intent .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+       // intent .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
-        finish();
+      //  finish();
     }
 
     private void forgotPassword() {
@@ -299,12 +310,12 @@ public class LoginActivity extends AppCompatActivity {
                     if(!Api.isInitialized()){
                         Api.initialized(getApplicationContext());
                     }
-                    Api.getInstance().resetPassword(email, new Callback<Response>() {
+                    Api.getInstance().resetPassword(email, new Callback<ResponseUser>() {
                         @Override
-                        public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
+                        public void onResponse(Call<ResponseUser> call, retrofit2.Response<ResponseUser> response) {
 
                             if(response.isSuccessful()){
-                                Response mResponse = response.body();
+                                ResponseUser mResponse = response.body();
 
                                 if(mResponse.getStatus().equalsIgnoreCase("success")){
                                     dialog.dismiss();
@@ -326,7 +337,7 @@ public class LoginActivity extends AppCompatActivity {
                         }
 
                         @Override
-                        public void onFailure(Call<Response> call, Throwable t) {
+                        public void onFailure(Call<ResponseUser> call, Throwable t) {
                             t.printStackTrace();
                         }
                     });
@@ -402,13 +413,13 @@ public class LoginActivity extends AppCompatActivity {
             showProgress(true);
             if(!Api.isInitialized()) Api.initialized(getApplicationContext());
             Api api = Api.getInstance();
-            api.login(email, password, new Callback<Response>() {
+            api.login(email, password, new Callback<ResponseUser>() {
                 @Override
-                public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
+                public void onResponse(Call<ResponseUser> call, retrofit2.Response<ResponseUser> response) {
                     showProgress(false);
 
                     if(response.isSuccessful()){
-                        Response mResponse = response.body();
+                        ResponseUser mResponse = response.body();
                         if(mResponse.getStatus().equalsIgnoreCase("success")){
                             User user = mResponse.getUser();
                             nextActivity(user);
@@ -420,7 +431,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
 
                 @Override
-                public void onFailure(Call<Response> call, Throwable t) {
+                public void onFailure(Call<ResponseUser> call, Throwable t) {
                     t.printStackTrace();
 
                     showProgress(false);

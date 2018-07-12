@@ -1,4 +1,4 @@
-package com.fightbackfoods.interfaces;
+package com.fightbackfoods.api;
 
 import com.fightbackfoods.model.User;
 import com.google.gson.Gson;
@@ -7,7 +7,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class Response {
+public class ResponseUser {
 
     @SerializedName("status")
     @Expose
@@ -132,12 +132,12 @@ public class Response {
         this.user = user;
     }
 
-    public Response() {
+    public ResponseUser() {
     }
 
 
     @Override
     public String toString(){
-        return  new Gson().toJson(this,Response.class).toString();
+        return  new Gson().toJson(this,ResponseUser.class).toString();
     }
 }

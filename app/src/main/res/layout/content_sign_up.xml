@@ -76,12 +76,26 @@
                 android:layout_below="@+id/tv_zipcode"
                 android:layout_marginBottom="30dp"
                 android:text="@string/gender" />
+            <TextView
+                android:id="@+id/tv_weight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_gender"
+                android:layout_marginBottom="30dp"
+                android:text="@string/weight" />
+            <TextView
+                android:id="@+id/tv_height"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_weight"
+                android:layout_marginBottom="30dp"
+                android:text="@string/weight" />
 
             <TextView
                 android:id="@+id/tv_cancer_type"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/tv_gender"
+                android:layout_below="@+id/tv_height"
                 android:layout_marginBottom="30dp"
                 android:text="@string/cancer_type" />
 
@@ -243,15 +257,58 @@
                 android:padding="5dp"
                 android:textSize="14sp" />
 
-            <Spinner
+            <com.fightbackfoods.view.SpinnerGender
                 android:id="@+id/sp_gender"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/tv_gender"
                 android:layout_alignLeft="@+id/sp_current_treatment"
-                android:layout_alignTop="@+id/tv_gender"
                 android:entries="@array/gender" />
 
-            <Spinner
+            <EditText
+                android:id="@+id/et_weight"
+                android:layout_width="@dimen/comment_avatar_size"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/tv_weight"
+                android:layout_alignLeft="@+id/sp_current_treatment"
+                android:layout_marginBottom="15dp"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/edit_text_border_color"
+                android:ems="10"
+                android:inputType="textPostalAddress|numberDecimal"
+                android:padding="5dp"
+                android:textSize="14sp" />
+
+            <com.fightbackfoods.view.SpinnerWeightUnit
+                android:id="@+id/sp_weight"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/tv_weight"
+                android:layout_toEndOf="@+id/et_weight"
+                android:entries="@array/gender" />
+            <EditText
+                android:id="@+id/et_height"
+                android:layout_width="@dimen/comment_avatar_size"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/tv_height"
+                android:layout_alignLeft="@+id/sp_current_treatment"
+                android:layout_marginBottom="15dp"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/edit_text_border_color"
+                android:ems="10"
+                android:inputType="textPostalAddress|numberDecimal"
+                android:padding="5dp"
+                android:textSize="14sp" />
+
+            <com.fightbackfoods.view.SpinnerHeightUnit
+                android:id="@+id/sp_height"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/tv_height"
+                android:layout_toEndOf="@+id/et_height"
+                android:entries="@array/gender" />
+
+            <com.fightbackfoods.view.SpinnerCancerStages
                 android:id="@+id/sp_cancer_stage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -261,7 +318,7 @@
 
 
     
-            <Spinner
+            <com.fightbackfoods.view.SpinnerTreatment
                 android:id="@+id/sp_current_treatment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -273,21 +330,22 @@
                 android:textSize="14sp" />
 
 
-            <Spinner
+            <com.fightbackfoods.view.SpinnerMobility
                 android:id="@+id/sp_mobility"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignBaseline="@+id/tv_mobility"
                 android:layout_alignLeft="@+id/sp_current_treatment"
+                android:layout_alignTop="@+id/tv_mobility"
                 android:ems="10"
                 android:entries="@array/mobility" />
 
-            <Spinner
+            <com.fightbackfoods.view.SpinnerCancerType
                 android:id="@+id/sp_cancer_type"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/tv_cancer_type"
                 android:layout_alignLeft="@+id/sp_current_treatment"
-                android:layout_alignTop="@+id/tv_cancer_type"
                 android:entries="@array/cancer_type" />
 
             <EditText
@@ -296,7 +354,6 @@
                 android:layout_height="wrap_content"
                 android:layout_alignBaseline="@+id/tv_food_restrictions"
                 android:layout_alignLeft="@+id/sp_current_treatment"
-                android:layout_below="@+id/tv_food_restrictions"
                 android:background="@drawable/edit_text_border_color"
                 android:ems="10"
                 android:inputType="textPersonName"

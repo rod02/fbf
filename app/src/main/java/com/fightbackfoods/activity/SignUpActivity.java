@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -26,9 +27,16 @@ import android.widget.Toast;
 
 import com.fightbackfoods.Api;
 import com.fightbackfoods.R;
-import com.fightbackfoods.interfaces.Response;
+import com.fightbackfoods.api.ResponseUser;
 import com.fightbackfoods.model.User;
 import com.fightbackfoods.utils.TokenManager;
+import com.fightbackfoods.view.SpinnerCancerStages;
+import com.fightbackfoods.view.SpinnerCancerType;
+import com.fightbackfoods.view.SpinnerGender;
+import com.fightbackfoods.view.SpinnerHeightUnit;
+import com.fightbackfoods.view.SpinnerMobility;
+import com.fightbackfoods.view.SpinnerTreatment;
+import com.fightbackfoods.view.SpinnerWeightUnit;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
@@ -61,16 +69,27 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     EditText etBirthday;
     @BindView(R.id.et_zipCode)
     EditText etZipCode;
-    @BindView(R.id.sp_gender)
-    Spinner spGender;
+  //  @BindView(R.id.sp_gender)
+    SpinnerGender spGender;
+
+
+    @BindView(R.id.et_weight)
+    EditText etWeight;
+
+    @BindView(R.id.sp_weight)
+    SpinnerWeightUnit spWeight;
+    @BindView(R.id.et_height)
+    EditText etHeight;
+    @BindView(R.id.sp_height)
+    SpinnerHeightUnit spHeight;
     @BindView(R.id.sp_cancer_stage)
-    Spinner spCancerStage;
+    SpinnerCancerStages spCancerStage;
     @BindView(R.id.sp_current_treatment)
-    Spinner spCurrentTreatment;
+    SpinnerTreatment spCurrentTreatment;
     @BindView(R.id.sp_mobility)
-    Spinner spMobility;
+    SpinnerMobility spMobility;
     @BindView(R.id.sp_cancer_type)
-    Spinner spCancerType;
+    SpinnerCancerType spCancerType;
     @BindView(R.id.et_food_restrictions)
     EditText etFoodRestrictions;
     @BindView(R.id.iv_add_photo)
@@ -102,7 +121,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
         ButterKnife.bind(this);
-
+        spGender = findViewById(R.id.sp_gender);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
@@ -183,11 +202,18 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         String email = etEmail.getText().toString();
         String password = etPassword.getText().toString();
         String birthday = etBirthday.getText().toString();
+        String firstName = etFirstName.getText().toString();
+        String lastName = etLastName.getText().toString();
 
         boolean cancel = false;
         View focusView = null;
 
         // Check for a valid password, if the user entered one.
+        if (TextUtils.isEmpty(password)) {
+            etPassword.setError(getString(R.string.error_field_required));
+            focusView = etPassword;
+            cancel = true;
+        }
         if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
             etPassword.setError(getString(R.string.error_invalid_password));
             focusView = etPassword;
@@ -211,6 +237,18 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             focusView = etBirthday;
             cancel = true;
         }
+        // Check required firstname.
+        if (TextUtils.isEmpty(firstName)) {
+            etFirstName.setError(getString(R.string.error_field_required));
+            focusView = etBirthday;
+            cancel = true;
+        }
+        // Check required lastname.
+        if (TextUtils.isEmpty(lastName)) {
+            etLastName.setError(getString(R.string.error_field_required));
+            focusView = etBirthday;
+            cancel = true;
+        }
         if (cancel) {
             // There was an error; don't attempt login and focus the first
             // form field with an error.
@@ -219,39 +257,49 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             showProgress(true);
-            Api.getInstance().signUp(getUserFromViews(), new Callback<Response>() {
+            Api.getInstance().signUp(getUserFromViews(), new Callback<ResponseUser>() {
                 @Override
-                public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
+                public void onResponse(Call<ResponseUser> call, retrofit2.Response<ResponseUser> response) {
+                    try {
 
-                    if(response.isSuccessful()){
-                       Response mResponse = response.body();
-                        if(mResponse.getStatus().equalsIgnoreCase("success")){
-                            User user = mResponse.getUser();
-                            User.setCurrentUser(user);
-                            TokenManager.setToken(mResponse.getToken(),true);
-                            if(image64!=null){
-                                uploadImage(image64);
+                        if(response.isSuccessful()){
+                            ResponseUser mResponse = response.body();
+                            Log.d(TAG, "onresponse " + mResponse.toString() );
+                            if(mResponse.getStatus().equalsIgnoreCase("success")){
+                                User user = mResponse.getUser();
+                                User.setCurrentUser(user);
+                                TokenManager.setToken(mResponse.getToken(),true);
+                                if(image64!=null){
+                                    uploadImage(image64);
+                                }else{
+                                    nextActivity();
+                                }
+
                             }else{
-                                nextActivity();
+                                String errorMessage = "";
+                                if(mResponse.getErrorMessages()==null){
+                                    errorMessage = mResponse.getMessage();
+                                }else errorMessage = mResponse.getErrorMessages().get(0);
+                                Toast.makeText(SignUpActivity.this, errorMessage, Toast.LENGTH_LONG).show();
+                                showProgress(false);
                             }
-
-                        }else{
-                            String errorMessage = "";
-                            if(mResponse.getErrorMessages()==null){
-                                errorMessage = mResponse.getMessage();
-                            }else errorMessage = mResponse.getErrorMessages().get(0);
-                            Toast.makeText(SignUpActivity.this, errorMessage, Toast.LENGTH_LONG).show();
-                            showProgress(false);
                         }
+
+                    }catch (NullPointerException e){
+
                     }
 
                 }
 
                 @Override
-                public void onFailure(Call<Response> call, Throwable t) {
+                public void onFailure(Call<ResponseUser> call, Throwable t) {
                     t.printStackTrace();
+                    try{
+                        showProgress(false);
+                    }catch (NullPointerException e){
 
-                    showProgress(false);
+                    }
+
 
                 }
             });
@@ -264,11 +312,11 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
     private void uploadImage(String image64) {
         tvProgress.setText(R.string.uploading_image);
-        Api.getInstance().updateAvatar(String.valueOf(User.getCurrentUserId()), image64, new Callback<Response>() {
+        Api.getInstance().updateAvatar(String.valueOf(User.getCurrentUserId()), image64, new Callback<ResponseUser>() {
             @Override
-            public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
+            public void onResponse(Call<ResponseUser> call, retrofit2.Response<ResponseUser> response) {
                 if(response.isSuccessful()){
-                    Response json = response.body();
+                    ResponseUser json = response.body();
                     if(json.getStatus().equalsIgnoreCase("success")){
                         User.getCurrentUser().setAvatar(json.getImgUrl(), true);
                         nextActivity();
@@ -285,7 +333,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             }
 
             @Override
-            public void onFailure(Call<Response> call, Throwable t) {
+            public void onFailure(Call<ResponseUser> call, Throwable t) {
                 showProgress(false);
 
             }
@@ -315,6 +363,11 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         user.put("mobility", String.valueOf(spMobility.getSelectedItemPosition()));
         user.put("currentTreatment", String.valueOf(spCurrentTreatment.getSelectedItemPosition()));
         user.put("foodRestriction",etFoodRestrictions.getText().toString());
+        user.put("weight",etWeight.getText().toString());
+        user.put("weightUnit",String.valueOf(spWeight.getSelectedItemPosition()));
+        user.put("heightUnit",String.valueOf(spHeight.getSelectedItemPosition()));
+        user.put("height",etHeight.getText().toString());
+
         if(image64==null)user.put("avatar", "");
 
         return user;

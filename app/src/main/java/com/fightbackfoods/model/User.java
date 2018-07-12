@@ -40,6 +40,24 @@ public class User {
     private Long genderId;
 
 
+
+    @SerializedName("weight")
+    @Expose
+    private int weight;
+
+    @SerializedName("weight_unit_id")
+    @Expose
+    private int weightUnitId;
+
+
+    @SerializedName("height")
+    @Expose
+    private int height;
+
+    @SerializedName("height_unit_id")
+    @Expose
+    private int heightUnitId;
+
     @SerializedName("zip_code")
     @Expose
     private String zipCode;
@@ -234,6 +252,37 @@ public class User {
         this.updatedAt = updated_at;
     }
 
+    public int getWeightUnitId() {
+        return weightUnitId;
+    }
+
+    public void setWeightUnitId(int weightUnitId) {
+        this.weightUnitId = weightUnitId;
+    }
+
+    public int getWeight() {
+        return weight;
+    }
+
+    public void setWeight(int weight) {
+        this.weight = weight;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
+    public int getHeightUnitId() {
+        return heightUnitId;
+    }
+
+    public void setHeightUnitId(int heightUnitId) {
+        this.heightUnitId = heightUnitId;
+    }
 
     public User(String email, String name, String avatar) {
         this.firstName = name;
