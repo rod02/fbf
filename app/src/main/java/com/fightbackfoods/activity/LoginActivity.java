@@ -82,7 +82,7 @@ public class LoginActivity extends AppCompatActivity {
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
       //  populateAutoComplete();
 
-        getSupportActionBar().hide();
+       // getSupportActionBar().hide();
 
 
         if (Profile.getCurrentProfile()!=null|| User.getCurrentUser().getUserId() !=0 ){

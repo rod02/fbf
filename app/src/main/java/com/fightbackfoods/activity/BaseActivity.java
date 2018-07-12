@@ -52,7 +52,7 @@ public class BaseActivity extends AppCompatActivity {
        // getMenuInflater().inflate(R.menu.menu_main, menu);
       //  inboxMenuItem = menu.findItem(R.id.action_feeling);
        // inboxMenuItem.setActionView(R.layout.menu_item_view);
-        return false;
+        return true;
     }
 
     public Toolbar getToolbar() {

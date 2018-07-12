@@ -60,7 +60,10 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 public class MainActivity extends BaseDrawerActivity implements FeedAdapter.OnFeedItemClickListener,
-        FeedContextMenu.OnFeedContextMenuItemClickListener, BottomNavigationView.OnNavigationItemSelectedListener, FoodFragment.OnFragmentInteractionListener {
+        FeedContextMenu.OnFeedContextMenuItemClickListener,
+        BottomNavigationView.OnNavigationItemSelectedListener,
+        FoodFragment.OnFragmentInteractionListener,
+        NavigationView.OnNavigationItemSelectedListener {
 
 
     private static final String TAG = MainActivity.class.getSimpleName();
@@ -99,9 +102,9 @@ public class MainActivity extends BaseDrawerActivity implements FeedAdapter.OnFe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-         init();
-       // initDrawer();*/
-       // setupFeed();
+        init();
+        // initDrawer();*/
+        // setupFeed();
 
 
         if (savedInstanceState == null) {
@@ -158,7 +161,7 @@ public class MainActivity extends BaseDrawerActivity implements FeedAdapter.OnFe
         }
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(this);
-
+        vNavigation.setNavigationItemSelectedListener(this);
     }
 
     public void reloadPage() {
@@ -216,30 +219,7 @@ public class MainActivity extends BaseDrawerActivity implements FeedAdapter.OnFe
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
-        }else if (id == R.id.nav_food_nutrient_report) {
-
-        } else if (id == R.id.nav_goals) {
-        } else if (id == R.id.nav_food) {
-            replaceFragment(new FoodFragment());
-
-        } else if (id == R.id.nav_activity) {
-
-        } else if (id == R.id.nav_saved) {
-        } else if (id == R.id.nav_inbox) {
-        } else if (id == R.id.nav_trending) {
-
-        } else if (id == R.id.nav_profile_settings) {
-        } else if (id == R.id.nav_account_settings) {
-        } else if (id == R.id.nav_contact_us) {
-
-        }else if (id == R.id.nav_logout) {
-            logout();
         }
-
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        closeDrawer();
         return super.onOptionsItemSelected(item);
     }
 
@@ -248,7 +228,7 @@ public class MainActivity extends BaseDrawerActivity implements FeedAdapter.OnFe
         User.clearPref();
         //User.setCurrentUser(null);
         /*recreate();
-            *//*
+         *//*
             startActivity(getIntent());
             finish();
 
@@ -291,16 +271,16 @@ public class MainActivity extends BaseDrawerActivity implements FeedAdapter.OnFe
             showFeedLoadingItemDelayed();
         }*/
     }
-/*
-    private void showFeedLoadingItemDelayed() {
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                rvFeed.smoothScrollToPosition(0);
-                feedAdapter.showLoadingView();
-            }
-        }, 500);
-    }*/
+    /*
+        private void showFeedLoadingItemDelayed() {
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    rvFeed.smoothScrollToPosition(0);
+                    feedAdapter.showLoadingView();
+                }
+            }, 500);
+        }*/
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
@@ -342,16 +322,16 @@ public class MainActivity extends BaseDrawerActivity implements FeedAdapter.OnFe
                 .start();
     }
 
- /*   private void startContentAnimation() {
-        fabCreate.animate()
-                .translationY(0)
-                .setInterpolator(new OvershootInterpolator(1.f))
-                .setStartDelay(300)
-                .setDuration(ANIM_DURATION_FAB)
-                .start();
-        feedAdapter.updateItems(true);
-    }
-*/
+    /*   private void startContentAnimation() {
+           fabCreate.animate()
+                   .translationY(0)
+                   .setInterpolator(new OvershootInterpolator(1.f))
+                   .setStartDelay(300)
+                   .setDuration(ANIM_DURATION_FAB)
+                   .start();
+           feedAdapter.updateItems(true);
+       }
+   */
     @Override
     public void onCommentsClick(View v, int position) {
         final Intent intent = new Intent(this, CommentsActivity.class);
@@ -412,6 +392,8 @@ public class MainActivity extends BaseDrawerActivity implements FeedAdapter.OnFe
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        closeDrawer();
+
         switch (item.getItemId()) {
             case R.id.nav_home:
 
@@ -427,8 +409,36 @@ public class MainActivity extends BaseDrawerActivity implements FeedAdapter.OnFe
             case R.id.nav_community:
 
                 return true;
+            case R.id.nav_food_nutrient_report:
+
+                return true;
+            case R.id.nav_goals:
+                return true;
+            case R.id.nav_activity:
+                return true;
+            case R.id.nav_saved:
+                return true;
+            case  R.id.nav_inbox:
+
+                return true;
+            case   R.id.nav_trending :
+                return true;
+            case  R.id.nav_profile_settings :
+                return true;
+
+            case R.id.nav_account_settings:
+
+                return true ;
+            case R.id.nav_contact_us:
+                return true;
+            case R.id.nav_logout:
+
+                logout();
+                return true;
+            default:
+                return false;
+
         }
-        return false;
 
     }
 

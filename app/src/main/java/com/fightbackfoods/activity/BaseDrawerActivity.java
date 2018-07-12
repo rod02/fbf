@@ -103,7 +103,7 @@ public class BaseDrawerActivity extends BaseActivity {
     }
 
 
-    void openenDrawer() {
+    void openDrawer() {
         drawerLayout.openDrawer(GravityCompat.START);
     }
 
