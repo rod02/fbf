@@ -24,7 +24,7 @@
                 android:id="@+id/tv_email"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="30dp"
+                android:layout_marginBottom="@dimen/profile_text_margin_bottom"
                 android:layout_marginTop="10dp"
                 android:text="@string/prompt_email" />
 
@@ -34,7 +34,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_below="@+id/tv_email"
-                android:layout_marginBottom="30dp"
+                android:layout_marginBottom="@dimen/profile_text_margin_bottom"
                 android:text="@string/prompt_password" />
 
             <TextView
@@ -42,7 +42,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_password"
-                android:layout_marginBottom="30dp"
+                android:layout_marginBottom="@dimen/profile_text_margin_bottom"
                 android:text="@string/first_name" />
 
             <TextView
@@ -50,7 +50,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_first_name"
-                android:layout_marginBottom="30dp"
+                android:layout_marginBottom="@dimen/profile_text_margin_bottom"
                 android:text="@string/last_name" />
 
             <TextView
@@ -58,7 +58,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_last_name"
-                android:layout_marginBottom="30dp"
+                android:layout_marginBottom="@dimen/profile_text_margin_bottom"
                 android:text="@string/birthday" />
 
             <TextView
@@ -66,7 +66,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_birthday"
-                android:layout_marginBottom="30dp"
+                android:layout_marginBottom="@dimen/profile_text_margin_bottom"
                 android:text="@string/zipcode" />
 
             <TextView
@@ -74,29 +74,30 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_zipcode"
-                android:layout_marginBottom="30dp"
+                android:layout_marginBottom="@dimen/profile_text_margin_bottom"
                 android:text="@string/gender" />
             <TextView
                 android:id="@+id/tv_weight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_gender"
-                android:layout_marginBottom="30dp"
+                android:layout_marginBottom="@dimen/profile_text_margin_bottom"
                 android:text="@string/weight" />
+
             <TextView
                 android:id="@+id/tv_height"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_weight"
-                android:layout_marginBottom="30dp"
-                android:text="@string/weight" />
+                android:layout_marginBottom="@dimen/profile_text_margin_bottom"
+                android:text="@string/height" />
 
             <TextView
                 android:id="@+id/tv_cancer_type"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_height"
-                android:layout_marginBottom="30dp"
+                android:layout_marginBottom="@dimen/profile_text_margin_bottom"
                 android:text="@string/cancer_type" />
 
             <TextView
@@ -104,7 +105,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_cancer_type"
-                android:layout_marginBottom="30dp"
+                android:layout_marginBottom="@dimen/profile_text_margin_bottom"
                 android:text="@string/cancer_stage" />
 
             <TextView
@@ -112,7 +113,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_cancer_stage"
-                android:layout_marginBottom="30dp"
+                android:layout_marginBottom="@dimen/profile_text_margin_bottom"
                 android:text="@string/mobility" />
 
             <TextView
@@ -120,7 +121,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_mobility"
-                android:layout_marginBottom="30dp"
+                android:layout_marginBottom="@dimen/profile_text_margin_bottom"
                 android:text="@string/current_treatment" />
 
             <TextView
@@ -128,7 +129,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_current_treatment"
-                android:layout_marginBottom="30dp"
+                android:layout_marginBottom="@dimen/profile_text_margin_bottom"
                 android:text="@string/food_restrictions" />
 
             <LinearLayout
@@ -263,7 +264,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignBaseline="@+id/tv_gender"
                 android:layout_alignLeft="@+id/sp_current_treatment"
-                android:entries="@array/gender" />
+                android:entries="@array/gender"
+                android:padding="5dp" />
 
             <EditText
                 android:id="@+id/et_weight"
@@ -272,9 +274,10 @@
                 android:layout_alignBaseline="@+id/tv_weight"
                 android:layout_alignLeft="@+id/sp_current_treatment"
                 android:layout_marginBottom="15dp"
-                android:layout_marginEnd="20dp"
+                android:layout_marginEnd="2dp"
                 android:background="@drawable/edit_text_border_color"
                 android:ems="10"
+                android:gravity="end"
                 android:inputType="textPostalAddress|numberDecimal"
                 android:padding="5dp"
                 android:textSize="14sp" />
@@ -285,7 +288,9 @@
                 android:layout_height="wrap_content"
                 android:layout_alignBaseline="@+id/tv_weight"
                 android:layout_toEndOf="@+id/et_weight"
-                android:entries="@array/gender" />
+                android:entries="@array/gender"
+                android:padding="@dimen/profile_spinner_padding" />
+
             <EditText
                 android:id="@+id/et_height"
                 android:layout_width="@dimen/comment_avatar_size"
@@ -293,9 +298,10 @@
                 android:layout_alignBaseline="@+id/tv_height"
                 android:layout_alignLeft="@+id/sp_current_treatment"
                 android:layout_marginBottom="15dp"
-                android:layout_marginEnd="20dp"
+                android:layout_marginEnd="2dp"
                 android:background="@drawable/edit_text_border_color"
                 android:ems="10"
+                android:gravity="end"
                 android:inputType="textPostalAddress|numberDecimal"
                 android:padding="5dp"
                 android:textSize="14sp" />
@@ -306,28 +312,32 @@
                 android:layout_height="wrap_content"
                 android:layout_alignBaseline="@+id/tv_height"
                 android:layout_toEndOf="@+id/et_height"
-                android:entries="@array/gender" />
+                android:entries="@array/gender"
+                android:padding="@dimen/profile_spinner_padding" />
 
             <com.fightbackfoods.view.SpinnerCancerStages
                 android:id="@+id/sp_cancer_stage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/tv_cancer_stage"
                 android:layout_alignLeft="@+id/sp_current_treatment"
-                android:layout_alignTop="@+id/tv_cancer_stage"
-                android:entries="@array/cancer_stage" />
+                android:entries="@array/cancer_stage"
+                android:padding="@dimen/profile_spinner_padding" />
 
 
-    
+
             <com.fightbackfoods.view.SpinnerTreatment
                 android:id="@+id/sp_current_treatment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
 
                 android:layout_alignBaseline="@+id/tv_current_treatment"
-                android:layout_marginLeft="20dp"
+                android:layout_marginLeft="8dp"
                 android:layout_toRightOf="@+id/tv_current_treatment"
                 android:entries="@array/treatments"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                android:padding="@dimen/profile_spinner_padding" />
+
 
 
             <com.fightbackfoods.view.SpinnerMobility
@@ -338,7 +348,9 @@
                 android:layout_alignLeft="@+id/sp_current_treatment"
                 android:layout_alignTop="@+id/tv_mobility"
                 android:ems="10"
-                android:entries="@array/mobility" />
+                android:entries="@array/mobility"
+                android:padding="@dimen/profile_spinner_padding" />
+
 
             <com.fightbackfoods.view.SpinnerCancerType
                 android:id="@+id/sp_cancer_type"
@@ -346,7 +358,9 @@
                 android:layout_height="wrap_content"
                 android:layout_alignBaseline="@+id/tv_cancer_type"
                 android:layout_alignLeft="@+id/sp_current_treatment"
-                android:entries="@array/cancer_type" />
+                android:entries="@array/cancer_type"
+                android:padding="@dimen/profile_spinner_padding" />
+
 
             <EditText
                 android:id="@+id/et_food_restrictions"

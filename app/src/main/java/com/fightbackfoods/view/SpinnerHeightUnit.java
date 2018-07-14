@@ -9,6 +9,7 @@ import com.fightbackfoods.Api;
 import com.fightbackfoods.adapter.SpinnerSimpleAdapter;
 import com.fightbackfoods.api.ResponseCancerType;
 import com.fightbackfoods.api.ResponseHeightUnit;
+import com.fightbackfoods.model.HeightUnit;
 
 import java.util.List;
 
@@ -51,7 +52,9 @@ public class SpinnerHeightUnit extends android.support.v7.widget.AppCompatSpinne
 
                 }
 
-                setAdapter(new SpinnerSimpleAdapter((List)rsp.getHeightUnits()));
+                List<HeightUnit> list = rsp.getHeightUnits();
+                list.add(0,new HeightUnit());
+                setAdapter(new SpinnerSimpleAdapter((List)list));
             }catch (NullPointerException e){
                 e.printStackTrace();
             }

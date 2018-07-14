@@ -12,6 +12,12 @@ public class Treatment implements Item {
     @SerializedName("description")
     String name;
 
+
+    public Treatment() {
+        this.name="";
+        this.description="";
+    }
+
     @Override
     public int getId() {
         return id;

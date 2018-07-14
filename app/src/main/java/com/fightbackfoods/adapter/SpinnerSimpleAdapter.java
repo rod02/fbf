@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
+import com.fightbackfoods.R;
 import com.fightbackfoods.interfaces.Item;
 import com.fightbackfoods.model.Gender;
 
@@ -106,10 +107,20 @@ public class SpinnerSimpleAdapter implements SpinnerAdapter {
         try {
             TextView tv = (TextView) view.findViewById(textViewResid);
             Item item = getItem(position);
-            if(item.getName()==null && item.getName().equals("")){
-                tv.setText(item.getDescription());
+            switch (position){
+                case 0:
+                    tv.setText("");
+                    tv.setHint(R.string.choose);
+                    break;
+
+                default:
+                    if(item.getName()==null && item.getName().equals("")){
+                        tv.setText(item.getDescription());
+                    }
+                    else tv.setText(getItem(position).getName());
+                    break;
             }
-            else tv.setText(getItem(position).getName());
+
 
         }catch (NullPointerException e){
 

@@ -9,6 +9,7 @@ import com.fightbackfoods.Api;
 import com.fightbackfoods.adapter.SpinnerSimpleAdapter;
 import com.fightbackfoods.api.ResponseHeightUnit;
 import com.fightbackfoods.api.ResponseWeightUnit;
+import com.fightbackfoods.model.WeightUnit;
 
 import java.util.List;
 
@@ -51,6 +52,7 @@ public class SpinnerWeightUnit extends android.support.v7.widget.AppCompatSpinne
 
                 }
 
+                rsp.getWeightUnits().add(0,new WeightUnit());
                 setAdapter(new SpinnerSimpleAdapter((List)rsp.getWeightUnits()));
             }catch (NullPointerException e){
                 e.printStackTrace();

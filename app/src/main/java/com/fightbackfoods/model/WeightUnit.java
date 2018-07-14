@@ -12,6 +12,12 @@ public class WeightUnit implements Item {
     @SerializedName("description")
     String description;
 
+
+    public WeightUnit() {
+        this.name="";
+        this.description="";
+    }
+
     public int getId() {
         return id;
     }

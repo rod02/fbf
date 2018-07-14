@@ -9,6 +9,7 @@ import com.fightbackfoods.Api;
 import com.fightbackfoods.adapter.SpinnerSimpleAdapter;
 import com.fightbackfoods.api.ResponseMobility;
 import com.fightbackfoods.api.ResponseTreatment;
+import com.fightbackfoods.model.Mobility;
 
 import java.util.List;
 
@@ -51,6 +52,7 @@ public class SpinnerMobility extends android.support.v7.widget.AppCompatSpinner 
 
                 }
 
+                rsp.getMobilities().add(0,new Mobility());
                 setAdapter(new SpinnerSimpleAdapter((List)rsp.getMobilities()));
             }catch (NullPointerException e){
                 e.printStackTrace();

@@ -15,6 +15,8 @@ public class Gender {
     private String updatedAt;
 
     public Gender() {
+        this.name="";
+        this.description="";
     }
 
     public int getId() {

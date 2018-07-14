@@ -12,6 +12,11 @@ public class Mobility implements Item {
     @SerializedName("description")
     String name;
 
+    public Mobility() {
+        this.name="";
+        this.description="";
+    }
+
     @Override
     public int getId() {
         return id;

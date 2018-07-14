@@ -11,6 +11,7 @@ import com.fightbackfoods.adapter.SpinnerSimpleAdapter;
 import com.fightbackfoods.api.ResponseCancerType;
 import com.fightbackfoods.api.ResponseGender;
 import com.fightbackfoods.interfaces.Item;
+import com.fightbackfoods.model.CancerType;
 
 import java.util.List;
 
@@ -52,8 +53,9 @@ public class SpinnerCancerType extends android.support.v7.widget.AppCompatSpinne
                     return;
 
                 }
-
-                setAdapter(new SpinnerSimpleAdapter((List)rsp.getCancerTypes()));
+                List<CancerType> list = rsp.getCancerTypes();
+                list.add(0,new CancerType());
+                setAdapter(new SpinnerSimpleAdapter((List)list));
             }catch (NullPointerException e){
                 e.printStackTrace();
             }

@@ -14,6 +14,10 @@ public class CancerType implements Item {
     @SerializedName("description")
     String description;
 
+    public CancerType() {
+        this.name="";
+        this.description="";
+    }
 
     public int getId() {
         return id;

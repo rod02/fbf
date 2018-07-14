@@ -12,4 +12,13 @@ public class Validate {
             return false;
         }
     }
+
+    public static String nullString(String s) {
+        try {
+            if(s==null)return "";
+            return s;
+        }catch (NullPointerException e){
+            return "";
+        }
+    }
 }

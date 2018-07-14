@@ -12,6 +12,11 @@ public class CancerStage implements Item {
     @SerializedName("description")
     String description;
 
+    public CancerStage() {
+        this.name="";
+        this.description="";
+    }
+
     @Override
     public int getId() {
         return id;

@@ -12,6 +12,12 @@ public class HeightUnit implements Item {
     @SerializedName("description")
     String description;
 
+    public HeightUnit() {
+
+        this.name="";
+        this.description="";
+    }
+
     public int getId() {
         return id;
     }

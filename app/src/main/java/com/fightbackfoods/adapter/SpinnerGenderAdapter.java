@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
+import com.fightbackfoods.R;
 import com.fightbackfoods.model.Gender;
 
 import java.util.ArrayList;
@@ -92,7 +93,15 @@ public class SpinnerGenderAdapter implements SpinnerAdapter {
     private View createItemView(int position, ViewGroup parent){
         View view = LayoutInflater.from(parent.getContext()).inflate(layoutResId, parent, false);
         TextView tv = (TextView) view.findViewById(textViewResid);
-        tv.setText(getItem(position).getName());
+        switch (position){
+            case 0:
+                tv.setHint(R.string.choose);
+                tv.setText("");
+                break;
+            default:
+                tv.setText(getItem(position).getName());
+
+        }
         return view;
     }
 }

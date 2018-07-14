@@ -9,6 +9,7 @@ import com.fightbackfoods.Api;
 import com.fightbackfoods.adapter.SpinnerSimpleAdapter;
 import com.fightbackfoods.api.ResponseCancerType;
 import com.fightbackfoods.api.ResponseTreatment;
+import com.fightbackfoods.model.Treatment;
 
 import java.util.List;
 
@@ -50,7 +51,7 @@ public class SpinnerTreatment extends android.support.v7.widget.AppCompatSpinner
                     return;
 
                 }
-
+                rsp.getTreatments().add(0,new Treatment());
                 setAdapter(new SpinnerSimpleAdapter((List)rsp.getTreatments()));
             }catch (NullPointerException e){
                 e.printStackTrace();

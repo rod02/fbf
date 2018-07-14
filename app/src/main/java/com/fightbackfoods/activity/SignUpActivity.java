@@ -30,6 +30,7 @@ import com.fightbackfoods.R;
 import com.fightbackfoods.api.ResponseUser;
 import com.fightbackfoods.model.User;
 import com.fightbackfoods.utils.TokenManager;
+import com.fightbackfoods.utils.Validate;
 import com.fightbackfoods.view.SpinnerCancerStages;
 import com.fightbackfoods.view.SpinnerCancerType;
 import com.fightbackfoods.view.SpinnerGender;
@@ -280,7 +281,16 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                                 if(mResponse.getErrorMessages()==null){
                                     errorMessage = mResponse.getMessage();
                                 }else errorMessage = mResponse.getErrorMessages().get(0);
-                                Toast.makeText(SignUpActivity.this, errorMessage, Toast.LENGTH_LONG).show();
+                                try{
+                                    if(errorMessage.contains(getString(R.string.alphabet_only))){
+                                        etFoodRestrictions.setError(getString(R.string.alphabet_only));
+                                    }else
+                                        Toast.makeText(SignUpActivity.this, errorMessage, Toast.LENGTH_LONG).show();
+
+                                }catch (NullPointerException e){
+                                    //Toast.makeText(SignUpActivity.this, errorMessage, Toast.LENGTH_LONG).show();
+
+                                }
                                 showProgress(false);
                             }
                         }
@@ -315,26 +325,37 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         Api.getInstance().updateAvatar(String.valueOf(User.getCurrentUserId()), image64, new Callback<ResponseUser>() {
             @Override
             public void onResponse(Call<ResponseUser> call, retrofit2.Response<ResponseUser> response) {
-                if(response.isSuccessful()){
-                    ResponseUser json = response.body();
-                    if(json.getStatus().equalsIgnoreCase("success")){
-                        User.getCurrentUser().setAvatar(json.getImgUrl(), true);
-                        nextActivity();
-                        return;
+                try {
+                    if(response.isSuccessful()){
+                        ResponseUser json = response.body();
+                        if(json.getStatus().equalsIgnoreCase("success")){
+                            User.getCurrentUser().setAvatar(json.getImgUrl(), true);
+                            nextActivity();
+                            return;
 
+                        }
+                        showProgress(false);
+
+                    }else {
+                        showProgress(false);
                     }
-                    showProgress(false);
+                    Toast.makeText(SignUpActivity.this, "failed to upload image",Toast.LENGTH_LONG).show();
+                    nextActivity();
+                }catch (NullPointerException e){
 
-                }else {
-                    showProgress(false);
                 }
-                Toast.makeText(SignUpActivity.this, "failed to upload image",Toast.LENGTH_LONG).show();
-                nextActivity();
+
             }
 
             @Override
             public void onFailure(Call<ResponseUser> call, Throwable t) {
-                showProgress(false);
+                t.printStackTrace();
+                try {
+                    showProgress(false);
+                }catch (NullPointerException e){
+
+                }
+
 
             }
         });
@@ -355,18 +376,18 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         user.put("password",etPassword.getText().toString());
         user.put("firstName", etFirstName.getText().toString());
         user.put("lastName",etLastName.getText().toString());
-        user.put("birthday", birthday);
-        user.put("zipCode",etZipCode.getText().toString());
+        user.put("birthday", Validate.nullString(birthday));
+        user.put("zipCode",Validate.nullString(etZipCode.getText().toString()));
         user.put("gender", String.valueOf(spGender.getSelectedItemPosition()));
         user.put("cancerType", String.valueOf(spCancerType.getSelectedItemPosition()));
         user.put("cancerStage", String.valueOf(spCancerStage.getSelectedItemPosition()));
         user.put("mobility", String.valueOf(spMobility.getSelectedItemPosition()));
         user.put("currentTreatment", String.valueOf(spCurrentTreatment.getSelectedItemPosition()));
-        user.put("foodRestriction",etFoodRestrictions.getText().toString());
-        user.put("weight",etWeight.getText().toString());
+        user.put("foodRestriction",Validate.nullString(etFoodRestrictions.getText().toString()));
+        user.put("weight",Validate.nullString(etWeight.getText().toString()));
         user.put("weightUnit",String.valueOf(spWeight.getSelectedItemPosition()));
         user.put("heightUnit",String.valueOf(spHeight.getSelectedItemPosition()));
-        user.put("height",etHeight.getText().toString());
+        user.put("height",Validate.nullString(etHeight.getText().toString()));
 
         if(image64==null)user.put("avatar", "");
 
@@ -386,25 +407,30 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         return password.length() >= 4;
     }
     private void showProgress(final boolean show) {
-        int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
+        try {
+            int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
 
-        layProgress.setVisibility(show ? View.GONE : View.VISIBLE);
-        layProgress.animate().setDuration(shortAnimTime).alpha(
-                show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                layProgress.setVisibility(show ? View.GONE : View.VISIBLE);
-            }
-        });
+            layProgress.setVisibility(show ? View.GONE : View.VISIBLE);
+            layProgress.animate().setDuration(shortAnimTime).alpha(
+                    show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    layProgress.setVisibility(show ? View.GONE : View.VISIBLE);
+                }
+            });
 
-        layProgress.setVisibility(show ? View.VISIBLE : View.GONE);
-        layProgress.animate().setDuration(shortAnimTime).alpha(
-                show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                layProgress.setVisibility(show ? View.VISIBLE : View.GONE);
-            }
-        });
+            layProgress.setVisibility(show ? View.VISIBLE : View.GONE);
+            layProgress.animate().setDuration(shortAnimTime).alpha(
+                    show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    layProgress.setVisibility(show ? View.VISIBLE : View.GONE);
+                }
+            });
+
+        }catch (NullPointerException e){
+
+        }
 
     }
 

@@ -8,6 +8,9 @@ import android.util.Log;
 import com.fightbackfoods.Api;
 import com.fightbackfoods.adapter.SpinnerGenderAdapter;
 import com.fightbackfoods.api.ResponseGender;
+import com.fightbackfoods.model.Gender;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -47,8 +50,9 @@ public class SpinnerGender extends android.support.v7.widget.AppCompatSpinner {
                     return;
 
                 }
-
-                setAdapter(new SpinnerGenderAdapter(rspGender.getGenders()));
+                List<Gender> genderList = rspGender.getGenders();
+                genderList.add(0,new Gender());
+                setAdapter(new SpinnerGenderAdapter(genderList));
             }catch (NullPointerException e){
                 e.printStackTrace();
             }

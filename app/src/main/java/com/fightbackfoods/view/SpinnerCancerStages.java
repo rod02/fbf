@@ -9,6 +9,7 @@ import com.fightbackfoods.Api;
 import com.fightbackfoods.adapter.SpinnerSimpleAdapter;
 import com.fightbackfoods.api.ResponseCancerStages;
 import com.fightbackfoods.api.ResponseCancerType;
+import com.fightbackfoods.model.CancerStage;
 
 import java.util.List;
 
@@ -50,8 +51,9 @@ public class SpinnerCancerStages extends android.support.v7.widget.AppCompatSpin
                     return;
 
                 }
-
-                setAdapter(new SpinnerSimpleAdapter((List)rsp.getCancerStages()));
+                List<CancerStage> list = rsp.getCancerStages();
+                list.add(0,new CancerStage());
+                setAdapter(new SpinnerSimpleAdapter((List)list));
             }catch (NullPointerException e){
                 e.printStackTrace();
             }
