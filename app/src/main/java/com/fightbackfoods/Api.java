@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import com.fightbackfoods.api.Response;
 import com.fightbackfoods.api.ResponseCancerStages;
 import com.fightbackfoods.api.ResponseCancerType;
+import com.fightbackfoods.api.ResponseFoodGroup;
 import com.fightbackfoods.api.ResponseHeightUnit;
 import com.fightbackfoods.api.ResponseMobility;
 import com.fightbackfoods.api.ResponseTreatment;
@@ -14,6 +15,7 @@ import com.fightbackfoods.api.ResponseWeightUnit;
 import com.fightbackfoods.interfaces.ApiConnect;
 import com.fightbackfoods.api.ResponseUser;
 import com.fightbackfoods.api.ResponseGender;
+import com.fightbackfoods.model.Token;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -154,5 +156,9 @@ public class Api {
 
     public void getWeightUnits(Callback<ResponseWeightUnit> callback) {
         apiConnect.getWeightUnits(optionsToken).enqueue(callback);
+    }
+
+    public void fetchFoodGroups(Callback<ResponseFoodGroup> callback) {
+        apiConnect.fetchFoodGroups(Token.toMap()).enqueue(callback);
     }
 }

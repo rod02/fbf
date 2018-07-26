@@ -27,7 +27,6 @@
     <dimen name="rb_size">30dp</dimen>
 
 
-
     <dimen name="btn_fab_size">56dp</dimen>
     <dimen name="btn_fab_margins">16dp</dimen>
     <dimen name="btn_fab_margin_bottom">50dp</dimen>
@@ -41,7 +40,7 @@
     <dimen name="toolbar_face_textsize">12sp</dimen>
     <dimen name="item_article_image_height">120dp</dimen>
     <dimen name="text_regular_margin">16dp</dimen>
-    <dimen name="food_score_big_text_size">66dp</dimen>
+    <dimen name="food_score_big_text_size">60dp</dimen>
     <dimen name="icon_size_small">20dp</dimen>
     <dimen name="btn_rounded_box_radius">5dp</dimen>
     <dimen name="lay_regular_padding">10dp</dimen>
@@ -53,6 +52,27 @@
     <dimen name="text_regular">12sp</dimen>
     <dimen name="text_regular_space">5dp</dimen>
     <dimen name="progress_bar_horizontal_width">120dp</dimen>
+
+    <dimen name="header_text_dashboard">23sp</dimen>
+    <dimen name="badge_size">35dp</dimen>
+    <dimen name="icon_medium_size">50dp</dimen>
+    <dimen name="icon_size_xs">15dp</dimen>
+    <dimen name="appbar_padding_top">8dp</dimen>
+    <dimen name="spinner_padding">20dp</dimen>
+    <dimen name="spacing_micro">4dp</dimen>
+    <dimen name="spacing_normal">8dp</dimen>
+    <dimen name="spacing_double">16dp</dimen>
+    <dimen name="spacing_huge">72dp</dimen>
+
+
+    <dimen name="elevation_header">4dp</dimen>
+    <dimen name="elevation_fab">8dp</dimen>
+
+    <dimen name="size_icon_toolbar">40dp</dimen>
+
+    <integer name="anim_duration_very_long">1500</integer>
+    <integer name="anim_duration_long">500</integer>
+    <integer name="anim_duration_medium">300</integer>
 
 
 </resources>

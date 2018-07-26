@@ -20,6 +20,9 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
+import android.support.transition.Explode;
+import android.support.transition.Slide;
+import android.support.transition.Visibility;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -49,6 +52,7 @@ import com.fightbackfoods.R;
 import com.fightbackfoods.Utils;
 import com.fightbackfoods.adapter.FeedAdapter;
 import com.fightbackfoods.adapter.FeedItemAnimator;
+import com.fightbackfoods.interfaces.OnFragmentInteractionListener;
 import com.fightbackfoods.model.Journal;
 import com.fightbackfoods.model.User;
 import com.fightbackfoods.utils.Validate;
@@ -64,7 +68,7 @@ import butterknife.OnClick;
 public class MainActivity extends BaseDrawerActivity implements FeedAdapter.OnFeedItemClickListener,
         FeedContextMenu.OnFeedContextMenuItemClickListener,
         BottomNavigationView.OnNavigationItemSelectedListener,
-        FoodFragment.OnFragmentInteractionListener,
+        OnFragmentInteractionListener,
         NavigationView.OnNavigationItemSelectedListener {
 
 
@@ -319,6 +323,7 @@ public class MainActivity extends BaseDrawerActivity implements FeedAdapter.OnFe
                         //startContentAnimation();
                         try {
                             showJournal();
+                            replaceFragment(DashboardFragment.newInstance("para","para"));
                         }catch (WindowManager.BadTokenException e){
 
                         }catch (NullPointerException e){
@@ -405,6 +410,7 @@ public class MainActivity extends BaseDrawerActivity implements FeedAdapter.OnFe
 
         switch (item.getItemId()) {
             case R.id.nav_home:
+                replaceFragment(DashboardFragment.newInstance("para","para"));
 
                 return true;
             case R.id.nav_food:
@@ -464,4 +470,10 @@ public class MainActivity extends BaseDrawerActivity implements FeedAdapter.OnFe
     public void onFragmentInteraction(Uri uri) {
 
     }
+    private Visibility buildReturnTransition() {
+        Visibility enterTransition = new Slide();
+        enterTransition.setDuration(getResources().getInteger(R.integer.anim_duration_long));
+        return enterTransition;
+    }
+
 }

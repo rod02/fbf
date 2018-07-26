@@ -123,6 +123,27 @@
     <string name="choose">Choose</string>
     <string name="height">Height</string>
     <string name="alphabet_only">alphabet only</string>
+    <string name="daily">Daily</string>
+    <string name="weekly">Weekly</string>
+    <string name="nutrition">Nutrition</string>
+    <string name="mind_body_soul">Mind, Body and Soul</string>
+    <string name="added_sugar">Added Sugar</string>
+    <string name="suggestions">Suggestions</string>
+    <string name="your_protein_is_low">Your protein is low.</string>
+    <string name="increase_your_proteins">Increase your protein. Here are some foods high in proteins. yada yada , yada yada, bara bara, hoho, koko.</string>
+    <string name="your_suger_is_hi">Your sugar is high.</string>
+    <string name="increase_your_foods">Increase your foods high in protein. Here are some foods high in proteins. yada yada , yada yada, bara bara, hoho, koko.</string>
+    <string name="title_activity_add_food">Add Food</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
+    <string name="tab_text_3">Tab 3</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="recent">Recent</string>
+    <string name="frequent">Frequent</string>
+    <string name="meals">Meals</string>
+    <string name="recipes">Recipes</string>
+    <string name="quick_add">Quick Add</string>
+    <string name="search_for_a_food">Search for a Food</string>
 
 
 </resources>

@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
@@ -72,7 +70,7 @@
                     android:layout_weight="1">
 
                     <TextView
-                        android:id="@+id/tv_sat_fat_label"
+                        android:id="@+id/tv_calories_label"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/calories"
@@ -83,7 +81,7 @@
                         style="@style/Widget.AppCompat.ProgressBar.Horizontal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/tv_sat_fat_label"
+                        android:layout_below="@+id/tv_calories_label"
                         android:progress="75"
                         android:progressTint="@color/colorPrimary" />
 
@@ -161,7 +159,7 @@
 
                     <ProgressBar
                         android:id="@+id/pb_carbs"
-                        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                        style="@style/ProgressBar.Horizontal.Red"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/tv_carbs_label"
@@ -223,28 +221,27 @@
                         android:textSize="@dimen/text_regular" />
 
                     <ProgressBar
-                        android:id="@+id/pb_calories"
-                        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                        android:id="@+id/pb_sat_fat"
+                        style="@style/ProgressBar.Horizontal.Red"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/tv_sat_fat_label"
-                        android:progress="75"
-                        android:progressTint="@color/colorPrimary" />
+                        android:progress="75" />
 
                     <TextView
-                        android:id="@+id/tv_calories_total"
+                        android:id="@+id/tv_sat_fat_total"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignEnd="@+id/pb_calories"
-                        android:layout_below="@+id/pb_calories"
+                        android:layout_alignEnd="@+id/pb_sat_fat"
+                        android:layout_below="@+id/pb_sat_fat"
                         android:text="2000"
                         android:textSize="@dimen/text_regular" />
 
                     <TextView
-                        android:id="@+id/tv_calories_percent"
+                        android:id="@+id/tv_sat_fat_percent"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/pb_calories"
+                        android:layout_below="@+id/pb_sat_fat"
                         android:text="75%"
                         android:textSize="@dimen/text_regular" />
                 </RelativeLayout>
@@ -256,36 +253,35 @@
                     android:layout_weight="1">
 
                     <TextView
-                        android:id="@+id/tv_sat_fat_label"
+                        android:id="@+id/tv_trans_fat_label"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/trans_fat"
                         android:textSize="@dimen/text_regular" />
 
                     <ProgressBar
-                        android:id="@+id/pb_sat_fat"
-                        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                        android:id="@+id/pb_trans_fat"
+                        style="@style/ProgressBar.Horizontal.Red"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/tv_sat_fat_label"
+                        android:layout_below="@+id/tv_trans_fat_label"
                         android:progress="75"
-
-                        android:progressTint="@color/colorPrimary" />
+                        android:progressTint="@color/red" />
 
                     <TextView
-                        android:id="@+id/tv_sat_fat_total"
+                        android:id="@+id/tv_trans_fat_total"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignEnd="@+id/pb_sat_fat"
-                        android:layout_below="@+id/pb_sat_fat"
+                        android:layout_alignEnd="@+id/pb_trans_fat"
+                        android:layout_below="@+id/pb_trans_fat"
                         android:text="890"
                         android:textSize="@dimen/text_regular" />
 
                     <TextView
-                        android:id="@+id/tv_sat_fat_percent"
+                        android:id="@+id/tv_trans_fat_percent"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/pb_sat_fat"
+                        android:layout_below="@+id/pb_trans_fat"
                         android:text="55%"
                         android:textSize="@dimen/text_regular" />
                 </RelativeLayout>
@@ -300,18 +296,20 @@
                         android:id="@+id/tv_add_sugar_label"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/carbs"
+                        android:text="@string/added_sugar"
                         android:textSize="@dimen/text_regular" />
 
                     <ProgressBar
                         android:id="@+id/pb_add_sugar"
-                        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                        style="@style/ProgressBar.Horizontal.Red"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/tv_add_sugar_label"
-                        android:progress="75"
 
-                        android:progressTint="@color/colorPrimary" />
+                        android:layout_marginTop="0dp"
+
+                        android:progress="75"
+                        android:progressTint="@color/red" />
 
                     <TextView
                         android:id="@+id/tv_add_sugar_total"
@@ -342,40 +340,68 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/textView11"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/super_foods" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/tv_super_foods_valur"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="0 of 2" />
+                <TextView
+                    android:id="@+id/textView11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/super_foods"
+                    android:textColor="@color/black" />
 
-            <TextView
-                android:id="@+id/tv_water_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0"
-                android:text="Water" />
+                <TextView
+                    android:id="@+id/tv_super_foods_valur"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="0 of 2"
+                    android:textColor="@color/blue" />
 
-            <TextView
-                android:id="@+id/tv_goal_water_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="3L to 12L" />
+                <View
+                    android:id="@+id/divider3"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginEnd="2dp"
+                    android:layout_marginStart="2dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/gray" />
+
+                <TextView
+                    android:id="@+id/tv_water_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Water"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/tv_goal_water_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="3L to 12L"
+                    android:textColor="@color/blue" />
+
+            </LinearLayout>
 
             <Button
                 android:id="@+id/btn_summary"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="right|end"
                 android:text="@string/summary"
-                android:theme="@style/AppTheme.Button.Blue"/>
+                android:theme="@style/AppTheme.Button.Blue" />
         </LinearLayout>
 
     </LinearLayout>
