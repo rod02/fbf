@@ -12,6 +12,8 @@ import android.widget.TextView;
 
 import com.fightbackfoods.R;
 import com.fightbackfoods.adapter.FoodItemAdapter;
+import com.fightbackfoods.adapter.OnItemClick;
+import com.fightbackfoods.interfaces.Item;
 import com.fightbackfoods.model.FoodItem;
 
 import java.util.List;
@@ -30,6 +32,8 @@ public class FoodListFragment extends Fragment {
     @BindView(R.id.rv_list)
     RecyclerView rvList;
 
+    OnItemClick<Item> onItemClickListener;
+
     public FoodListFragment() {
     }
 
@@ -39,6 +43,20 @@ public class FoodListFragment extends Fragment {
         args.putInt(ARG_SECTION_NUMBER, sectionNumber);
         fragment.setArguments(args);
         return fragment;
+    }
+
+    public static Fragment newInstance(OnItemClick<Item> listener) {
+        FoodListFragment fragment = new FoodListFragment();
+        fragment.setOnItemClickListener(listener);
+        return fragment;
+    }
+
+    public OnItemClick<Item> getOnItemClickListener() {
+        return onItemClickListener;
+    }
+
+    public void setOnItemClickListener(OnItemClick<Item> onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
     }
 
     @Override
@@ -62,15 +80,23 @@ public class FoodListFragment extends Fragment {
 
     private void populateList(List<FoodItem> list, RecyclerView rv) {
 
-        FoodItemAdapter adapter = new FoodItemAdapter(getActivity(), list);
+        final FoodItemAdapter adapter = new FoodItemAdapter(getActivity(), list, onItemClickListener);
         rv.setAdapter(adapter);
         rv.setLayoutManager(new LinearLayoutManager(getActivity()));
         rv.setHasFixedSize(true);//every item of the RecyclerView has a fix size
-
+        rv.post(new Runnable() {
+            @Override
+            public void run() {
+                adapter.updateItems();
+            }
+        });
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
     }
+
+
+
 }

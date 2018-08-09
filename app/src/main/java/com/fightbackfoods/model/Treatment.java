@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
 public class Treatment implements Item {
 
     @SerializedName("treatment_id")
-    int id;
+    String id;
     @SerializedName("name")
     String description;
     @SerializedName("description")
@@ -19,11 +19,11 @@ public class Treatment implements Item {
     }
 
     @Override
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

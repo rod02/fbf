@@ -37,7 +37,9 @@ import com.facebook.login.widget.LoginButton;
 import com.fightbackfoods.Api;
 import com.fightbackfoods.R;
 import com.fightbackfoods.api.ResponseUser;
+import com.fightbackfoods.model.Token;
 import com.fightbackfoods.model.User;
+import com.fightbackfoods.utils.TokenManager;
 
 import org.json.JSONObject;
 
@@ -232,6 +234,7 @@ public class LoginActivity extends AppCompatActivity {
                         if(mResponse.getStatus().equalsIgnoreCase("success")){
                             User user = mResponse.getUser();
                             user.setAvatar(photoUrl);
+                            TokenManager.setToken(mResponse.getToken(),true);
                             nextActivity(user);
                             return;
                         }
@@ -422,6 +425,7 @@ public class LoginActivity extends AppCompatActivity {
                         ResponseUser mResponse = response.body();
                         if(mResponse.getStatus().equalsIgnoreCase("success")){
                             User user = mResponse.getUser();
+                            TokenManager.setToken(mResponse.getToken(),true);
                             nextActivity(user);
                         }else{
                             Toast.makeText(LoginActivity.this, mResponse.getMessage(), Toast.LENGTH_LONG).show();

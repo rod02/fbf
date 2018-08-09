@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
 public class CancerStage implements Item {
 
     @SerializedName("cancer_stage_id")
-    int id;
+    String id;
     @SerializedName("name")
     String name;
     @SerializedName("description")
@@ -18,11 +18,11 @@ public class CancerStage implements Item {
     }
 
     @Override
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

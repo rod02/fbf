@@ -80,11 +80,12 @@
             android:name=".activity.PublishActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
-            android:windowSoftInputMode="stateHidden"></activity>
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".activity.AddFoodActivity"
             android:label="@string/title_activity_add_food"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
+        <activity android:name=".activity.NutrientReportActivity"></activity>
     </application>
 
 </manifest>

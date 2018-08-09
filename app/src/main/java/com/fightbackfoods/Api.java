@@ -6,7 +6,9 @@ import android.support.annotation.NonNull;
 import com.fightbackfoods.api.Response;
 import com.fightbackfoods.api.ResponseCancerStages;
 import com.fightbackfoods.api.ResponseCancerType;
+import com.fightbackfoods.api.ResponseFoodByGroup;
 import com.fightbackfoods.api.ResponseFoodGroup;
+import com.fightbackfoods.api.ResponseFoodList;
 import com.fightbackfoods.api.ResponseHeightUnit;
 import com.fightbackfoods.api.ResponseMobility;
 import com.fightbackfoods.api.ResponseTreatment;
@@ -160,5 +162,12 @@ public class Api {
 
     public void fetchFoodGroups(Callback<ResponseFoodGroup> callback) {
         apiConnect.fetchFoodGroups(Token.toMap()).enqueue(callback);
+    }
+
+    public void foodSearch(Map<String, String> map, Callback<ResponseFoodList> callback) {
+        apiConnect.foodSearch(map).enqueue(callback);
+    }
+    public void foodGroupSearch(Map<String, String> map, Callback<ResponseFoodByGroup> callback) {
+        apiConnect.foodGroupSearch(map).enqueue(callback);
     }
 }

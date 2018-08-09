@@ -67,4 +67,13 @@ public class Response {
     public void setRequired(List<String> required) {
         this.required = required;
     }
+
+    public boolean isSuccessful() {
+        try {
+            return status.equalsIgnoreCase("success");
+        }catch (NullPointerException e){
+            e.printStackTrace();
+            return false;
+        }
+    }
 }

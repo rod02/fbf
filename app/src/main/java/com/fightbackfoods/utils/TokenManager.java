@@ -21,7 +21,7 @@ public class TokenManager {
 
     private static Token getFromPref() {
 
-        final SharedPreferences sharedPref = Api.getApplicationContext().getSharedPreferences(SHARED_PREF, Context.MODE_PRIVATE);
+        final SharedPreferences sharedPref = getPref();
         String value = sharedPref.getString("value","");
         token = new Token(value);
         return token;
@@ -30,12 +30,25 @@ public class TokenManager {
     public static void setToken(String value, boolean writeToCache){
         token = new Token(value);
         if(writeToCache) {
-
-            SharedPreferences sharedPref =  Api.getApplicationContext().getSharedPreferences(SHARED_PREF, Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedPref.edit();
+            SharedPreferences.Editor editor = getPref().edit();
             editor.putString("value", value);
             editor.apply();
         }
     }
 
+    public static boolean clear() {
+        SharedPreferences.Editor editor = edit();
+
+        editor.clear();
+        editor.apply();
+        return true;
+    }
+
+    private static SharedPreferences.Editor edit(){
+        return getPref().edit();
+    }
+
+    private static SharedPreferences getPref() {
+        return Api.getApplicationContext().getSharedPreferences(SHARED_PREF, Context.MODE_PRIVATE);
+    }
 }

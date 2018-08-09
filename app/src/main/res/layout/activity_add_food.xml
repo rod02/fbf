@@ -10,29 +10,30 @@
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
 
-        android:theme="@style/AppTheme.AppBarOverlay"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/white"
         android:paddingTop="@dimen/appbar_padding_top"
-        android:background="@color/white">
+        android:theme="@style/AppTheme.AppBarOverlay">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:layout_weight="1"
+            android:layout_weight="0"
+            android:background="@color/white"
             app:layout_scrollFlags="scroll|enterAlways"
             app:popupTheme="@style/AppTheme.PopupOverlay"
-            app:title="@string/add_food"
 
-            android:background="@color/white">
+            app:title="@string/add_food">
 
         </android.support.v7.widget.Toolbar>
 
         <LinearLayout
+            android:id="@+id/ll_food"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="0"
             android:orientation="vertical">
 
             <LinearLayout
@@ -43,14 +44,14 @@
 
                 <!-- Dummy item to prevent AutoCompleteTextView from receiving focus -->
                 <LinearLayout
-                    android:focusable="true"
-                    android:focusableInTouchMode="true"
                     android:layout_width="0px"
-                    android:layout_height="0px"/>
+                    android:layout_height="0px"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true" />
 
 
                 <EditText
-                    android:id="@+id/editText"
+                    android:id="@+id/et_search"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -87,14 +88,22 @@
 
         </LinearLayout>
 
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="visible">
+
+        </android.support.v7.widget.RecyclerView>
+
         <android.support.design.widget.TabLayout
             android:id="@+id/tabs"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
 
-            app:tabMode="scrollable"
-            android:layout_weight="0" />
+            android:layout_weight="0"
+            app:tabMode="scrollable" />
 
     </android.support.design.widget.AppBarLayout>
 

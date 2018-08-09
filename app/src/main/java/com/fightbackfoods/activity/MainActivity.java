@@ -54,7 +54,9 @@ import com.fightbackfoods.adapter.FeedAdapter;
 import com.fightbackfoods.adapter.FeedItemAnimator;
 import com.fightbackfoods.interfaces.OnFragmentInteractionListener;
 import com.fightbackfoods.model.Journal;
+import com.fightbackfoods.model.Token;
 import com.fightbackfoods.model.User;
+import com.fightbackfoods.utils.TokenManager;
 import com.fightbackfoods.utils.Validate;
 import com.fightbackfoods.view.FeedContextMenu;
 import com.fightbackfoods.view.FeedContextMenuManager;
@@ -115,6 +117,8 @@ public class MainActivity extends BaseDrawerActivity implements FeedAdapter.OnFe
 
         if (savedInstanceState == null && Validate.isLoggedIn() ) {
             pendingIntroAnimation = true;
+
+
         } else {
             //feedAdapter.updateItems(false);
         }
@@ -135,11 +139,16 @@ public class MainActivity extends BaseDrawerActivity implements FeedAdapter.OnFe
         final AlertDialog dialog = builder.show();
 
         dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-
+        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                replaceFragment(DashboardFragment.newInstance("para","para"));
+            }
+        });
         ivClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialog.cancel();
+                dialog.dismiss();
             }
         });
         layPost.setOnClickListener(new View.OnClickListener() {
@@ -232,6 +241,7 @@ public class MainActivity extends BaseDrawerActivity implements FeedAdapter.OnFe
     private void logout() {
 
         User.clearPref();
+        TokenManager.clear();
         //User.setCurrentUser(null);
         /*recreate();
          *//*
@@ -323,7 +333,7 @@ public class MainActivity extends BaseDrawerActivity implements FeedAdapter.OnFe
                         //startContentAnimation();
                         try {
                             showJournal();
-                            replaceFragment(DashboardFragment.newInstance("para","para"));
+                           // replaceFragment(DashboardFragment.newInstance("para","para"));
                         }catch (WindowManager.BadTokenException e){
 
                         }catch (NullPointerException e){

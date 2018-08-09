@@ -8,7 +8,7 @@ import java.util.List;
 public class CancerType implements Item {
 
     @SerializedName("cancer_type_id")
-    int id;
+    String id;
     @SerializedName("name")
     String name;
     @SerializedName("description")
@@ -19,11 +19,11 @@ public class CancerType implements Item {
         this.description="";
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

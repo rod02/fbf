@@ -3,6 +3,7 @@ package com.fightbackfoods.adapter;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.content.Context;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.fightbackfoods.R;
+import com.fightbackfoods.interfaces.Item;
 import com.fightbackfoods.model.FoodItem;
 import com.fightbackfoods.utils.RoundedTransformation;
 import com.google.android.gms.vision.text.Text;
@@ -36,12 +38,22 @@ public class FoodItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     List<FoodItem> mItems = new ArrayList<>();
 
+    OnItemClick<Item> onItemClickListener;
+
     public FoodItemAdapter(Context context, List<FoodItem> list) {
         this.context = context;
         this.mItems = list;
         itemsCount= mItems.size();
     }
 
+    public FoodItemAdapter(Context context, List<FoodItem> list, OnItemClick<Item> onItemClickListener) {
+        this(context,list);
+        this.onItemClickListener=onItemClickListener;
+    }
+    public FoodItemAdapter(List<FoodItem> data, OnItemClick onItemClick){
+        this.mItems = data;
+        this.onItemClickListener = onItemClick;
+    }
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         final View view = LayoutInflater.from(context).inflate(R.layout.item_food_list, parent, false);
@@ -49,16 +61,21 @@ public class FoodItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, final int position) {
         runEnterAnimation(viewHolder.itemView, position);
         FoodItemViewHolder holder = (FoodItemViewHolder) viewHolder;
-        FoodItem item = mItems.get(position);
+        final FoodItem item = mItems.get(position);
         holder.tvFoodName.setText(item.getName());
         holder.tvFoodQty.setText(item.getQty());
         holder.tvFoodValue.setText(item.getValue());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                try{
+                    onItemClickListener.onItemClick((Item) item, position, item.getId());
+                }catch (NullPointerException e){
+                    e.printStackTrace();
+                }
 
             }
         });
@@ -93,11 +110,12 @@ public class FoodItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
     public void updateItems() {
-        itemsCount = 10;
-        notifyDataSetChanged();
+        itemsCount = getItemCount();
+        notifyItemRangeChanged(0, itemsCount);
     }
 
-    public void addItem() {
+    public void addItem(FoodItem item) {
+        mItems.add(item);
         itemsCount++;
         notifyItemInserted(itemsCount - 1);
     }

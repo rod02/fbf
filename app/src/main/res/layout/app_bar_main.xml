@@ -73,8 +73,8 @@
 
     <include
         layout="@layout/content_main"
-        android:layout_marginBottom="40dp"
-        app:layout_constraintTop_toTopOf="@id/navigation" />
+
+        />
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation"

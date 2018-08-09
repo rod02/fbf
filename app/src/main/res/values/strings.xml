@@ -144,6 +144,7 @@
     <string name="recipes">Recipes</string>
     <string name="quick_add">Quick Add</string>
     <string name="search_for_a_food">Search for a Food</string>
+    <string name="title_nutrient_report">Nutrient Report</string>
 
 
 </resources>

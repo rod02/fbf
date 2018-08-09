@@ -67,4 +67,8 @@ public class SpinnerFoodGroup extends android.support.v7.widget.AppCompatSpinner
         }
     };
 
+    public String getSelectedId() {
+       return
+               ((SpinnerSimpleAdapter) getAdapter()).getItemIdAt(getSelectedItemPosition());
+    }
 }

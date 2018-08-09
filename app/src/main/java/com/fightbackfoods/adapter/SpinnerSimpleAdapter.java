@@ -59,10 +59,21 @@ public class SpinnerSimpleAdapter implements SpinnerAdapter {
     @Override
     public long getItemId(int position) {
         try {
+            return Long.parseLong(getItem(position).getId());
+
+        }catch (NullPointerException e){
+            return position;
+        }catch (NumberFormatException e){
+            return position;
+        }
+    }
+
+    public String getItemIdAt(int position){
+        try {
             return getItem(position).getId();
 
         }catch (NullPointerException e){
-            return 0;
+            return "0";
         }
     }
 
