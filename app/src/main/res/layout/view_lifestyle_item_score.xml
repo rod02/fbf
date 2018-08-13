@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:clickable="true"
+    android:padding="@dimen/lay_regular_padding">
+
+    android:theme="@style/Mind.Lifestyle"
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardElevation="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/lay_regular_padding"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/iv_icon"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="@dimen/lay_regular_margin"
+                android:layout_weight="0"
+                android:background="?attr/lifeStyle_theme_color"
+                android:scaleType="fitCenter"
+                android:src="?attr/lifeStyle_icon"
+                app:riv_corner_radius="50dip"
+                app:riv_mutate_background="true" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="5dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="top|bottom"
+                        android:text="?attr/lifeStyle_title"
+                        android:textColor="?attr/lifeStyle_theme_color"
+                        android:textSize="@dimen/nav_text_title_size" />
+
+                    <TextView
+                        android:id="@+id/tv_goal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="3dp"
+                        android:text="@string/weekly_goal"
+                        android:textSize="@dimen/lifestyle_text_small" />
+
+                    <TextView
+                        android:id="@+id/tv_hrs"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="2dp"
+                        android:text="4"
+                        android:textColor="?attr/lifeStyle_theme_color"
+                        android:textSize="30sp" />
+
+                    <TextView
+                        android:id="@+id/tv_hrs_n"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0"
+                        android:gravity="end"
+                        android:text="@string/hrs"
+                        android:textColor="?attr/lifeStyle_theme_color"
+                        android:textSize="@dimen/lifestyle_text_small" />
+                </LinearLayout>
+
+                <ProgressBar
+                    android:id="@+id/pb"
+                    style="@android:style/Widget.Material.ProgressBar.Horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:progress="70"
+                    android:progressTint="?attr/lifeStyle_theme_color"
+                    android:secondaryProgress="100" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_target"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Target: 6 hrs"
+                        android:textSize="@dimen/lifestyle_text_small" />
+
+                    <TextView
+                        android:id="@+id/tv_days_left"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:layout_weight="0"
+                        android:text="3 days left"
+                        android:textSize="@dimen/lifestyle_text_small" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/divider7"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:layout_marginBottom="3dp"
+                android:layout_marginEnd="@dimen/lay_regular_margin"
+                android:layout_marginStart="@dimen/lay_regular_margin"
+                android:layout_marginTop="3dp"
+                android:layout_weight="0"
+                android:background="?android:attr/listDivider" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="0"
+                android:gravity="center_vertical|center_horizontal|center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_score"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="A"
+                    android:textColor="?attr/lifeStyle_theme_color"
+                    android:textSize="45sp" />
+
+                <TextView
+                    android:id="@+id/tv_average"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="3/5hrs"
+                    android:textSize="@dimen/lifestyle_text_small" />
+
+                <TextView
+                    android:id="@+id/tv_score_percent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="90%"
+                    android:textSize="@dimen/lifestyle_text_small" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+</FrameLayout>

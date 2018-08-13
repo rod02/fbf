@@ -102,4 +102,8 @@
 
     <color name="green">#00e676</color>
     <color name="light_grey">#E0E0E0</color>
+    <color name="score_A">#669900</color>
+    <color name="pink">#ff3399</color>
+
+
 </resources>

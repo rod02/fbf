@@ -38,4 +38,12 @@
         <item quantity="other">%d likes</item>
     </plurals>
 
+
+    <plurals name="articles">
+        <item quantity="zero">no article</item>
+        <item quantity="one">%d article</item>
+        <item quantity="other">%d articles</item>
+    </plurals>
+
+
 </resources>

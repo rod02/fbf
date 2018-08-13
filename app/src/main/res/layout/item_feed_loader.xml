@@ -15,9 +15,9 @@
 
         <ImageView
             android:id="@+id/ivUserProfile"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_feed_top" />
+            android:layout_width="@dimen/user_profile_avatar_community"
+            android:layout_height="@dimen/user_profile_avatar_community"
+            android:src="@drawable/love_lace" />
 
         <com.fightbackfoods.view.SquaredFrameLayout
             android:id="@+id/vImageRoot"

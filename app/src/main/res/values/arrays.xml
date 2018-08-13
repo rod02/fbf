@@ -17,7 +17,7 @@
         <item>Stage 4</item>
     </string-array>
     <string-array name="cancer_type">
-        <item></item>
+        <item>All</item>
         <item>Acute granulocytic leukemia</item>
         <item>Acute lymphocytic leukemia</item>
         <item>Acute myelogenous leukemia</item>

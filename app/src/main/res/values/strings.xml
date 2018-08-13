@@ -145,6 +145,32 @@
     <string name="quick_add">Quick Add</string>
     <string name="search_for_a_food">Search for a Food</string>
     <string name="title_nutrient_report">Nutrient Report</string>
+    <string name="all">All</string>
+    <string name="pre">PRE</string>
+    <string name="during">during</string>
+    <string name="post">POST</string>
+    <string name="select_week">Select Week</string>
+    <string name="article_content_sample1">Maintaining a healthy weight might lower the risk of various types of cancer, ... </string>
+    <string name="article_content_sample2">Regular self-exams and screenings for various types of cancers — such as ...</string>
+    <string name="article_content_sample3">Maintaining a healthy weight might lower the risk of various types of cancer, including cancer of the breast, prostate, lung, colon and kidney.
 
+Physical activity counts, too. In addition to helping you control your weight, physical activity on its own might lower the risk of breast cancer and colon cancer.
+
+Adults who participate in any amount of physical activity gain some health benefits. But for substantial health benefits, strive to get at least 150 minutes a week of moderate aerobic activity or 75 minutes a week of vigorous aerobic physical activity. You can also do a combination of moderate and vigorous activity. As a general goal, include at least 30 minutes of physical activity in your daily routine — and if you can do more, even better.</string>
+    <string name="article_content_sample4">Regular self-exams and screenings for various types of cancers — such as cancer of the skin, colon, cervix and breast — can increase your chances of discovering cancer early, when treatment is most likely to be successful. Ask your doctor about the best cancer screening schedule for you.
+
+Take cancer prevention into your own hands, starting today. The rewards will last a lifetime.</string>
+    <string name="lifestyle_score">Lifestyle Score</string>
+
+    <string name="mind_body_soul_score_percent_n">Mind: %1$d% | Body: %2$d% | Soul: %3$d%</string>
+    <string name="mind">Mind</string>
+    <string name="weekly_goal">Weekly Goal</string>
+    <string name="hrs">hrs</string>
+    <string name="back">Back</string>
+    <string name="fat">Fat</string>
+    <string name="number_of_servings">Number of Servings</string>
+    <string name="serving_size">Serving Size</string>
+    <string name="percent_of_daily_goals" >Percent of Your Daily Goals</string>
+    <string name="nutrient_report_note">* Percent Daily Values are based on 2,000 calories diet. Your daily values may be higher or lower depending on your calories needs.</string>
 
 </resources>

@@ -24,6 +24,7 @@ import android.support.transition.Explode;
 import android.support.transition.Slide;
 import android.support.transition.Visibility;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -32,6 +33,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -53,15 +55,18 @@ import com.fightbackfoods.Utils;
 import com.fightbackfoods.adapter.FeedAdapter;
 import com.fightbackfoods.adapter.FeedItemAnimator;
 import com.fightbackfoods.interfaces.OnFragmentInteractionListener;
+import com.fightbackfoods.model.Article;
 import com.fightbackfoods.model.Journal;
 import com.fightbackfoods.model.Token;
 import com.fightbackfoods.model.User;
 import com.fightbackfoods.utils.TokenManager;
 import com.fightbackfoods.utils.Validate;
+import com.fightbackfoods.view.BlogPreviewLayout;
 import com.fightbackfoods.view.FeedContextMenu;
 import com.fightbackfoods.view.FeedContextMenuManager;
 import com.makeramen.roundedimageview.RoundedImageView;
 
+import java.io.Serializable;
 import java.util.Calendar;
 
 import butterknife.BindView;
@@ -71,7 +76,8 @@ public class MainActivity extends BaseDrawerActivity implements FeedAdapter.OnFe
         FeedContextMenu.OnFeedContextMenuItemClickListener,
         BottomNavigationView.OnNavigationItemSelectedListener,
         OnFragmentInteractionListener,
-        NavigationView.OnNavigationItemSelectedListener {
+        NavigationView.OnNavigationItemSelectedListener,
+        BlogPreviewLayout.ArticleListener   {
 
 
     private static final String TAG = MainActivity.class.getSimpleName();
@@ -142,7 +148,7 @@ public class MainActivity extends BaseDrawerActivity implements FeedAdapter.OnFe
         dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialog) {
-                replaceFragment(DashboardFragment.newInstance("para","para"));
+                replaceFragment(DashboardFragment.newInstance(0));
             }
         });
         ivClose.setOnClickListener(new View.OnClickListener() {
@@ -417,21 +423,33 @@ public class MainActivity extends BaseDrawerActivity implements FeedAdapter.OnFe
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         closeDrawer();
+        MyFragment fragment = (MyFragment) getSupportFragmentManager().findFragmentById(R.id.content_main);
 
         switch (item.getItemId()) {
             case R.id.nav_home:
-                replaceFragment(DashboardFragment.newInstance("para","para"));
+                if(fragment!=null&&fragment.getPos()==0)return true;
+                replaceFragmentWithAnimation(DashboardFragment.newInstance(0));
 
                 return true;
             case R.id.nav_food:
+                if(fragment!=null&&fragment.getPos()==1)return true;
 
-                replaceFragment(FoodFragment.newInstance("para","para"));
+                replaceFragmentWithAnimation(FoodFragment.newInstance(1));
                 return true;
             case R.id.nav_lifestyle:
+                if(fragment!=null&&fragment.getPos()==2)return true;
+                replaceFragmentWithAnimation(LifestyleFragment.newInstance(2));
 
+                return true;
+            case R.id.nav_education:
+                if(fragment!=null&&fragment.getPos()==3)return true;
+
+                replaceFragmentWithAnimation(EducationListFragment.newInstance(3));
                 return true;
 
             case R.id.nav_community:
+                if(fragment!=null&&fragment.getPos()==4)return true;
+                replaceFragmentWithAnimation(CommunityFragment.newInstance(4));
 
                 return true;
             case R.id.nav_food_nutrient_report:
@@ -467,6 +485,30 @@ public class MainActivity extends BaseDrawerActivity implements FeedAdapter.OnFe
 
     }
 
+    private void replaceFragmentWithAnimation(MyFragment fragment) {
+        replaceFragmentWithAnimation(fragment,"my_fragment");
+    }
+
+    public void replaceFragmentWithAnimation(MyFragment fragment, String tag){
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        MyFragment prevFrag = (MyFragment) getSupportFragmentManager().findFragmentById(R.id.content_main);
+
+        if(getSupportFragmentManager().getBackStackEntryCount() > 5) {
+
+            getSupportFragmentManager().popBackStack(); // remove one (you can also remove more)
+        }
+        if(prevFrag.getPos()>fragment.getPos()){
+            transaction.setCustomAnimations(R.anim.slide_in_from_left, R.anim.slide_out_to_right,
+                    R.anim.slide_in_from_right, R.anim.slide_out_to_left);
+        }else{
+            transaction.setCustomAnimations(R.anim.slide_in_from_right, R.anim.slide_out_to_left,
+                    R.anim.slide_in_from_left, R.anim.slide_out_to_right );
+        }
+
+        transaction.replace(R.id.content_main, fragment);
+        transaction.addToBackStack(tag);
+        transaction.commit();
+    }
 
     void replaceFragment(Fragment fragment){
         getSupportFragmentManager().beginTransaction()
@@ -477,7 +519,7 @@ public class MainActivity extends BaseDrawerActivity implements FeedAdapter.OnFe
 
 
     @Override
-    public void onFragmentInteraction(Uri uri) {
+    public void onFragmentInteraction(Object uri) {
 
     }
     private Visibility buildReturnTransition() {
@@ -486,4 +528,18 @@ public class MainActivity extends BaseDrawerActivity implements FeedAdapter.OnFe
         return enterTransition;
     }
 
+
+    @Override
+    public void onClick(Article article, View v) {
+        final Intent intent = new Intent(this, ArticleActivity.class);
+        int[] startingLocation = new int[2];
+        v.getLocationOnScreen(startingLocation);
+        Log.d(TAG, "onClick "+ String.valueOf(article ==null));
+        Log.d(TAG, "onClick "+ article.getTitle());
+        //ArticleActivity.setArticle(article);
+        intent.putExtra(ArticleActivity.ARG_DRAWING_START_LOCATION, startingLocation[1]);
+        intent.putExtra("article",  article);
+        startActivity(intent);
+        overridePendingTransition(0, 0);
+    }
 }

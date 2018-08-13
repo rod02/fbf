@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="5dp"
+    android:layout_marginEnd="10dp"
+    android:layout_marginStart="10dp"
+    android:layout_marginTop="5dp"
+    android:orientation="horizontal"
+    android:padding="@dimen/lay_regular_padding">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/lay_regular_margin">
+
+        <ImageView
+            android:id="@+id/iv_thumb"
+            android:layout_width="@dimen/educ_item_image_w"
+            android:layout_height="@dimen/educ_item_image_h"
+            android:layout_marginEnd="@dimen/lay_regular_margin"
+            android:layout_weight="0"
+            android:elevation="5dp"
+            android:scaleType="centerCrop"
+            app:srcCompat="@drawable/no_image" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:text="Food and Nutrition"
+                android:textAppearance="@style/TextAppearance.Title" />
+
+            <TextView
+                android:id="@+id/tv_desc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:lines="1"
+                android:maxLines="1"
+                android:text="TextView" />
+
+            <TextView
+                android:id="@+id/tv_total"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="200 Articles"
+                android:textAppearance="@style/TextAppearance.Sub" />
+        </LinearLayout>
+
+    </LinearLayout>
+</android.support.v7.widget.CardView>

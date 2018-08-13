@@ -1,5 +1,6 @@
 package com.fightbackfoods.interfaces;
 
+import com.fightbackfoods.api.ResponseArticle;
 import com.fightbackfoods.api.ResponseCancerStages;
 import com.fightbackfoods.api.ResponseCancerType;
 import com.fightbackfoods.api.ResponseFoodByGroup;
@@ -7,6 +8,7 @@ import com.fightbackfoods.api.ResponseFoodGroup;
 import com.fightbackfoods.api.ResponseFoodList;
 import com.fightbackfoods.api.ResponseHeightUnit;
 import com.fightbackfoods.api.ResponseMobility;
+import com.fightbackfoods.api.ResponseNutrients;
 import com.fightbackfoods.api.ResponseTreatment;
 import com.fightbackfoods.api.ResponseUser;
 import com.fightbackfoods.api.ResponseGender;
@@ -81,4 +83,9 @@ public interface ApiConnect {
     @GET("food/group/search")
     Call<ResponseFoodByGroup> foodGroupSearch(@QueryMap Map<String, String> map);
 
+    @GET("articles")
+    Call<ResponseArticle> articleFetchAll(@QueryMap Map<String, String> map);
+
+    @GET("food/report/v2")
+    Call<ResponseNutrients> foodReport(@QueryMap Map<String, String> map);
 }

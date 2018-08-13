@@ -110,45 +110,33 @@ public class BaseDrawerActivity extends BaseActivity {
     void closeDrawer() {
         drawerLayout.closeDrawer(GravityCompat.START);
     }
-}
 
-     /*@Override
-    public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
-    }*/
-/*
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
 
-            drawer.closeDrawer(GravityCompat.START);
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+
+            drawerLayout.closeDrawer(GravityCompat.START);
         } else {
-            if (getFragmentManager().getBackStackEntryCount() > 0) {
+            if (getFragmentManager().getBackStackEntryCount() > 1) {
                 getFragmentManager().popBackStack();
-            }
-            else{
-
+            } else {
+                super.onBackPressed();
+/*
                 long now = Calendar.getInstance().getTimeInMillis();
-                if(now - lastPressed < BACK_PRESSED_EXIT_THRESHOLD){
+                if (now - lastPressed < BACK_PRESSED_EXIT_THRESHOLD) {
                     super.onBackPressed();
                     return;
                 }
                 lastPressed = now;
-                Toast.makeText(MainActivity.this, R.string.prompt_double_back_exit, Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this, R.string.prompt_double_back_exit, Toast.LENGTH_LONG).show();*/
             }
 
         }
     }
 
+}
 
-*/
 
 

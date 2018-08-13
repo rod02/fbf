@@ -12,12 +12,13 @@ import android.widget.Button;
 
 import com.fightbackfoods.R;
 import com.fightbackfoods.interfaces.OnFragmentInteractionListener;
+import com.fightbackfoods.view.BlogPreviewLayout;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-public class FoodFragment extends Fragment implements View.OnClickListener {
+public class FoodFragment extends MyFragment implements View.OnClickListener {
     private static final String TAG = FoodFragment.class.getSimpleName();
 
     Unbinder unbinder;
@@ -25,16 +26,19 @@ public class FoodFragment extends Fragment implements View.OnClickListener {
     @BindView(R.id.btn_add_food)
     Button btnAddFood;
 
+    @BindView(R.id.article_preview)
+    BlogPreviewLayout blogPreviewLayout;
+
     private OnFragmentInteractionListener mListener;
 
     public FoodFragment() {
         // Required empty public constructor
     }
 
-    public static FoodFragment newInstance(String param1, String param2) {
+    public static FoodFragment newInstance(int id) {
         FoodFragment fragment = new FoodFragment();
         Bundle args = new Bundle();
-
+        args.putInt(TAG_KEY, id);
         fragment.setArguments(args);
         return fragment;
     }
@@ -43,7 +47,7 @@ public class FoodFragment extends Fragment implements View.OnClickListener {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-
+            pos = getArguments().getInt(TAG_KEY);
         }
     }
 
@@ -59,6 +63,8 @@ public class FoodFragment extends Fragment implements View.OnClickListener {
 
     private void setupLayout() {
         btnAddFood.setOnClickListener(this);
+        blogPreviewLayout.setArticleListener((BlogPreviewLayout.ArticleListener) getActivity());
+
     }
 
     public void onButtonPressed(Uri uri) {

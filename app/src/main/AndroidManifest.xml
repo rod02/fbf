@@ -85,7 +85,8 @@
             android:name=".activity.AddFoodActivity"
             android:label="@string/title_activity_add_food"
             android:theme="@style/AppTheme" />
-        <activity android:name=".activity.NutrientReportActivity"></activity>
+        <activity android:name=".activity.NutrientReportActivity" />
+        <activity android:name=".activity.ArticleActivity"></activity>
     </application>
 
 </manifest>

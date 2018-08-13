@@ -56,10 +56,10 @@
                                   <option name="values">
                                     <map>
                                       <entry key="assetType" value="IMAGE" />
-                                      <entry key="imageAsset" value="C:\Users\user\Documents\AndroidProject\FightBackFood\add_person.png" />
-                                      <entry key="outputName" value="ic_add_person" />
+                                      <entry key="imageAsset" value="C:\Users\user\Documents\AndroidProject\FightBackFood\ic_soul.png" />
+                                      <entry key="outputName" value="ic_soul" />
                                       <entry key="theme" value="CUSTOM" />
-                                      <entry key="themeColor" value="000000" />
+                                      <entry key="themeColor" value="ffffff" />
                                     </map>
                                   </option>
                                 </PersistentState>

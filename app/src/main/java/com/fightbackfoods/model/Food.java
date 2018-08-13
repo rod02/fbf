@@ -1,18 +1,21 @@
 package com.fightbackfoods.model;
 
 import com.fightbackfoods.Api;
+import com.fightbackfoods.App;
 import com.fightbackfoods.api.ResponseFoodByGroup;
 import com.fightbackfoods.api.ResponseFoodList;
+import com.fightbackfoods.api.ResponseNutrients;
 import com.fightbackfoods.interfaces.Item;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import retrofit2.Callback;
 
-public class Food implements Item {
+public class Food implements Item, Serializable {
 
     @SerializedName("offset")
     private String offset;
@@ -137,5 +140,11 @@ public class Food implements Item {
         map.put("query",query);
         map.put("offset", String.valueOf(offset));
         return map;
+    }
+
+    public static void report(String ndbno, Callback<ResponseNutrients> callback) {
+        Map<String, String> map = Token.toMap();
+        map.put("foodId", ndbno);
+        Api.getInstance().foodReport(map, callback);
     }
 }

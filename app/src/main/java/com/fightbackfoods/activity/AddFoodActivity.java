@@ -35,6 +35,7 @@ import com.fightbackfoods.view.SpinnerFoodGroup;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -191,6 +192,7 @@ public class AddFoodActivity extends BaseActivity2 implements OnItemClick<Item> 
     private void search() {
         switch (spFoodGroup.getSelectedItemPosition()){
             case 0:
+                if(query.equals(""))return;
                 Food.search(query,offset,callback);
                 break;
             default:
@@ -303,5 +305,11 @@ public class AddFoodActivity extends BaseActivity2 implements OnItemClick<Item> 
         Visibility enterTransition = new Explode();
         enterTransition.setDuration(getResources().getInteger(R.integer.anim_duration_long));
         return enterTransition;
+    }
+
+
+    @OnClick(R.id.btn_quick_add)
+    public void quickAdd(View v) {
+        Log.d(TAG, "quickAdd");
     }
 }

@@ -22,6 +22,8 @@ import butterknife.BindView;
 
 
 public class BaseActivity extends AppCompatActivity {
+    public static final String ARG_DRAWING_START_LOCATION = "arg_drawing_start_location";
+    public int drawingStartLocation;
 
     @Nullable
     @BindView(R.id.toolbar)

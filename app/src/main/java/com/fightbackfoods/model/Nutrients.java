@@ -1,13 +1,14 @@
 package com.fightbackfoods.model;
 
+import com.fightbackfoods.interfaces.Item;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class Nutrients {
+public class Nutrients implements Item{
 
     @SerializedName("nutrient_id")
-    private String nutrient_id;
+    private String id;
 
     @SerializedName("name")
     private String name;
@@ -29,16 +30,39 @@ public class Nutrients {
     @SerializedName("measures")
     private List<Measure> measures;
 
-    public String getNutrient_id() {
-        return nutrient_id;
+    @SerializedName("nutrient_label")
+    private String label;
+
+    public String getLabel() {
+        return label;
     }
 
-    public void setNutrient_id(String nutrient_id) {
-        this.nutrient_id = nutrient_id;
+    public void setLabel(String label) {
+        this.label = label;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    @Override
+    public String getId() {
+        return id;
     }
 
     public String getName() {
         return name;
+    }
+
+    @Override
+    public String getDescription() {
+        try {
+            return value.concat(unit);
+
+        }catch (NullPointerException e){
+            e.printStackTrace();
+        }
+        return "";
     }
 
     public void setName(String name) {

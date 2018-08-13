@@ -25,7 +25,6 @@ import butterknife.BindView;
 
 
 public class CommentsActivity extends BaseDrawerActivity implements SendCommentButton.OnSendClickListener {
-    public static final String ARG_DRAWING_START_LOCATION = "arg_drawing_start_location";
 
     @BindView(R.id.contentRoot)
     LinearLayout contentRoot;
