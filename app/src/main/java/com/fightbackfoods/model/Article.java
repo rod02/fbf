@@ -7,12 +7,13 @@ import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import retrofit2.Callback;
 
 public class Article implements Serializable {
 
-    private static List<Article> cache = new ArrayList<>();
+    private static List<Article> featuredCache = new ArrayList<>();
 
     @SerializedName("article_id")
     String id;
@@ -115,13 +116,17 @@ public class Article implements Serializable {
         this.updatedAt = updatedAt;
     }
 
-    public static void fetchAll(Callback<ResponseArticle> callback) {
+    public static void featured(Callback<ResponseArticle> callback) {
         try {
-            if(cache.isEmpty())
-                Api.getInstance().articleFetchAll(callback);
+            Map<String, String> map = Token.toMap();
+            map.put("articleTypeId", TYPE.EDUCATION);
+            map.put("featured", "1");
+
+            if(featuredCache.isEmpty())
+                Api.getInstance().articles(map, callback);
         }catch (NullPointerException e){
             e.printStackTrace();
-            cache = new ArrayList<>();
+            featuredCache = new ArrayList<>();
             Api.getInstance().articleFetchAll(callback);
         }
 
@@ -129,14 +134,26 @@ public class Article implements Serializable {
 
     public static void setCache(List<Article> articles) {
         try {
-            cache.clear();
-            cache.addAll(articles);
+            featuredCache.clear();
+            featuredCache.addAll(articles);
         }catch (NullPointerException e){
             e.printStackTrace();
         }
     }
 
-    public static List<Article> getCache() {
-        return cache;
+    public static List<Article> getFeaturedCache() {
+        return featuredCache;
     }
+
+    public static void setFeaturedCache(List<Article> featuredCache) {
+        Article.featuredCache = featuredCache;
+    }
+
+    public static class TYPE {
+        public String id;
+        public static final String EDUCATION ="1";
+        public static final String RECIPE ="2";
+
+    }
+
 }

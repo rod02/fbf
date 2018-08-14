@@ -1,6 +1,7 @@
 package com.fightbackfoods.model;
 
 import com.fightbackfoods.interfaces.Item;
+import com.fightbackfoods.utils.TextUtils;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
@@ -57,6 +58,7 @@ public class Nutrients implements Item{
     @Override
     public String getDescription() {
         try {
+
             return value.concat(unit);
 
         }catch (NullPointerException e){
@@ -107,5 +109,15 @@ public class Nutrients implements Item{
 
     public void setMeasures(List<Measure> measures) {
         this.measures = measures;
+    }
+
+    public String getValue(String label, int serving) {
+        for (Measure m : getMeasures()) {
+           if( m.getLabel().equals(label)){
+               return String.valueOf(serving * TextUtils.parseDouble(m.getValue())).concat(unit);
+           }
+        }
+        return "0".concat(unit);
+
     }
 }

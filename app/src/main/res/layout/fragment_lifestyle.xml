@@ -17,10 +17,10 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <com.fightbackfoods.view.BlogPreviewLayout
+            <com.fightbackfoods.view.ArticleFeatured
                 android:id="@+id/article_preview"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/lay_regular_margin"
                 android:layout_weight="0" />
 

@@ -2,6 +2,7 @@ package com.fightbackfoods.model;
 
 import com.fightbackfoods.Api;
 import com.fightbackfoods.App;
+import com.fightbackfoods.api.ResponseDiet;
 import com.fightbackfoods.api.ResponseFoodByGroup;
 import com.fightbackfoods.api.ResponseFoodList;
 import com.fightbackfoods.api.ResponseNutrients;
@@ -67,7 +68,7 @@ public class Food implements Item, Serializable {
 
     @Override
     public String getId() {
-        return "0";
+        return getNdbno();
     }
 
     public String getName() {
@@ -146,5 +147,14 @@ public class Food implements Item, Serializable {
         Map<String, String> map = Token.toMap();
         map.put("foodId", ndbno);
         Api.getInstance().foodReport(map, callback);
+    }
+
+    public static void dietAdd(String foodId, String measureLabel, String serving, Callback<ResponseDiet> callback) {
+        Map<String, String> map = Token.toMap();
+        map.put("foodId", foodId);
+        map.put("measure_label", measureLabel);
+        map.put("serving", serving);
+        Api.getInstance().userDietAdd(map, callback);
+
     }
 }

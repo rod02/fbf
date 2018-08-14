@@ -21,4 +21,23 @@ public class Validate {
             return "";
         }
     }
+
+    public static boolean isNullString(String s) {
+        try {
+            return (s == null || s.equals("") || s.equals("null"));
+        }catch (NullPointerException e){
+            return true;
+        }
+    }
+
+    public static String path(String path) {
+        try {
+            String http = "http://";
+            if (path.contains(http)) return path;
+            else path = http.concat(path);
+            return path;
+        } catch (NullPointerException e) {
+            return path;
+        }
+    }
 }

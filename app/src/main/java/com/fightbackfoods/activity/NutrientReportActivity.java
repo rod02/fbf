@@ -6,7 +6,9 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
 import android.text.SpannableString;
+import android.text.TextWatcher;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
@@ -14,14 +16,22 @@ import android.transition.Visibility;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.fightbackfoods.R;
+import com.fightbackfoods.adapter.NutrientMeasurementAdapter;
 import com.fightbackfoods.adapter.NutrientWeightAdapter;
+import com.fightbackfoods.api.ResponseDiet;
 import com.fightbackfoods.api.ResponseNutrients;
 import com.fightbackfoods.model.Food;
+import com.fightbackfoods.model.Measure;
 import com.fightbackfoods.model.Nutrients;
+import com.fightbackfoods.view.SpinnerNutrientMeasure;
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
@@ -53,16 +63,20 @@ public class NutrientReportActivity extends BaseActivity2 implements OnChartValu
     Typeface mTfLight,mTfRegular;
 
 
+    @BindView(R.id.iv_save)
+    ImageView ivSave;
     @BindView(R.id.tv_food_name)
     TextView tvName;
-    @BindView(R.id.tv_no_of_servings)
-    TextView tvNoServings;
-    @BindView(R.id.tv_servings_size)
-    TextView tvServingSize;
+    @BindView(R.id.et_servings)
+    EditText etServings;
+
+    @BindView(R.id.sp_nutrient_measure)
+    SpinnerNutrientMeasure spNutrientMeasure;
 
     @BindView(R.id.rv_list)
     RecyclerView rvList;
-
+    NutrientWeightAdapter weightAdapter;
+    NutrientMeasurementAdapter measurementAdapter;
 
     Food food;
     List<Nutrients> nutrients = new ArrayList<>();
@@ -96,8 +110,7 @@ public class NutrientReportActivity extends BaseActivity2 implements OnChartValu
                         Log.d(TAG,"onResponse success" );
 
                     nutrients = rs.getNutrients();
-                    setList(nutrients);
-
+                    setupMeasurements(nutrients);
                 }catch (NullPointerException e){
                     e.printStackTrace();
                 }
@@ -111,9 +124,17 @@ public class NutrientReportActivity extends BaseActivity2 implements OnChartValu
         });
     }
 
-    private void setList(List<Nutrients> nutrients) {
-        final NutrientWeightAdapter adapter = new NutrientWeightAdapter((List)nutrients);
-        rvList.setAdapter(adapter);
+    private void setupMeasurements(List<Nutrients> nutrients) {
+        measurementAdapter = new NutrientMeasurementAdapter(nutrients.get(0).getMeasures());
+        spNutrientMeasure.setAdapter(measurementAdapter);
+        setNutrientsWeight(nutrients);
+    }
+
+    private void setNutrientsWeight(List<Nutrients> nutrients) {
+        weightAdapter = new NutrientWeightAdapter(nutrients,
+                Integer.parseInt(etServings.getText().toString()),
+                spNutrientMeasure.getSelectedLabel());
+        rvList.setAdapter(weightAdapter);
         rvList.setLayoutManager(new LinearLayoutManager(NutrientReportActivity.this));
         rvList.setHasFixedSize(true);//every item of the RecyclerView has a fix size
         rvList.post(new Runnable() {
@@ -192,9 +213,55 @@ public class NutrientReportActivity extends BaseActivity2 implements OnChartValu
                 getNutrientReport();
             }
         });
+        etServings.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                Log.d(TAG, "beforeTextChanged "+s);
+                Log.d(TAG, "beforeTextChanged "+start +" "+ count+ " " +after);
 
+                etServings.append("");
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                Log.d(TAG, "onTextChanged "+s);
+                //etSearch.postDelayed(sendQuery, REQUEST_DELAY);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                Log.d(TAG, "afterTextChanged "+s);
+                String n = s.toString().trim();
+                if(n.equals(""))return;
+                if(weightAdapter!=null)weightAdapter.setServing(Integer.parseInt(n));
+
+            }
+        });
+        etServings.setOnKeyListener(new View.OnKeyListener() {
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                    if(weightAdapter!=null)weightAdapter.setServing(Integer.parseInt(etServings.getText().toString()));
+                    ivSave.requestFocus();
+                    hideKeyboard();
+                    return true;
+                }
+                return false;
+            }
+        });
+        spNutrientMeasure.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                //Measure m =(  (NutrientMeasurementAdapter) spNutrientMeasure.getAdapter()).getItem(position);
+                if(weightAdapter!=null)weightAdapter.setLabel(spNutrientMeasure.getSelectedLabel());
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
-
 
     private void setupWindowAnimations() {
         getWindow().setEnterTransition(enterTransition());
@@ -208,14 +275,57 @@ public class NutrientReportActivity extends BaseActivity2 implements OnChartValu
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                toolbar.setVisibility(View.GONE);
-                Visibility returnTransition = returnTransition();
-                getWindow().setReturnTransition(returnTransition);
-
-                finishAfterTransition();
+                done();
             }
         });
         toolbar.setTitle(getString(R.string.title_nutrient_report));
+        ivSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG, " diet add save ");
+
+                save();
+            }
+        });
+    }
+
+    private void save() {
+        Log.d(TAG, " save "+food.getId()
+                + " \n" +spNutrientMeasure.getSelectedLabel()
+                + " \n" +etServings.getText().toString());
+
+        Food.dietAdd(food.getId(), spNutrientMeasure.getSelectedLabel(), etServings.getText().toString(),
+                new Callback<ResponseDiet>() {
+            @Override
+            public void onResponse(Call<ResponseDiet> call, Response<ResponseDiet> response) {
+                Log.d(TAG, " diet add onResponse "+response.toString());
+                try{
+                    if(response.isSuccessful()){
+                        ResponseDiet rs = response.body();
+                        if(rs.isSuccessful()){
+                            Toast.makeText(NutrientReportActivity.this, R.string.diet_add_successful, Toast.LENGTH_SHORT).show();
+                            done();
+                        }
+                    }
+                }catch (NullPointerException e){
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<ResponseDiet> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
+    }
+
+    private void done() {
+        toolbar.setVisibility(View.GONE);
+        Visibility returnTransition = returnTransition();
+        getWindow().setReturnTransition(returnTransition);
+
+        finishAfterTransition();
     }
 
 

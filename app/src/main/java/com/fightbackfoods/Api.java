@@ -7,6 +7,7 @@ import com.fightbackfoods.api.Response;
 import com.fightbackfoods.api.ResponseArticle;
 import com.fightbackfoods.api.ResponseCancerStages;
 import com.fightbackfoods.api.ResponseCancerType;
+import com.fightbackfoods.api.ResponseDiet;
 import com.fightbackfoods.api.ResponseFoodByGroup;
 import com.fightbackfoods.api.ResponseFoodGroup;
 import com.fightbackfoods.api.ResponseFoodList;
@@ -20,12 +21,14 @@ import com.fightbackfoods.interfaces.ApiConnect;
 import com.fightbackfoods.api.ResponseUser;
 import com.fightbackfoods.api.ResponseGender;
 import com.fightbackfoods.model.Token;
+import com.google.gson.GsonBuilder;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Retrofit;
@@ -65,7 +68,8 @@ public class Api {
         retrofit = new Retrofit.Builder()
                 .client(client)
                 .baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
+               // .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().setLenient().create()))
                 .build();
         apiConnect = retrofit.create(ApiConnect.class);
     }
@@ -180,5 +184,14 @@ public class Api {
 
     public void foodReport(Map<String, String> map, Callback<ResponseNutrients> callback) {
         apiConnect.foodReport(map).enqueue(callback);
+    }
+
+    public void articles(Map<String, String> map, Callback<ResponseArticle> callback) {
+        apiConnect.articles(map).enqueue(callback);
+    }
+
+    public void userDietAdd(Map<String, String> map, Callback<ResponseDiet> callback) {
+        apiConnect.userDietAdd(map).enqueue(callback);
+
     }
 }

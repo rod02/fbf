@@ -8,22 +8,32 @@ import android.widget.TextView;
 
 import com.fightbackfoods.R;
 import com.fightbackfoods.interfaces.Item;
+import com.fightbackfoods.model.Nutrients;
+import com.fightbackfoods.utils.Validate;
 
 import java.util.List;
 
 public class NutrientWeightAdapter extends RecyclerView.Adapter<NutrientWeightAdapter.ViewHolder> {
 
-    private final List<Item> data;
+    private final List<Nutrients> data;
     private OnItemClick onItemClick;
 
-    public NutrientWeightAdapter(List<Item> data) {
+    private int serving;
+    private String label;
+
+
+    public NutrientWeightAdapter(List<Nutrients> data) {
         this(data,null);
     }
-    public NutrientWeightAdapter(List<Item> data, OnItemClick onItemClick){
+    public NutrientWeightAdapter(List<Nutrients> data, OnItemClick onItemClick){
         this.data = data;
         this.onItemClick = onItemClick;
     }
-
+    public NutrientWeightAdapter(List<Nutrients> data, int serving, String label){
+        this.data = data;
+        this.serving = serving;
+        this.label = label;
+    }
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_nutrient_weight, parent, false);
@@ -32,9 +42,9 @@ public class NutrientWeightAdapter extends RecyclerView.Adapter<NutrientWeightAd
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-        Item item  = data.get(position);
+        Nutrients item  = data.get(position);
         holder.tvName.setText(item.getName());
-        holder.tvWeight.setText(item.getDescription());
+        holder.tvWeight.setText(item.getValue(label, serving));
         holder.item=item;
     }
 
@@ -46,11 +56,34 @@ public class NutrientWeightAdapter extends RecyclerView.Adapter<NutrientWeightAd
     public Item getItem(int position){
         return data.get(position);
     }
-    public void add(List<Item> items) {
+    public void add(List<Nutrients> items) {
         int previousDataSize = this.data.size();
         this.data.addAll(items);
         notifyItemRangeInserted(previousDataSize, items.size());
     }
+
+    public int getServing() {
+        return serving;
+    }
+
+    public void setServing(int serving) {
+        if(serving==this.serving)return;
+        this.serving = serving;
+        notifyDataSetChanged();
+    }
+
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String label) {
+        if(Validate.isNullString(label))return;
+        if(label.equals(this.label)) return;
+        this.label = label;
+        notifyDataSetChanged();
+    }
+
+
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView tvName;
@@ -72,4 +105,7 @@ public class NutrientWeightAdapter extends RecyclerView.Adapter<NutrientWeightAd
             });
         }
     }
+
+
+
 }

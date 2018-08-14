@@ -123,7 +123,7 @@ public class AddFoodActivity extends BaseActivity2 implements OnItemClick<Item> 
                 Log.d(TAG, "search onresponse "+ response.toString());
                 if(!response.isSuccessful())return;
                 ResponseFoodList resp = response.body();
-                if(!resp.isSuccessful()) return;
+//                if(!resp.isSuccessful()) return;
                 Log.d(TAG, "search onresponse listSize "+ resp.getFoodList().size());
                 final SimpleAdapter adapter = new SimpleAdapter((List)resp.getFoodList(),AddFoodActivity.this);
                 rvList.setAdapter(adapter);
@@ -196,7 +196,11 @@ public class AddFoodActivity extends BaseActivity2 implements OnItemClick<Item> 
                 Food.search(query,offset,callback);
                 break;
             default:
-                Food.searchByGroup(query,offset, spFoodGroup.getSelectedId(),callbackGroup);
+                try {
+                    Food.searchByGroup(query,offset, spFoodGroup.getSelectedId(),callbackGroup);
+                }catch (NullPointerException e){
+                    e.printStackTrace();
+                }
                 break;
         }
     }
@@ -251,6 +255,7 @@ public class AddFoodActivity extends BaseActivity2 implements OnItemClick<Item> 
     @Override
     public void onItemClick(Item item, int position, long id) {
         Log.d(TAG, "onItemClick  "+ item.getName());
+        hideKeyboard();
         openNutrientReports((Food) item);
 
     }

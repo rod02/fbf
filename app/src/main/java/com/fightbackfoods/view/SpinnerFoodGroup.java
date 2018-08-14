@@ -67,7 +67,8 @@ public class SpinnerFoodGroup extends android.support.v7.widget.AppCompatSpinner
         }
     };
 
-    public String getSelectedId() {
+    public String getSelectedId() throws NullPointerException{
+
        return
                ((SpinnerSimpleAdapter) getAdapter()).getItemIdAt(getSelectedItemPosition());
     }

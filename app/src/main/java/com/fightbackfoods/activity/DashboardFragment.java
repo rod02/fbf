@@ -11,7 +11,7 @@ import android.widget.Button;
 
 import com.fightbackfoods.R;
 import com.fightbackfoods.interfaces.OnFragmentInteractionListener;
-import com.fightbackfoods.view.BlogPreviewLayout;
+import com.fightbackfoods.view.ArticleFeatured;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -25,7 +25,7 @@ public class DashboardFragment extends MyFragment {
     Unbinder unbinder;
 
     @BindView(R.id.article_preview)
-    BlogPreviewLayout blogPreviewLayout;
+    ArticleFeatured ArticleFeatured;
 
     public DashboardFragment() {
         // Required empty public constructor
@@ -59,7 +59,7 @@ public class DashboardFragment extends MyFragment {
     }
 
     private void setupLayout() {
-        blogPreviewLayout.setArticleListener((BlogPreviewLayout.ArticleListener) getActivity());
+        ArticleFeatured.setArticleListener((ArticleFeatured.ArticleListener) getActivity());
 
     }
 

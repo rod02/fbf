@@ -1,8 +1,10 @@
 package com.fightbackfoods.interfaces;
 
+import com.fightbackfoods.api.Response;
 import com.fightbackfoods.api.ResponseArticle;
 import com.fightbackfoods.api.ResponseCancerStages;
 import com.fightbackfoods.api.ResponseCancerType;
+import com.fightbackfoods.api.ResponseDiet;
 import com.fightbackfoods.api.ResponseFoodByGroup;
 import com.fightbackfoods.api.ResponseFoodGroup;
 import com.fightbackfoods.api.ResponseFoodList;
@@ -17,6 +19,7 @@ import com.fightbackfoods.api.ResponseWeightUnit;
 
 import java.util.Map;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
@@ -88,4 +91,11 @@ public interface ApiConnect {
 
     @GET("food/report/v2")
     Call<ResponseNutrients> foodReport(@QueryMap Map<String, String> map);
+
+    @GET("articles")
+    Call<ResponseArticle> articles(@QueryMap Map<String, String> map);
+
+    @FormUrlEncoded
+    @POST("user/diet/add")
+    Call<ResponseDiet> userDietAdd(@FieldMap Map<String, String> map);
 }

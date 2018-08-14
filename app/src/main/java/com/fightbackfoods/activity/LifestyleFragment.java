@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 
 import com.fightbackfoods.R;
 import com.fightbackfoods.interfaces.OnFragmentInteractionListener;
-import com.fightbackfoods.view.BlogPreviewLayout;
+import com.fightbackfoods.view.ArticleFeatured;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -24,7 +24,7 @@ public class LifestyleFragment extends MyFragment {
     Unbinder unbinder;
 
     @BindView(R.id.article_preview)
-    BlogPreviewLayout blogPreviewLayout;
+    ArticleFeatured ArticleFeatured;
 
     public LifestyleFragment() {
         // Required empty public constructor
@@ -45,7 +45,7 @@ public class LifestyleFragment extends MyFragment {
         // Inflate the layout for this fragment
          View view = inflater.inflate(R.layout.fragment_lifestyle, container, false);
         unbinder = ButterKnife.bind(this, view);
-        blogPreviewLayout.setArticleListener((BlogPreviewLayout.ArticleListener) getActivity());
+        ArticleFeatured.setArticleListener((ArticleFeatured.ArticleListener) getActivity());
         return view;
     }
 

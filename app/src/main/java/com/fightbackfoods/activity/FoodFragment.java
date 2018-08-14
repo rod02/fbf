@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +11,8 @@ import android.widget.Button;
 
 import com.fightbackfoods.R;
 import com.fightbackfoods.interfaces.OnFragmentInteractionListener;
-import com.fightbackfoods.view.BlogPreviewLayout;
+import com.fightbackfoods.view.ArticleFeatured;
+
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -26,8 +26,10 @@ public class FoodFragment extends MyFragment implements View.OnClickListener {
     @BindView(R.id.btn_add_food)
     Button btnAddFood;
 
+    @BindView(R.id.btn_add_drink)
+    Button btnAddDrink;
     @BindView(R.id.article_preview)
-    BlogPreviewLayout blogPreviewLayout;
+    ArticleFeatured blogPreviewLayout;
 
     private OnFragmentInteractionListener mListener;
 
@@ -63,7 +65,8 @@ public class FoodFragment extends MyFragment implements View.OnClickListener {
 
     private void setupLayout() {
         btnAddFood.setOnClickListener(this);
-        blogPreviewLayout.setArticleListener((BlogPreviewLayout.ArticleListener) getActivity());
+        btnAddDrink.setOnClickListener(this);
+        blogPreviewLayout.setArticleListener((ArticleFeatured.ArticleListener) getActivity());
 
     }
 
@@ -107,6 +110,9 @@ public class FoodFragment extends MyFragment implements View.OnClickListener {
             case R.id.btn_add_food:
                 addFood(v);
                 break;
+            case R.id.btn_add_drink:
+                addDrink(v);
+                break;
                 default:
                     break;
 
@@ -117,8 +123,10 @@ public class FoodFragment extends MyFragment implements View.OnClickListener {
     public void addFood(View v) {
         Intent i = new Intent(getActivity(), AddFoodActivity.class);
         ((BaseActivity)getActivity()).transitionTo(i);
-
-
+    }
+    public void addDrink(View v) {
+        Intent i = new Intent(getActivity(), AddDrinkActivity.class);
+        ((BaseActivity)getActivity()).transitionTo(i);
     }
 
 

@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fightbackfoods.R;
@@ -17,9 +19,15 @@ import com.fightbackfoods.activity.MainActivity;
 import com.fightbackfoods.activity.NutrientReportActivity;
 import com.fightbackfoods.api.ResponseArticle;
 import com.fightbackfoods.model.Article;
+import com.fightbackfoods.utils.Validate;
 import com.smarteist.autoimageslider.SliderLayout;
 import com.smarteist.autoimageslider.SliderView;
 
+import org.w3c.dom.Text;
+
+import java.util.List;
+
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import retrofit2.Call;
@@ -27,9 +35,14 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class BlogPreviewLayout extends SliderLayout {
-    private static final String TAG = BlogPreviewLayout.class.getSimpleName();
-
+public class ArticleFeatured extends LinearLayout {
+    private static final String TAG = ArticleFeatured.class.getSimpleName();
+    @BindView(R.id.slider)
+    SliderLayout slider;
+    @BindView(R.id.tv_content)
+    TextView tvContent;
+    @BindView(R.id.pb)
+    ProgressBar pb;
     public ArticleListener getArticleListener() {
         return articleListener;
     }
@@ -48,31 +61,84 @@ public class BlogPreviewLayout extends SliderLayout {
 
     private ArticleListener articleListener;
 
-    public BlogPreviewLayout(Context context) {
+    public ArticleFeatured(Context context) {
         super(context);
-        setLayout();
+        init();
+
     }
-    public BlogPreviewLayout(Context context, AttributeSet attrs) {
+    public ArticleFeatured(Context context, AttributeSet attrs) {
         super(context, attrs);
-        setLayout();
+        init();
     }
 
-    public BlogPreviewLayout(Context context, AttributeSet attrs, int defStyleAttr) {
+    public ArticleFeatured(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        init();
+    }
+
+
+    private void init() {
+        LayoutInflater.from(getContext()).inflate(R.layout.view_article_featured, this, true);
+        ButterKnife.bind(this);
+
+        // setBackgroundResource(R.drawable.bg_container_shadow);
+      //  setOrientation(VERTICAL);
         setLayout();
     }
 
     private void setLayout() {
-        Article.fetchAll(callback);
+        Article.featured(callback);
         Context context = getContext();
         if(context instanceof MainActivity ){
             articleListener = (MainActivity) context;
         }
-        setIndicatorAnimation(SliderLayout.Animations.FILL); //set indicator animation by using SliderLayout.Animations. :WORM or THIN_WORM or COLOR or DROP or FILL or NONE or SCALE or SCALE_DOWN or SLIDE and SWAP!!
-        setScrollTimeInSec(3); //set scroll delay in seconds :
+        slider.setIndicatorAnimation(SliderLayout.Animations.FILL); //set indicator animation by using SliderLayout.Animations. :WORM or THIN_WORM or COLOR or DROP or FILL or NONE or SCALE or SCALE_DOWN or SLIDE and SWAP!!
+        slider.setScrollTimeInSec(3); //set scroll delay in seconds :
 
-        setSliderViews();
+        setSliderViews(Article.getFeaturedCache());
     }
+
+
+
+
+
+    private void setSliderViews(List<Article> featuredCache) {
+
+        if(featuredCache==null && featuredCache.isEmpty())return;
+        Log.d(TAG, "featured articles size " +featuredCache.size());
+
+        for (final Article a: featuredCache) {
+            SliderView sliderView = new SliderView(getContext());
+            String imagePath = a.getFeaturedImage();
+            if(!Validate.isNullString(imagePath)){
+                imagePath= Validate.path(imagePath);
+                sliderView.setImageUrl(imagePath);
+                Log.d(TAG, "featured article " +a.getTitle() );
+                Log.d(TAG, "featured article " +imagePath );
+
+            }else{
+                sliderView.setImageUrl("http://www.csum.edu/image/image_gallery?uuid=1478318c-a254-4b2f-95c5-435844baff89&groupId=4329369");
+            }
+            sliderView.setImageScaleType(ImageView.ScaleType.CENTER_CROP);
+            sliderView.setDescription(a.getTitle());
+           // sliderView.setDescriptionTextSize(8f);
+            sliderView.setOnSliderClickListener(new SliderView.OnSliderClickListener() {
+                @Override
+                public void onSliderClick(SliderView sliderView) {
+                    Log.d(TAG,"onSliderClick " );
+                    if(articleListener!=null && !Article.getFeaturedCache().isEmpty()){
+                        articleListener.onClick(a, (View) ArticleFeatured.this);
+                    }else
+                        Toast.makeText(getContext(), "Article " + a.getTitle(), Toast.LENGTH_SHORT).show();
+
+                }
+            });
+            tvContent.setText(a.getContent());
+            //at last add this view in your layout :
+            slider.addSliderView(sliderView);
+        }
+    }
+    
     private void setSliderViews() {
 
         for (int i = 0; i <= 3; i++) {
@@ -106,8 +172,8 @@ public class BlogPreviewLayout extends SliderLayout {
                 @Override
                 public void onSliderClick(SliderView sliderView) {
                     Log.d(TAG,"onSliderClick " +finalI + 1);
-                    if(articleListener!=null && !Article.getCache().isEmpty()){
-                        articleListener.onClick(Article.getCache().get(0), (View) BlogPreviewLayout.this);
+                    if(articleListener!=null && !Article.getFeaturedCache().isEmpty()){
+                        articleListener.onClick(Article.getFeaturedCache().get(0), (View) ArticleFeatured.this);
                     }else
                         Toast.makeText(getContext(), "This is slider " + (finalI + 1), Toast.LENGTH_SHORT).show();
 
@@ -115,7 +181,7 @@ public class BlogPreviewLayout extends SliderLayout {
             });
 
             //at last add this view in your layout :
-            addSliderView(sliderView);
+            slider.addSliderView(sliderView);
         }
     }
 
@@ -125,18 +191,23 @@ public class BlogPreviewLayout extends SliderLayout {
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
-        ButterKnife.bind(this);
     }
 
     Callback<ResponseArticle> callback = new Callback<ResponseArticle>() {
         @Override
         public void onResponse(Call<ResponseArticle> call, Response<ResponseArticle> response) {
             try {
-                Log.d(TAG, "fetch articles onResponse" );
+                Log.d(TAG, "fetch articles onResponse "+response.toString() );
+
                 if(response.isSuccessful()) {
                     ResponseArticle rs = response.body();
                     if(rs.isSuccessful()){
-                        Article.setCache(rs.getArticles());
+                        Log.d(TAG, "featured articles set" );
+                        pb.setVisibility(View.GONE);
+                        slider.removeAllViews();
+                        Article.setFeaturedCache(rs.getArticles());
+
+                        setSliderViews(Article.getFeaturedCache());
                     }else{
                         Log.d(TAG, "fetch articles failed2 "+ rs.getMessage() );
 
@@ -155,6 +226,7 @@ public class BlogPreviewLayout extends SliderLayout {
             t.printStackTrace();
         }
     };
+
 
     public interface ArticleListener {
         void onClick(Article article, View v);

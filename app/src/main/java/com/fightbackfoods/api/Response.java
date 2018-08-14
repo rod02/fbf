@@ -22,6 +22,9 @@ public class Response {
     @SerializedName("error_messages")
     @Expose
     List<String> errorMessages;
+    @SerializedName("error_message")
+    @Expose
+    List<String> errorMessage;
 
     @SerializedName("required")
     @Expose

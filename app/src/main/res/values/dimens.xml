@@ -88,5 +88,8 @@
     <dimen name="text_xx_small">9sp</dimen>
     <dimen name="text_x_small">10sp</dimen>
     <dimen name="item_article_preview_height">150dp</dimen>
+    <dimen name="drink_image">100dp</dimen>
+    <dimen name="add_drink_edittext_width">60dp</dimen>
+    <dimen name="add_drink_default_text_size">10sp</dimen>
 
 </resources>
