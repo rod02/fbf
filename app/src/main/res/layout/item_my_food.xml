@@ -18,12 +18,11 @@
             android:id="@+id/tv_my_food_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0"
+            android:layout_weight="1"
             android:text="@string/rice_and_beans"
-            android:textColor="@color/black"/>
+            android:textColor="@color/black" />
 
         <TextView
-            android:id="@+id/textView7"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0"
@@ -35,8 +34,6 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
             android:layout_weight="1"
-            android:ellipsize="end"
-            android:maxLines="1"
             android:text="@string/food_qty_sample"
             android:textColor="@android:color/darker_gray"
             android:textSize="@dimen/item_my_food_qty_text"
@@ -49,7 +46,8 @@
             android:layout_weight="0"
             android:text="B"
             android:textColor="@color/orange"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            android:visibility="gone" />
     </LinearLayout>
 
 

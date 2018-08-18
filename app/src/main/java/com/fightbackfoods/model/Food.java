@@ -126,7 +126,7 @@ public class Food implements Item, Serializable {
 
     public static void search(String query, int offset, Callback<ResponseFoodList> callback) {
         Map<String, String> map = Token.toMap();
-        map.put("query",query);
+        map.put("q",query);
         map.put("offset", String.valueOf(offset));
         Api.getInstance().foodSearch(map,callback);
     }
@@ -152,7 +152,7 @@ public class Food implements Item, Serializable {
     public static void dietAdd(String foodId, String measureLabel, String serving, Callback<ResponseDiet> callback) {
         Map<String, String> map = Token.toMap();
         map.put("foodId", foodId);
-        map.put("measure_label", measureLabel);
+        map.put("measureLabel", measureLabel);
         map.put("serving", serving);
         Api.getInstance().userDietAdd(map, callback);
 

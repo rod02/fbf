@@ -85,10 +85,15 @@
             android:name=".activity.AddFoodActivity"
             android:label="@string/title_activity_add_food"
             android:theme="@style/AppTheme" />
-        <activity android:name=".activity.NutrientReportActivity"
-            android:windowSoftInputMode="stateHidden"/>
+        <activity
+            android:name=".activity.NutrientReportActivity"
+            android:windowSoftInputMode="stateHidden" />
         <activity android:name=".activity.ArticleActivity" />
-        <activity android:name=".activity.AddDrinkActivity"></activity>
+        <activity android:name=".activity.BannerActivity" />
+        <activity android:name=".activity.AddDrinkActivity" />
+        <activity android:name=".activity.SummaryActivity" />
+        <activity android:name=".activity.FoodDetailActivity" />
+        <activity android:name=".activity.LifestyleDetailsActivity"></activity>
     </application>
 
 </manifest>

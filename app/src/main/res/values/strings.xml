@@ -176,5 +176,30 @@ Take cancer prevention into your own hands, starting today. The rewards will las
     <string name="change_unit">Change Unit</string>
     <string name="measures_label_n_unit_n_value">%1$s (%2$.2f%3$s)</string>
     <string name="diet_add_successful">Food Added to Diet</string>
+    <string name="title_daily_summary">Daily Summary</string>
+    <string name="today">Today</string>
+    <string name="good_job">Good Job</string>
+    <string name="keep_it_up_click_for_recipes">Keep it up. Click for more recipes</string>
+    <string name="calories_underlined"><u>Calories:</u></string>
+    <string name="protein_underlined"><u>Protein:</u></string>
+    <string name="water_underlined"><u>Water:</u></string>
+    <string name="carbs_underlined"><u>Carbs:</u></string>
+    <string name="saturated_underlined"><u>Saturated Fat:</u></string>
+    <string name="trans_underlined"><u>Trans Fat:</u></string>
+    <string name="sugar_underlined"><u>Sugar:</u></string>
+    <string name="super_foods_underlined"><u>Super Foods:</u></string>
+    <string name="keep_an_eye_carbs">Keep an eye on your carbs. Click for suggestions to increase your carbs.</string>
+    <string name="keep_an_eye_sat_fat">Keep an eye on your saturated fat. Click for suggestions to decrease your  saturated fat.</string>
+    <string name="keep_an_eye_trans_fat">Keep an eye on your Trans Fat. Click for suggestions to decrease your  trans fat.</string>
+    <string name="keep_an_eye_sugar">Keep an eye on your sugar. Click for suggestions to decrease your  sugar</string>
+    <string name="click_suggestion_super_foods">Click for suggestions on what super food to take</string>
+
+    <string name="avoid">Avoid</string>
+    <string name="high_avoid">High - Avoid</string>
+    <string name="zero_of_two">(0 / 2)</string>
+    <string name="your_daily_goal">Your Daily Goals</string>
+    <string name="view_nutrition_facts">View Nutrition Facts</string>
+    <string name="serving_cal_n">%1$s servings / %2$s</string>
+    <string name="title_food_detail">Food Detail</string>
 
 </resources>

@@ -17,7 +17,7 @@
             layout="@layout/item_blog_preview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />-->
-        <com.fightbackfoods.view.ArticleFeatured
+        <com.fightbackfoods.view.BannerFeatured
             android:id="@+id/article_preview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -33,12 +33,9 @@
             layout="@layout/item_add_food"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
-
-        <include
-            layout="@layout/container_my_foods"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/lay_regular_margin" />
+<com.fightbackfoods.view.MyFoods
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"/>
 
         <include
             layout="@layout/container_my_drinks"

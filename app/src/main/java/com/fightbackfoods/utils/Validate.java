@@ -32,7 +32,7 @@ public class Validate {
 
     public static String path(String path) {
         try {
-            String http = "http://";
+            String http = "http";
             if (path.contains(http)) return path;
             else path = http.concat(path);
             return path;

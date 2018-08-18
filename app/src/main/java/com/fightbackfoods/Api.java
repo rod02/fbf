@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 
 import com.fightbackfoods.api.Response;
 import com.fightbackfoods.api.ResponseArticle;
+import com.fightbackfoods.api.ResponseBanner;
 import com.fightbackfoods.api.ResponseCancerStages;
 import com.fightbackfoods.api.ResponseCancerType;
 import com.fightbackfoods.api.ResponseDiet;
@@ -193,5 +194,13 @@ public class Api {
     public void userDietAdd(Map<String, String> map, Callback<ResponseDiet> callback) {
         apiConnect.userDietAdd(map).enqueue(callback);
 
+    }
+
+    public void userDiet(Map<String, String> map, Callback<ResponseDiet> callback) {
+        apiConnect.userDiet(map).enqueue(callback);
+    }
+
+    public void banners(Map<String, String> map, Callback<ResponseBanner> callback) {
+        apiConnect.banners(map).enqueue(callback);
     }
 }

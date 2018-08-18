@@ -3,15 +3,19 @@ package com.fightbackfoods.activity;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 
 import com.fightbackfoods.R;
 import com.fightbackfoods.interfaces.OnFragmentInteractionListener;
-import com.fightbackfoods.view.ArticleFeatured;
+import com.fightbackfoods.interfaces.SerializableListener;
+import com.fightbackfoods.view.BannerFeatured;
+import com.fightbackfoods.view.BannerFeatured;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -21,11 +25,20 @@ public class DashboardFragment extends MyFragment {
 
     private static final String TAG = DashboardFragment.class.getSimpleName();
 
-    private OnFragmentInteractionListener mListener;
+    private View.OnClickListener mListener;
     Unbinder unbinder;
 
     @BindView(R.id.article_preview)
-    ArticleFeatured ArticleFeatured;
+    BannerFeatured BannerFeatured;
+
+    @BindView(R.id.rl_food)
+    RelativeLayout rlFood;
+    @BindView(R.id.rl_lifestyle)
+    RelativeLayout rlLifestyle;
+    @BindView(R.id.rl_education)
+    RelativeLayout rlEducation;
+    @BindView(R.id.rl_community)
+    RelativeLayout rlCommunity;
 
     public DashboardFragment() {
         // Required empty public constructor
@@ -59,21 +72,20 @@ public class DashboardFragment extends MyFragment {
     }
 
     private void setupLayout() {
-        ArticleFeatured.setArticleListener((ArticleFeatured.ArticleListener) getActivity());
+        BannerFeatured.setListener((SerializableListener) getActivity());
+        rlFood.setOnClickListener(mListener);
+        rlLifestyle.setOnClickListener(mListener);
+        rlEducation.setOnClickListener(mListener);
+        rlCommunity.setOnClickListener(mListener);
 
     }
 
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
+            mListener = (View.OnClickListener) context;
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
@@ -85,6 +97,7 @@ public class DashboardFragment extends MyFragment {
         super.onDetach();
         mListener = null;
     }
+
 
 
 }

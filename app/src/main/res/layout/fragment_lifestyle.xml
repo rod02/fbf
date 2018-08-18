@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <com.fightbackfoods.view.ArticleFeatured
+            <com.fightbackfoods.view.BannerFeatured
                 android:id="@+id/article_preview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -57,24 +57,30 @@
                 android:layout_weight="0" />
 
             <com.fightbackfoods.view.LifeStyleItemScore
+                android:id="@+id/mind"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
                 android:layout_weight="0"
+                android:clickable="true"
                 android:theme="@style/Mind.Lifestyle" />
 
             <com.fightbackfoods.view.LifeStyleItemScore
+                android:id="@+id/body"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
                 android:layout_weight="0"
+                android:clickable="true"
                 android:theme="@style/Body.Lifestyle" />
 
             <com.fightbackfoods.view.LifeStyleItemScore
+                android:id="@+id/soul"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/lay_regular_margin"
                 android:layout_weight="0"
+                android:clickable="true"
                 android:theme="@style/Soul.Lifestyle" />
 
         </LinearLayout>

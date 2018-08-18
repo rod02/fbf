@@ -122,7 +122,7 @@ public class Article implements Serializable {
             map.put("articleTypeId", TYPE.EDUCATION);
             map.put("featured", "1");
 
-            if(featuredCache.isEmpty())
+          //  if(featuredCache.isEmpty())
                 Api.getInstance().articles(map, callback);
         }catch (NullPointerException e){
             e.printStackTrace();

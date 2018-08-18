@@ -123,4 +123,7 @@ public class BaseActivity extends AppCompatActivity {
         }
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
+
+
+
 }

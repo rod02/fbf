@@ -10,21 +10,33 @@ import android.view.ViewGroup;
 
 import com.fightbackfoods.R;
 import com.fightbackfoods.interfaces.OnFragmentInteractionListener;
-import com.fightbackfoods.view.ArticleFeatured;
+import com.fightbackfoods.interfaces.SerializableListener;
+import com.fightbackfoods.view.BannerFeatured;
+import com.fightbackfoods.view.LifeStyleItemScore;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 
-public class LifestyleFragment extends MyFragment {
+public class LifestyleFragment extends MyFragment implements View.OnClickListener{
 
     private OnFragmentInteractionListener mListener;
 
     Unbinder unbinder;
 
     @BindView(R.id.article_preview)
-    ArticleFeatured ArticleFeatured;
+    BannerFeatured BannerFeatured;
+
+    @BindView(R.id.mind)
+    LifeStyleItemScore mind;
+    @BindView(R.id.body)
+    LifeStyleItemScore body;
+    @BindView(R.id.soul)
+    LifeStyleItemScore soul;
+
+
+
 
     public LifestyleFragment() {
         // Required empty public constructor
@@ -45,7 +57,10 @@ public class LifestyleFragment extends MyFragment {
         // Inflate the layout for this fragment
          View view = inflater.inflate(R.layout.fragment_lifestyle, container, false);
         unbinder = ButterKnife.bind(this, view);
-        ArticleFeatured.setArticleListener((ArticleFeatured.ArticleListener) getActivity());
+        BannerFeatured.setListener((SerializableListener) getActivity());
+        mind.setOnClickListener(this);
+        body.setOnClickListener(this);
+        soul.setOnClickListener(this);
         return view;
     }
 
@@ -86,4 +101,9 @@ public class LifestyleFragment extends MyFragment {
         mListener = null;
     }
 
+    @Override
+    public void onClick(View v) {
+        LifestyleDetailsActivity.open((BaseActivity2) getContext());
+
+    }
 }

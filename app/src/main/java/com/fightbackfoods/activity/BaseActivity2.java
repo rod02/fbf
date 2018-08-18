@@ -27,6 +27,7 @@ public class BaseActivity2 extends BaseActivity {
     public void setContentView(int layoutResID) {
         super.setContentView(layoutResID);
         bindViews();
+        setupWindowAnimations();
     }
 
     public void setContentViewWithoutInject(int layoutResId) {
@@ -53,5 +54,8 @@ public class BaseActivity2 extends BaseActivity {
         return true;
     }
 
+    private void setupWindowAnimations() {
+        getWindow().setEnterTransition(enterTransition());
+    }
 
 }

@@ -37,10 +37,14 @@ import com.fightbackfoods.Api;
 import com.fightbackfoods.R;
 import com.fightbackfoods.Utils;
 import com.fightbackfoods.adapter.FeedAdapter;
+import com.fightbackfoods.adapter.OnItemClick;
 import com.fightbackfoods.interfaces.OnFragmentInteractionListener;
+import com.fightbackfoods.interfaces.SerializableListener;
 import com.fightbackfoods.model.Article;
+import com.fightbackfoods.model.Banner;
 import com.fightbackfoods.model.Journal;
 import com.fightbackfoods.model.User;
+import com.fightbackfoods.model.UserDiet;
 import com.fightbackfoods.utils.TokenManager;
 import com.fightbackfoods.utils.Validate;
 import com.fightbackfoods.view.ArticleFeatured;
@@ -48,6 +52,7 @@ import com.fightbackfoods.view.FeedContextMenu;
 import com.fightbackfoods.view.FeedContextMenuManager;
 import com.makeramen.roundedimageview.RoundedImageView;
 
+import java.io.Serializable;
 import java.util.Calendar;
 
 import butterknife.BindView;
@@ -58,7 +63,9 @@ public class MainActivity extends BaseDrawerActivity implements FeedAdapter.OnFe
         BottomNavigationView.OnNavigationItemSelectedListener,
         OnFragmentInteractionListener,
         NavigationView.OnNavigationItemSelectedListener,
-        ArticleFeatured.ArticleListener   {
+        SerializableListener ,
+        OnItemClick<UserDiet>, View.OnClickListener
+{
 
 
     private static final String TAG = MainActivity.class.getSimpleName();
@@ -69,6 +76,8 @@ public class MainActivity extends BaseDrawerActivity implements FeedAdapter.OnFe
     private static final int ANIM_DURATION_TOOLBAR = 300;
     private static final int ANIM_DURATION_FAB = 400;
 
+    @BindView(R.id.navigation)
+    BottomNavigationView bottomNavigation;
     @BindView(R.id.rvFeed)
     RecyclerView rvFeed;
     @BindView(R.id.btnCreate)
@@ -161,8 +170,8 @@ public class MainActivity extends BaseDrawerActivity implements FeedAdapter.OnFe
             finish();
             return;
         }
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(this);
+       // BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        bottomNavigation.setOnNavigationItemSelectedListener(this);
         vNavigation.setNavigationItemSelectedListener(this);
     }
 
@@ -511,10 +520,29 @@ public class MainActivity extends BaseDrawerActivity implements FeedAdapter.OnFe
 
 
     @Override
-    public void onClick(Article article, View v) {
+    public void onClick(Serializable s, View v) {
+        Log.d(TAG, "onCLick Serial " +v.getId());
+        Log.d(TAG, "onCLick Serial banner " + R.id.banner);
+
+        switch (v.getId()){
+            case R.layout.view_article_featured:
+                openArticleActivity(s,v);
+                break;
+            case R.id.banner:
+                openBannerActivity(s,v);
+
+                break;
+                default:
+                    break;
+        }
+
+    }
+
+    private void openArticleActivity(Serializable s, View v) {
         final Intent intent = new Intent(this, ArticleActivity.class);
         int[] startingLocation = new int[2];
         v.getLocationOnScreen(startingLocation);
+        Article article = (Article) s;
         Log.d(TAG, "onClick "+ String.valueOf(article ==null));
         Log.d(TAG, "onClick "+ article.getTitle());
         //ArticleActivity.setArticle(article);
@@ -522,5 +550,60 @@ public class MainActivity extends BaseDrawerActivity implements FeedAdapter.OnFe
         intent.putExtra("article",  article);
         startActivity(intent);
         overridePendingTransition(0, 0);
+
+    }
+
+
+    public void openBannerActivity(Serializable s, View v) {
+        final Intent intent = new Intent(this, BannerActivity.class);
+        int[] startingLocation = new int[2];
+        v.getLocationOnScreen(startingLocation);
+        Banner banner = (Banner) s;
+
+        Log.d(TAG, "onClick "+ String.valueOf(banner ==null));
+        Log.d(TAG, "onClick "+ banner.getName());
+        //ArticleActivity.setArticle(article);
+        intent.putExtra(ARG_DRAWING_START_LOCATION, startingLocation[1]);
+        intent.putExtra(BannerActivity.KEY_EXTRA_BANNER,  banner);
+        startActivity(intent);
+        overridePendingTransition(0, 0);
+    }
+
+    @Override
+    public void onItemClick(UserDiet userDiet, int position, long id) {
+        Log.d(TAG, "onItemClick userDiet"+ position);
+        Intent i = new Intent(MainActivity.this, FoodDetailActivity.class);
+        transitionTo(i);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.rl_food:{
+                bottomNavigation.setSelectedItemId(R.id.nav_food);
+//                replaceFragmentWithAnimation(FoodFragment.newInstance(1));
+                break;
+            }
+            case R.id.rl_lifestyle:{
+                bottomNavigation.setSelectedItemId(R.id.nav_lifestyle);
+
+               // replaceFragmentWithAnimation(LifestyleFragment.newInstance(2));
+                break;
+            }
+            case R.id.rl_education:{
+                bottomNavigation.setSelectedItemId(R.id.nav_education);
+
+             //   replaceFragmentWithAnimation(EducationListFragment.newInstance(3));
+                break;
+            }
+            case R.id.rl_community:{
+                bottomNavigation.setSelectedItemId(R.id.nav_community);
+
+               // replaceFragmentWithAnimation(CommunityFragment.newInstance(4));
+                break;
+            }
+            default:
+                break;
+        }
     }
 }

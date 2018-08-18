@@ -43,7 +43,7 @@ import retrofit2.Response;
 public class AddFoodActivity extends BaseActivity2 implements OnItemClick<Item> {
     public static final String ARG_DRAWING_START_LOCATION = "arg_drawing_start_location";
     private static final String TAG =AddFoodActivity.class.getSimpleName() ;
-    private static final long REQUEST_DELAY = 3000 ;
+    private static final long REQUEST_DELAY = 2000 ;
     private int drawingStartLocation;
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
@@ -84,14 +84,22 @@ public class AddFoodActivity extends BaseActivity2 implements OnItemClick<Item> 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 Log.d(TAG, "onTextChanged "+s);
-                query=etSearch.getText().toString();
-                search();
+
                 //etSearch.postDelayed(sendQuery, REQUEST_DELAY);
             }
 
             @Override
             public void afterTextChanged(Editable s) {
                 Log.d(TAG, "afterTextChanged "+s);
+                query=etSearch.getText().toString();
+               /* etSearch.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        search();
+                    }
+                }, 2000);*/
+                etSearch.postDelayed(sendQuery, REQUEST_DELAY);
+
 
             }
         });
@@ -124,7 +132,7 @@ public class AddFoodActivity extends BaseActivity2 implements OnItemClick<Item> 
                 if(!response.isSuccessful())return;
                 ResponseFoodList resp = response.body();
 //                if(!resp.isSuccessful()) return;
-                Log.d(TAG, "search onresponse listSize "+ resp.getFoodList().size());
+              //  Log.d(TAG, "search onresponse listSize "+ resp.getFoodList().size());
                 final SimpleAdapter adapter = new SimpleAdapter((List)resp.getFoodList(),AddFoodActivity.this);
                 rvList.setAdapter(adapter);
                 rvList.setLayoutManager(new LinearLayoutManager(AddFoodActivity.this));
@@ -161,7 +169,9 @@ public class AddFoodActivity extends BaseActivity2 implements OnItemClick<Item> 
                 ResponseFoodByGroup resp = response.body();
                 if(!resp.isSuccessful()) return;
                 Log.d(TAG, "search onresponse listSize "+ resp.getListSize());
-               // if(resp.getListSize()==0)return;
+                Log.d(TAG, "search onresponse listSize "+ resp.getList().get(0).getName());
+
+                // if(resp.getListSize()==0)return;
                 final SimpleAdapter adapter = new SimpleAdapter((List)resp.getList(),AddFoodActivity.this);
                 rvList.setAdapter(adapter);
                 rvList.setLayoutManager(new LinearLayoutManager(AddFoodActivity.this));

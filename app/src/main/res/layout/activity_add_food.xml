@@ -84,7 +84,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0"
                 android:gravity="center"
-                android:padding="@dimen/lay_regular_padding" />
+                android:padding="@dimen/lay_regular_padding"
+                android:visibility="gone" />
 
         </LinearLayout>
 

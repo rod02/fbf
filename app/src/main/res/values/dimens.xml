@@ -54,7 +54,7 @@
     <dimen name="progress_bar_horizontal_width">120dp</dimen>
 
     <dimen name="header_text_dashboard">23sp</dimen>
-    <dimen name="badge_size">35dp</dimen>
+    <dimen name="badge_size">20dp</dimen>
     <dimen name="icon_medium_size">50dp</dimen>
     <dimen name="icon_size_xs">15dp</dimen>
     <dimen name="appbar_padding_top">8dp</dimen>
@@ -91,5 +91,6 @@
     <dimen name="drink_image">100dp</dimen>
     <dimen name="add_drink_edittext_width">60dp</dimen>
     <dimen name="add_drink_default_text_size">10sp</dimen>
+    <dimen name="dashboard_banner_height">70dp</dimen>
 
 </resources>

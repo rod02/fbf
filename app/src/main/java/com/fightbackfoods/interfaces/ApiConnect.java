@@ -2,6 +2,7 @@ package com.fightbackfoods.interfaces;
 
 import com.fightbackfoods.api.Response;
 import com.fightbackfoods.api.ResponseArticle;
+import com.fightbackfoods.api.ResponseBanner;
 import com.fightbackfoods.api.ResponseCancerStages;
 import com.fightbackfoods.api.ResponseCancerType;
 import com.fightbackfoods.api.ResponseDiet;
@@ -98,4 +99,10 @@ public interface ApiConnect {
     @FormUrlEncoded
     @POST("user/diet/add")
     Call<ResponseDiet> userDietAdd(@FieldMap Map<String, String> map);
+
+    @GET("user/diet")
+    Call<ResponseDiet> userDiet(@QueryMap Map<String, String> map);
+
+    @GET("banners")
+    Call<ResponseBanner> banners(@QueryMap Map<String, String> map);
 }

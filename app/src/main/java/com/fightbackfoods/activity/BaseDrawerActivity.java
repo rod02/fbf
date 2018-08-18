@@ -122,7 +122,8 @@ public class BaseDrawerActivity extends BaseActivity {
             if (getFragmentManager().getBackStackEntryCount() > 1) {
                 getFragmentManager().popBackStack();
             } else {
-                super.onBackPressed();
+                //super.onBackPressed();
+                finish();
 /*
                 long now = Calendar.getInstance().getTimeInMillis();
                 if (now - lastPressed < BACK_PRESSED_EXIT_THRESHOLD) {

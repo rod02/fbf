@@ -1,6 +1,8 @@
 package com.fightbackfoods.view;
 
 import android.content.Context;
+import android.os.Handler;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,11 +15,13 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.daimajia.slider.library.SliderAdapter;
 import com.fightbackfoods.R;
 import com.fightbackfoods.Utils;
 import com.fightbackfoods.activity.MainActivity;
 import com.fightbackfoods.activity.NutrientReportActivity;
 import com.fightbackfoods.api.ResponseArticle;
+import com.fightbackfoods.interfaces.SerializableListener;
 import com.fightbackfoods.model.Article;
 import com.fightbackfoods.utils.Validate;
 import com.smarteist.autoimageslider.SliderLayout;
@@ -35,7 +39,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class ArticleFeatured extends LinearLayout {
+public class ArticleFeatured extends FrameLayout implements SwipeRefreshLayout.OnRefreshListener {
     private static final String TAG = ArticleFeatured.class.getSimpleName();
     @BindView(R.id.slider)
     SliderLayout slider;
@@ -43,11 +47,13 @@ public class ArticleFeatured extends LinearLayout {
     TextView tvContent;
     @BindView(R.id.pb)
     ProgressBar pb;
-    public ArticleListener getArticleListener() {
+    @BindView(R.id.srl)
+    SwipeRefreshLayout swipeRefreshLayout;
+    public SerializableListener getArticleListener() {
         return articleListener;
     }
 
-    public void setArticleListener(ArticleListener articleListener) {
+    public void setArticleListener(SerializableListener articleListener) {
         this.articleListener = articleListener;
     }
 
@@ -59,7 +65,7 @@ public class ArticleFeatured extends LinearLayout {
         this.callback = callback;
     }
 
-    private ArticleListener articleListener;
+    private SerializableListener articleListener;
 
     public ArticleFeatured(Context context) {
         super(context);
@@ -83,10 +89,14 @@ public class ArticleFeatured extends LinearLayout {
 
         // setBackgroundResource(R.drawable.bg_container_shadow);
       //  setOrientation(VERTICAL);
+
         setLayout();
     }
 
     private void setLayout() {
+        pb.setVisibility(View.VISIBLE);
+        Log.d(TAG, "get articles");
+
         Article.featured(callback);
         Context context = getContext();
         if(context instanceof MainActivity ){
@@ -95,7 +105,9 @@ public class ArticleFeatured extends LinearLayout {
         slider.setIndicatorAnimation(SliderLayout.Animations.FILL); //set indicator animation by using SliderLayout.Animations. :WORM or THIN_WORM or COLOR or DROP or FILL or NONE or SCALE or SCALE_DOWN or SLIDE and SWAP!!
         slider.setScrollTimeInSec(3); //set scroll delay in seconds :
 
-        setSliderViews(Article.getFeaturedCache());
+       // setSliderViews(Article.getFeaturedCache());
+        swipeRefreshLayout.setOnRefreshListener(this);
+
     }
 
 
@@ -121,7 +133,7 @@ public class ArticleFeatured extends LinearLayout {
             }
             sliderView.setImageScaleType(ImageView.ScaleType.CENTER_CROP);
             sliderView.setDescription(a.getTitle());
-           // sliderView.setDescriptionTextSize(8f);
+            sliderView.setDescriptionTextSize(20f);
             sliderView.setOnSliderClickListener(new SliderView.OnSliderClickListener() {
                 @Override
                 public void onSliderClick(SliderView sliderView) {
@@ -133,7 +145,7 @@ public class ArticleFeatured extends LinearLayout {
 
                 }
             });
-            tvContent.setText(a.getContent());
+           // tvContent.setText(a.getContent());
             //at last add this view in your layout :
             slider.addSliderView(sliderView);
         }
@@ -198,13 +210,12 @@ public class ArticleFeatured extends LinearLayout {
         public void onResponse(Call<ResponseArticle> call, Response<ResponseArticle> response) {
             try {
                 Log.d(TAG, "fetch articles onResponse "+response.toString() );
-
+                pb.setVisibility(View.GONE);
+               // swipeRefreshLayout.setEnabled(true);
                 if(response.isSuccessful()) {
                     ResponseArticle rs = response.body();
                     if(rs.isSuccessful()){
                         Log.d(TAG, "featured articles set" );
-                        pb.setVisibility(View.GONE);
-                        slider.removeAllViews();
                         Article.setFeaturedCache(rs.getArticles());
 
                         setSliderViews(Article.getFeaturedCache());
@@ -223,12 +234,30 @@ public class ArticleFeatured extends LinearLayout {
 
         @Override
         public void onFailure(Call<ResponseArticle> call, Throwable t) {
+
             t.printStackTrace();
+            try {
+                pb.setVisibility(View.GONE);
+
+            }catch (NullPointerException e){
+
+            }
         }
     };
 
+    @Override
+    public void onRefresh() {
+        new Handler().postDelayed(new Runnable() {
 
-    public interface ArticleListener {
-        void onClick(Article article, View v);
+            @Override public void run() {
+
+                swipeRefreshLayout.setRefreshing(false);
+
+            }
+
+        }, 3000);
+
     }
+
+
 }

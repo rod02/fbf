@@ -4,7 +4,9 @@ import com.fightbackfoods.model.Nutrients;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.TimeZone;
 
 public class TextUtils {
     public static final int MALE = 1;
@@ -57,4 +59,11 @@ public class TextUtils {
         return 0;
     }
 
+    public static String getDateFormatToday(){
+        SimpleDateFormat sdf = new SimpleDateFormat(SDF_1);
+        sdf.setTimeZone(TimeZone.getTimeZone("EST"));
+       /* Calendar c = Calendar.getInstance();
+        sdf.setTimeZone(c.getTimeZone());*/
+        return sdf.format(new Date());
+    }
 }

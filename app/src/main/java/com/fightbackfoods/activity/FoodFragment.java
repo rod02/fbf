@@ -4,14 +4,20 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 
 import com.fightbackfoods.R;
+import com.fightbackfoods.adapter.OnItemClick;
 import com.fightbackfoods.interfaces.OnFragmentInteractionListener;
-import com.fightbackfoods.view.ArticleFeatured;
+import com.fightbackfoods.interfaces.SerializableListener;
+import com.fightbackfoods.model.UserDiet;
+import com.fightbackfoods.view.BannerFeatured;
+import com.google.android.gms.vision.text.Line;
 
 
 import butterknife.BindView;
@@ -29,7 +35,12 @@ public class FoodFragment extends MyFragment implements View.OnClickListener {
     @BindView(R.id.btn_add_drink)
     Button btnAddDrink;
     @BindView(R.id.article_preview)
-    ArticleFeatured blogPreviewLayout;
+    BannerFeatured blogPreviewLayout;
+    @BindView(R.id.ll_daily_score)
+    LinearLayout layDailyScoreSummary;
+    @BindView(R.id.ll_weekly_score)
+    LinearLayout layWeeklyScoreSummary;
+
 
     private OnFragmentInteractionListener mListener;
 
@@ -60,13 +71,16 @@ public class FoodFragment extends MyFragment implements View.OnClickListener {
         View view = inflater.inflate(R.layout.fragment_food, container, false);
         unbinder = ButterKnife.bind(this, view);
         setupLayout();
+
         return view;
     }
 
     private void setupLayout() {
         btnAddFood.setOnClickListener(this);
         btnAddDrink.setOnClickListener(this);
-        blogPreviewLayout.setArticleListener((ArticleFeatured.ArticleListener) getActivity());
+        blogPreviewLayout.setListener((SerializableListener) getActivity());
+        layDailyScoreSummary.setOnClickListener(this);
+        layWeeklyScoreSummary.setOnClickListener(this);
 
     }
 
@@ -85,6 +99,7 @@ public class FoodFragment extends MyFragment implements View.OnClickListener {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
         }
+
     }
 
     @Override
@@ -113,6 +128,12 @@ public class FoodFragment extends MyFragment implements View.OnClickListener {
             case R.id.btn_add_drink:
                 addDrink(v);
                 break;
+            case R.id.ll_daily_score:
+                summary(v);
+                break;
+            case R.id.ll_weekly_score:
+                summary(v);
+                break;
                 default:
                     break;
 
@@ -128,6 +149,12 @@ public class FoodFragment extends MyFragment implements View.OnClickListener {
         Intent i = new Intent(getActivity(), AddDrinkActivity.class);
         ((BaseActivity)getActivity()).transitionTo(i);
     }
+
+    public void summary(View v) {
+        Intent i = new Intent(getActivity(), SummaryActivity.class);
+        ((BaseActivity)getActivity()).transitionTo(i);
+    }
+
 
 
 }

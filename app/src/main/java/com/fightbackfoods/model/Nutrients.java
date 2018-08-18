@@ -6,7 +6,8 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class Nutrients implements Item{
+public class Nutrients implements Item {
+
 
     @SerializedName("nutrient_id")
     private String id;
@@ -113,11 +114,12 @@ public class Nutrients implements Item{
 
     public String getValue(String label, int serving) {
         for (Measure m : getMeasures()) {
-           if( m.getLabel().equals(label)){
-               return String.valueOf(serving * TextUtils.parseDouble(m.getValue())).concat(unit);
-           }
+            if( m.getLabel().equals(label)){
+                return String.valueOf(serving * TextUtils.parseDouble(m.getValue())).concat(unit);
+            }
         }
-        return "0".concat(unit);
+        return "2".concat(unit);
 
     }
+
 }
