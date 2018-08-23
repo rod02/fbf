@@ -6,6 +6,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -32,6 +33,8 @@ public class Banner implements Serializable {
     private String updatedAt;
 
     private static List<Banner> cache = new ArrayList<>();
+
+    private static Map<String, List<Banner>> cache2 = new HashMap<>();
 
     public static List<Banner> getCache() {
         return cache;
@@ -115,20 +118,34 @@ public class Banner implements Serializable {
 
 
     public static void fetch(Callback<ResponseBanner> callback) {
+       fetch(callback, Category.FOODTRACKER);
+    }
+
+    public static void fetch(Callback<ResponseBanner> callback, String category) {
         Map<String, String> map = Token.toMap();
-        map.put("category", Category.FOODTRACKER);
+        map.put("category", category);
         Api.getInstance().banners(map,callback);
     }
 
-    public static class Category {
-        public String id;
-        public static final String EDUCATION ="3";
-        public static final String FOODTRACKER ="1";
-        public static final String LIFESTYLE ="2";
-        public static final String COMMUNITY ="4";
-
-        public static final String RECIPE ="5";
-
+    public static List<Banner> getCache(String category) {
+        try {
+            return cache2.get(category);
+        }catch (NullPointerException e){e.printStackTrace();}
+        return new ArrayList<>();
     }
+
+    public static void setCache(String category, List<Banner> banners) {
+        cache2.put(category, banners);
+    }
+
+
+    public static void fetch(String category, String subCategory, Callback<ResponseBanner> callback) {
+        Map<String, String> map = Token.toMap();
+        map.put("category", category);
+        if(subCategory!=null && !(subCategory.equals("")))
+            map.put("subCategory", subCategory);
+        Api.getInstance().banners(map,callback);
+    }
+
 
 }

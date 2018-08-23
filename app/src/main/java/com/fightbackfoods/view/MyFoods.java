@@ -1,8 +1,12 @@
 package com.fightbackfoods.view;
 
 import android.annotation.TargetApi;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Build;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
@@ -45,22 +49,34 @@ public class MyFoods extends FrameLayout {
         ButterKnife.bind(this);
         setLayout();
 
+
     }
 
+
+
     private void setLayout() {
-        UserDiet.get("", new Callback<ResponseDiet>() {
+       fetch("");
+    }
+
+    private void fetch(String date) {
+        UserDiet.get(date, new Callback<ResponseDiet>() {
             @Override
             public void onResponse(Call<ResponseDiet> call, Response<ResponseDiet> response) {
                 Log.d(TAG, "onResponse "+response.toString());
-                if(!response.isSuccessful()) {
-                    Log.d(TAG, "onResponse not successful");
+                try{
+                    if(!response.isSuccessful()) {
+                        Log.d(TAG, "onResponse not successful");
 
-                    return;
+                        return;
+                    }
+                    ResponseDiet rs= response.body();
+                    Log.d(TAG, "onResponse size "+rs.getUserDiet().size());
+
+                    setUserDiets(rs.getUserDiet(), (OnItemClick<UserDiet>) getContext());
+                }catch (NullPointerException e){
+                    e.printStackTrace();
                 }
-                ResponseDiet rs= response.body();
-                Log.d(TAG, "onResponse size "+rs.getUserDiet().size());
 
-                setUserDiets(rs.getUserDiet(), (OnItemClick<UserDiet>) getContext());
             }
 
             @Override
@@ -99,5 +115,9 @@ public class MyFoods extends FrameLayout {
                 adapter.updateItems();
             }
         });
+    }
+
+    public void refresh() {
+        fetch("");
     }
 }

@@ -1,5 +1,8 @@
 package com.fightbackfoods.activity;
 
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Handler;
 import android.support.annotation.RequiresApi;
@@ -17,6 +20,7 @@ import com.fightbackfoods.R;
 import com.fightbackfoods.model.User;
 import com.fightbackfoods.utils.CircleTransformation;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
 import butterknife.BindView;
 import butterknife.BindDimen;
@@ -79,13 +83,44 @@ public class BaseDrawerActivity extends BaseActivity {
             }
         });
 
+        setProfilePhoto(avatarUrl);
+    }
+    private void setProfilePhoto(String url){
+       // ImageView profileImage = (ImageView) binding.navView.getHeaderView(0).findViewById(R.id.iv_profile_image);
+
+        final Target target = new Target() {
+            @Override
+            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                ivMenuUserProfilePhoto.setImageBitmap(bitmap);
+                Drawable drawable = new BitmapDrawable(getResources(), bitmap);
+                getToolbar().setNavigationIcon(drawable);
+            }
+
+            @Override
+            public void onBitmapFailed(Drawable errorDrawable) {
+
+            }
+
+            @Override
+            public void onPrepareLoad(Drawable placeHolderDrawable) {
+
+            }
+        };
+
+      //  profileImage.setTag(target);
+
+      /*  Picasso.with(this)
+                .load("YOUR_IMAGE_URL_HERE")
+                .placeholder(R.drawable.placeholder_profile)
+                .error(R.drawable.placeholder_profile)
+                .into(target);*/
         Picasso.with(this)
-                .load(avatarUrl)
+                .load(url)
                 .placeholder(R.drawable.img_circle_placeholder)
                 .resize(avatarSize, avatarSize)
                 .centerCrop()
                 .transform(new CircleTransformation())
-                .into(ivMenuUserProfilePhoto);
+                .into(target);
     }
 
     public void onGlobalMenuHeaderClick(final View v) {

@@ -6,6 +6,26 @@
         <attr name="customAttr2" />
     </declare-styleable>
 
+    <declare-styleable name ="BannerFeatured" >
+        <attr name="category" format="string" >
+            <enum name="food" value="1" />
+            <enum name="lifestyle" value="2" />
+            <enum name="education" value="3" />
+            <enum name="community" value="4" />
+        </attr>
+        <attr name="subCategory" format="string" >
+            <enum name="mind" value="1" />
+            <enum name="body" value="2" />
+            <enum name="soul" value="3" />
+        </attr>
+    </declare-styleable>
+    <declare-styleable name ="HealthAspect" >
+        <attr name="healthCategory" format="string" >
+            <enum name="mental" value="1" />
+            <enum name="physical" value="2" />
+        </attr>
+    </declare-styleable>
+
     <attr name="lifeStyle_icon" format="reference" />
     <attr name="lifeStyle_theme_color" format="reference" />
     <attr name="lifeStyle_title" format="reference" />

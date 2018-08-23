@@ -3,16 +3,30 @@ package com.fightbackfoods.model;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.TextView;
 
+import com.fightbackfoods.Api;
 import com.fightbackfoods.R;
-import com.google.gson.annotations.Expose;
+import com.fightbackfoods.api.ResponseJournal;
+import com.fightbackfoods.utils.ConfigPrefHelper;
+import com.fightbackfoods.utils.TextUtils;
+import com.fightbackfoods.view.SpinnerHealthAspectCategory;
+import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.Calendar;
+import java.util.Map;
+
+import retrofit2.Callback;
+
+import static com.fightbackfoods.model.Journal.Rating.HAPPY;
+import static com.fightbackfoods.model.Journal.Rating.NEUTRAL;
+import static com.fightbackfoods.model.Journal.Rating.SAD;
 
 public class Journal {
+
+
 
     @SerializedName("userId")
     private String userId;
@@ -20,16 +34,17 @@ public class Journal {
     @SerializedName("visibility")
     private String visibility;
 
+    @SerializedName("visibility_id")
+    private String visibilityId;
+
     @SerializedName("physicalRating")
     private String physicalRating;
     @SerializedName("mentalRating")
     private String mentalRating;
-    /*
     @SerializedName("mentalCategory")
     private String mentalCategory;
     @SerializedName("physicalCategory")
     private String physicalCategory;
-*/
 
     @SerializedName("message")
     private String message;
@@ -85,21 +100,107 @@ public class Journal {
         this.shareToFb = shareToFb;
     }
 
+    public String getMentalCategory() {
+        return mentalCategory;
+    }
+
+    public void setMentalCategory(String mentalCategory) {
+        this.mentalCategory = mentalCategory;
+    }
+
+    public String getPhysicalCategory() {
+        return physicalCategory;
+    }
+
+    public void setPhysicalCategory(String physicalCategory) {
+        this.physicalCategory = physicalCategory;
+    }
+
     public Journal() {
         Calendar s = Calendar.getInstance();
         s.get(Calendar.HOUR_OF_DAY);
     }
 
+    public static boolean doneToday(){
+       return ConfigPrefHelper.getJournalLastUpdate().equals(TextUtils.getDateFormatToday());
+    }
+
 
     public static Journal getFromViews(View view) {
         Journal j = new Journal();
+        j.setVisibility("1");
         RadioGroup rgMental = view.findViewById(R.id.rg_mental);
-        j.setMentalRating(String.valueOf(rgMental.indexOfChild(view.findViewById(rgMental.getCheckedRadioButtonId()))));
+       // j.setMentalRating(String.valueOf(rgMental.indexOfChild(view.findViewById(rgMental.getCheckedRadioButtonId()))));
+        j.setMentalRating(ratingValueOfIndex(rgMental.indexOfChild(view.findViewById(rgMental.getCheckedRadioButtonId()))));
         RadioGroup rgPhysical = view.findViewById(R.id.rg_physical);
-        j.setMentalRating(String.valueOf(rgPhysical.indexOfChild(view.findViewById(rgPhysical.getCheckedRadioButtonId()))));
+        j.setPhysicalRating(ratingValueOfIndex(rgPhysical.indexOfChild(view.findViewById(rgPhysical.getCheckedRadioButtonId()))));
         j.setMessage(((EditText)view.findViewById(R.id.et_message)).getText().toString());
         j.setShareToFb(((CheckBox)view.findViewById(R.id.cb_fb)).isChecked()? "1":"0");
+        SpinnerHealthAspectCategory spMental = view.findViewById(R.id.sp_mental);
+        j.setMentalCategory(String.valueOf(spMental.getSelectedItemId()));
+        SpinnerHealthAspectCategory spPhysical = view.findViewById(R.id.sp_physical);
+        j.setPhysicalCategory(String.valueOf(spPhysical.getSelectedItemId()));
 
         return j;
     }
+
+    public static String ratingValueOfIndex(int i){
+        switch (i){
+            case SAD:
+                return "1";
+            case NEUTRAL:
+                return "2";
+            case HAPPY:
+                return "3";
+            default:
+                return "0";
+        }
+    }
+    public static void add (Journal journal, Callback<ResponseJournal> callback){
+        // Map<String, String> map = Token.toMap();
+
+        Api.getInstance().journalsAdd(journal.toMap(), callback);
+    }
+
+    public void save(Callback<ResponseJournal> callback){
+        Journal.add(this, callback);
+    }
+
+    private Map<String,String> toMap() {
+        Map<String, String> map = Token.toMap();
+        map.put("visibility",getVisibility());
+        map.put("physicalRating",getPhysicalRating());
+        map.put("mentalRating",getMentalRating());
+        map.put("mentalCategory",getMentalCategory());
+        map.put("physicalCategory",getPhysicalCategory());
+        map.put("message",getMessage());
+        map.put("shareToFb",getShareToFb());
+        return map;
+    }
+
+    @Override
+    public String toString() {
+        return new Gson().toJson(this);
+    }
+
+
+
+
+
+    public static class State {
+
+        @SerializedName("userId")
+        private String userId;
+
+
+    }
+
+    public static class Rating {
+         static final int SAD = 2;
+         static final int NEUTRAL = 1;
+         static final int HAPPY = 0;
+
+
+    }
+
 }

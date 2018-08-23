@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="@dimen/lay_regular_padding"
     tools:context=".activity.DashboardFragment">
 
 
@@ -30,7 +29,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/lay_regular_margin"
-                android:layout_weight="0" />
+                android:layout_weight="0"
+                app:category="food" />
 
             <LinearLayout
                 android:layout_width="match_parent"

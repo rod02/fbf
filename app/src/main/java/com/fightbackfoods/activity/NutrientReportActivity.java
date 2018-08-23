@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -324,8 +325,17 @@ public class NutrientReportActivity extends BaseActivity2 implements OnChartValu
         toolbar.setVisibility(View.GONE);
         Visibility returnTransition = returnTransition();
         getWindow().setReturnTransition(returnTransition);
+        try {
+            LocalBroadcastManager l = LocalBroadcastManager.getInstance(this);
+            Intent intent = new Intent();
+            intent.setAction(FoodFragment.ACTION_MY_FOOD_NEW_ITEM);
+            l.sendBroadcast(intent);
 
+        }catch (NullPointerException e){
+            e.printStackTrace();
+        }
         finishAfterTransition();
+
     }
 
 

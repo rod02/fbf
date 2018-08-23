@@ -13,6 +13,7 @@ import com.fightbackfoods.interfaces.SerializableListener;
 import com.fightbackfoods.model.Banner;
 import com.fightbackfoods.view.BannerFeatured;
 import com.fightbackfoods.view.LifeStyleItemScore;
+import com.fightbackfoods.view.LifestyleScoreDetail;
 
 import java.io.Serializable;
 
@@ -20,9 +21,19 @@ import butterknife.BindView;
 
 public class LifestyleDetailsActivity extends BaseActivity2 implements SerializableListener {
     private static final String TAG = LifestyleDetailsActivity.class.getSimpleName();
+    private static final String KEY_CATEGORY = "category";
+    private static final String KEY_SUB_CATEGORY = "sub_category";
+    private static final String KEY_ITEM = "item";
 
     @BindView(R.id.banner)
     BannerFeatured BannerFeatured;
+
+    @BindView(R.id.lsd)
+    LifestyleScoreDetail lsd;
+
+
+    private String category = "2";
+    private String subCategory = "1";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +50,11 @@ public class LifestyleDetailsActivity extends BaseActivity2 implements Serializa
     }
 
     private void setupLayout() {
+        Bundle extra = getIntent().getExtras();
+        subCategory = extra.getString(KEY_SUB_CATEGORY, null);
         BannerFeatured.setListener((SerializableListener) this);
+        BannerFeatured.setCategory(category,subCategory);
+        lsd.setSubCategory(subCategory);
 
     }
     @Override
@@ -59,9 +74,11 @@ public class LifestyleDetailsActivity extends BaseActivity2 implements Serializa
         overridePendingTransition(0, 0);
     }
 
-    public static void open(BaseActivity2 activity) {
+    public static void open(BaseActivity activity, String category, String subCategory, Serializable serializable) {
         Intent intent = new Intent(activity, LifestyleDetailsActivity.class);
-       // intent.putExtra(KEY_ITEM_FOOD, food);
+        intent.putExtra(KEY_CATEGORY, category);
+        intent.putExtra(KEY_SUB_CATEGORY, subCategory);
+        intent.putExtra(KEY_ITEM, serializable);
         activity.transitionTo(intent);
     }
 

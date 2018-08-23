@@ -38,6 +38,7 @@ import com.fightbackfoods.R;
 import com.fightbackfoods.Utils;
 import com.fightbackfoods.adapter.FeedAdapter;
 import com.fightbackfoods.adapter.OnItemClick;
+import com.fightbackfoods.api.ResponseJournal;
 import com.fightbackfoods.interfaces.OnFragmentInteractionListener;
 import com.fightbackfoods.interfaces.SerializableListener;
 import com.fightbackfoods.model.Article;
@@ -57,6 +58,9 @@ import java.util.Calendar;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends BaseDrawerActivity implements FeedAdapter.OnFeedItemClickListener,
         FeedContextMenu.OnFeedContextMenuItemClickListener,
@@ -150,9 +154,34 @@ public class MainActivity extends BaseDrawerActivity implements FeedAdapter.OnFe
         layPost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Journal j = Journal.getFromViews((View) v.getTag());
-                Toast.makeText(MainActivity.this, j.getMessage()+ " save", Toast.LENGTH_LONG).show();
-                dialog.dismiss();
+
+               // Toast.makeText(MainActivity.this, j.getMessage()+ " save", Toast.LENGTH_LONG).show();
+                Log.d(TAG, "journal: "+ j.toString());
+                j.save(new Callback<ResponseJournal>() {
+                    @Override
+                    public void onResponse(Call<ResponseJournal> call, Response<ResponseJournal> response) {
+                        Log.d(TAG, "journal save "+response.toString());
+                        Log.d(TAG, "journal save "+call.request().body().toString());
+
+                        try {
+                            Toast.makeText(MainActivity.this, "Journal Save", Toast.LENGTH_SHORT).show();
+
+                            dialog.dismiss();
+                        }catch (NullPointerException e){
+                            e.printStackTrace();
+                        }
+
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseJournal> call, Throwable t) {
+                        t.printStackTrace();
+                    }
+                });
+                //dialog.dismiss();
 
             }
         });

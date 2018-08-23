@@ -201,5 +201,9 @@ Take cancer prevention into your own hands, starting today. The rewards will las
     <string name="view_nutrition_facts">View Nutrition Facts</string>
     <string name="serving_cal_n">%1$s servings / %2$s</string>
     <string name="title_food_detail">Food Detail</string>
+    <string name="lorem_sh">Lorem ipsum dolor sit amet, vis vide voluptua ne, in soleat legimus singulis sed. Mei eius error aliquando an, ius et erroribus definitiones, zril salutandi per in. Sit id mucius accusata comprehensam</string>
+    <string name="you_earned_n_badge">You Earned a %1$s Badge!</string>
+    <string name="weekly_challenge">Weekly Challenge</string>
+    <string name="add_activity">Add Activity</string>
 
 </resources>

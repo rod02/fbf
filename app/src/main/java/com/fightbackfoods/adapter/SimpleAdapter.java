@@ -24,6 +24,18 @@ public class SimpleAdapter  extends RecyclerView.Adapter<SimpleAdapter.ViewHolde
         this.onItemClick = onItemClick;
     }
 
+    public void clear(){
+        try {
+
+            int itemCount = getItemCount();
+            data.clear();
+            notifyItemRangeRemoved(0 , itemCount);
+        }catch (NullPointerException e){
+            e.printStackTrace();
+        }
+
+    }
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(android.R.layout.simple_list_item_2, parent, false);

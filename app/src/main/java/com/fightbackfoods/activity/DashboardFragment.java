@@ -98,6 +98,15 @@ public class DashboardFragment extends MyFragment {
         mListener = null;
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        try {
+            unbinder.unbind();
+        }catch (NullPointerException e){
+
+        }
+    }
 
 
 }

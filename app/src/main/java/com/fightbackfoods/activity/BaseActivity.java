@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.util.Pair;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -16,8 +17,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.fightbackfoods.R;
+import com.fightbackfoods.view.ImFeelingDialogFragment;
 
 import butterknife.ButterKnife;
 import butterknife.BindView;
@@ -34,6 +37,9 @@ public class BaseActivity extends AppCompatActivity {
     @Nullable
     @BindView(R.id.ivLogo)
     ImageView ivLogo;
+    @Nullable
+    @BindView(R.id.ll_toolbar_face)
+    LinearLayout layFeelings;
 
     private MenuItem inboxMenuItem;
 
@@ -56,7 +62,22 @@ public class BaseActivity extends AppCompatActivity {
         if (toolbar != null) {
             setSupportActionBar(toolbar);
             toolbar.setNavigationIcon(R.drawable.ic_menu_dark);
+            if(layFeelings!=null){
+                layFeelings.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        imFeeling();
+                    }
+                });
+            }
         }
+    }
+
+    protected void imFeeling() {
+        FragmentManager fm = getSupportFragmentManager();
+        ImFeelingDialogFragment mImFeelingDialogFragment = ImFeelingDialogFragment.newInstance("Some Title");
+        mImFeelingDialogFragment.show(fm, "fragment_im_feeling");
+
     }
 
     @Override

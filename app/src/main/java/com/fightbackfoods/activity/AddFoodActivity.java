@@ -1,5 +1,6 @@
 package com.fightbackfoods.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -30,6 +31,7 @@ import com.fightbackfoods.api.ResponseFoodByGroup;
 import com.fightbackfoods.api.ResponseFoodList;
 import com.fightbackfoods.interfaces.Item;
 import com.fightbackfoods.model.Food;
+import com.fightbackfoods.model.UserDiet;
 import com.fightbackfoods.view.SpinnerFoodGroup;
 
 import java.util.List;
@@ -134,6 +136,7 @@ public class AddFoodActivity extends BaseActivity2 implements OnItemClick<Item> 
 //                if(!resp.isSuccessful()) return;
               //  Log.d(TAG, "search onresponse listSize "+ resp.getFoodList().size());
                 final SimpleAdapter adapter = new SimpleAdapter((List)resp.getFoodList(),AddFoodActivity.this);
+                rvList.setVisibility(View.VISIBLE);
                 rvList.setAdapter(adapter);
                 rvList.setLayoutManager(new LinearLayoutManager(AddFoodActivity.this));
                 rvList.setHasFixedSize(true);//every item of the RecyclerView has a fix size
@@ -173,6 +176,8 @@ public class AddFoodActivity extends BaseActivity2 implements OnItemClick<Item> 
 
                 // if(resp.getListSize()==0)return;
                 final SimpleAdapter adapter = new SimpleAdapter((List)resp.getList(),AddFoodActivity.this);
+                rvList.setVisibility(View.VISIBLE);
+
                 rvList.setAdapter(adapter);
                 rvList.setLayoutManager(new LinearLayoutManager(AddFoodActivity.this));
                 rvList.setHasFixedSize(true);//every item of the RecyclerView has a fix size
@@ -221,7 +226,7 @@ public class AddFoodActivity extends BaseActivity2 implements OnItemClick<Item> 
 
     private void setupTabs() {
 
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), this);
+        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), userDietOnItemClick);
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
@@ -265,25 +270,45 @@ public class AddFoodActivity extends BaseActivity2 implements OnItemClick<Item> 
     @Override
     public void onItemClick(Item item, int position, long id) {
         Log.d(TAG, "onItemClick  "+ item.getName());
-        hideKeyboard();
-        openNutrientReports((Food) item);
+        try {
+            ( (SimpleAdapter) rvList.getAdapter()).clear();
+            rvList.getAdapter().notifyDataSetChanged();
+            hideKeyboard();
+            rvList.setVisibility(View.GONE);
+            rvList.setVisibility(View.GONE);
+            rvList.setVisibility(View.GONE);
+
+            // rvList.setAdapter(null);
+            openNutrientReports((Food) item);
+        }catch (NullPointerException e){
+            e.printStackTrace();
+        }
+
 
     }
+
+    private OnItemClick<UserDiet> userDietOnItemClick = new OnItemClick<UserDiet>() {
+        @Override
+        public void onItemClick(UserDiet userDiet, int position, long id) {
+            NutrientReportActivity.open(userDiet.getFood(),AddFoodActivity.this);
+
+        }
+    };
 
     private void openNutrientReports(Food food){
         NutrientReportActivity.open(food,this);
     }
 
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
-        OnItemClick<Item> listener;
-        public SectionsPagerAdapter(FragmentManager fm, OnItemClick<Item> onItemClickListener) {
+        OnItemClick<UserDiet> listener;
+        public SectionsPagerAdapter(FragmentManager fm, OnItemClick<UserDiet> onItemClickListener) {
             super(fm);
             this.listener = onItemClickListener;
         }
 
         @Override
         public Fragment getItem(int position) {
-            return FoodListFragment.newInstance(listener);
+            return FoodListFragment.newInstance(position,listener);
         }
 
         @Override
@@ -319,6 +344,7 @@ public class AddFoodActivity extends BaseActivity2 implements OnItemClick<Item> 
     public Visibility returnTransition() {
         Visibility enterTransition = new Explode();
         enterTransition.setDuration(getResources().getInteger(R.integer.anim_duration_long));
+
         return enterTransition;
     }
 
@@ -326,5 +352,38 @@ public class AddFoodActivity extends BaseActivity2 implements OnItemClick<Item> 
     @OnClick(R.id.btn_quick_add)
     public void quickAdd(View v) {
         Log.d(TAG, "quickAdd");
+    }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data){
+        try{
+            rvList.setVisibility(View.GONE);
+            rvList.setVisibility(View.GONE);
+
+        }catch (NullPointerException e){
+            e.printStackTrace();
+        }
+
+    }
+
+    @Override
+    public void onBackPressed(){
+        if (rvList.isShown()) {
+            rvList.setVisibility(View.GONE);
+
+        } else {
+            super.onBackPressed();
+/*
+                long now = Calendar.getInstance().getTimeInMillis();
+                if (now - lastPressed < BACK_PRESSED_EXIT_THRESHOLD) {
+                    super.onBackPressed();
+                    return;
+                }
+                lastPressed = now;
+                Toast.makeText(MainActivity.this, R.string.prompt_double_back_exit, Toast.LENGTH_LONG).show();*/
+        }
+
+
     }
 }

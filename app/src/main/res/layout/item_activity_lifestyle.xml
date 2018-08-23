@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/lay_nutrient_weight_h"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_centerVertical="true"
+    android:gravity="center_vertical|center_horizontal"
+    android:orientation="horizontal"
+    android:paddingBottom="@dimen/lay_regular_padding"
+    android:paddingTop="@dimen/lay_regular_padding"
+    android:theme="@style/Mind.Lifestyle">
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="@dimen/lay_regular_margin"
+        android:gravity="center_vertical"
+        android:textSize="@dimen/lifestyle_text_small" />
+
+    <ImageView
+        android:id="@+id/iv_star"
+        android:layout_width="@dimen/icon_star_x_small"
+        android:layout_height="@dimen/icon_star_x_small"
+        android:layout_centerVertical="true"
+        android:layout_toEndOf="@+id/tv_title"
+        android:visibility="gone"
+        app:srcCompat="@drawable/ic_star_checked" />
+
+    <TextView
+        android:id="@+id/tv_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/lay_regular_margin"
+        android:layout_toStartOf="@+id/tv_point"
+        android:textSize="@dimen/lifestyle_text_small" />
+
+    <TextView
+        android:id="@+id/tv_point"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="@dimen/lay_regular_margin"
+        android:layout_toStartOf="@+id/iv_delete"
+        android:gravity="center_vertical|end"
+        android:textSize="@dimen/lifestyle_text_small" />
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/iv_delete"
+        android:layout_width="@dimen/lifestyle_detail_score_badge"
+        android:layout_height="@dimen/lifestyle_detail_score_badge"
+        android:layout_alignParentEnd="true"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="@dimen/lay_regular_margin"
+        android:layout_weight="0"
+        android:background="?attr/lifeStyle_theme_color"
+        android:clickable="false"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_close_white_24dp"
+        app:riv_corner_radius="20dp"
+        app:riv_mutate_background="true" />
+
+</RelativeLayout>

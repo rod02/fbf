@@ -9,9 +9,12 @@ import com.fightbackfoods.api.ResponseDiet;
 import com.fightbackfoods.api.ResponseFoodByGroup;
 import com.fightbackfoods.api.ResponseFoodGroup;
 import com.fightbackfoods.api.ResponseFoodList;
+import com.fightbackfoods.api.ResponseHealthAspect;
 import com.fightbackfoods.api.ResponseHeightUnit;
+import com.fightbackfoods.api.ResponseJournal;
 import com.fightbackfoods.api.ResponseMobility;
 import com.fightbackfoods.api.ResponseNutrients;
+import com.fightbackfoods.api.ResponseTip;
 import com.fightbackfoods.api.ResponseTreatment;
 import com.fightbackfoods.api.ResponseUser;
 import com.fightbackfoods.api.ResponseGender;
@@ -105,4 +108,15 @@ public interface ApiConnect {
 
     @GET("banners")
     Call<ResponseBanner> banners(@QueryMap Map<String, String> map);
+
+    @GET("tips")
+    Call<ResponseTip> tips(@QueryMap Map<String, String> map);
+
+
+    @FormUrlEncoded
+    @POST("user/journals/add")
+    Call<ResponseJournal> journalsAdd(@FieldMap Map<String, String> map);
+
+    @GET("health-aspects/categories")
+    Call<ResponseHealthAspect> getHealthAspectCategories(@QueryMap Map<String, String> map);
 }

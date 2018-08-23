@@ -103,7 +103,17 @@ public class LifestyleFragment extends MyFragment implements View.OnClickListene
 
     @Override
     public void onClick(View v) {
-        LifestyleDetailsActivity.open((BaseActivity2) getContext());
+       // LifestyleDetailsActivity.open((BaseActivity2) getContext());
 
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        try {
+            unbinder.unbind();
+        }catch (NullPointerException e){
+
+        }
     }
 }

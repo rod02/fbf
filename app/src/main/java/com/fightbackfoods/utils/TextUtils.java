@@ -17,6 +17,7 @@ public class TextUtils {
      */
     public static final String SDF_1 = "yyyy-MM-dd";
     public static final String SDF_2 = "yyyy-MM-dd HH:mm:ss";
+    public static final String WS_TIMEZONE = "EST";
 
 
     public static String getTimeDuration(String startTime, String endTime) {

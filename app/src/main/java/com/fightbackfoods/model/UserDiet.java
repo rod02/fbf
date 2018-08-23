@@ -162,4 +162,8 @@ public class UserDiet {
 
 
     }
+
+    public Food getFood() {
+        return new Food(getFood_id(),getFoodName());
+    }
 }

@@ -12,9 +12,12 @@ import com.fightbackfoods.api.ResponseDiet;
 import com.fightbackfoods.api.ResponseFoodByGroup;
 import com.fightbackfoods.api.ResponseFoodGroup;
 import com.fightbackfoods.api.ResponseFoodList;
+import com.fightbackfoods.api.ResponseHealthAspect;
 import com.fightbackfoods.api.ResponseHeightUnit;
+import com.fightbackfoods.api.ResponseJournal;
 import com.fightbackfoods.api.ResponseMobility;
 import com.fightbackfoods.api.ResponseNutrients;
+import com.fightbackfoods.api.ResponseTip;
 import com.fightbackfoods.api.ResponseTreatment;
 import com.fightbackfoods.api.ResponseVisibility;
 import com.fightbackfoods.api.ResponseWeightUnit;
@@ -202,5 +205,18 @@ public class Api {
 
     public void banners(Map<String, String> map, Callback<ResponseBanner> callback) {
         apiConnect.banners(map).enqueue(callback);
+    }
+
+    public void tips(Map<String, String> map , Callback<ResponseTip> callback) {
+        apiConnect.tips(map).enqueue(callback);
+
+    }
+
+    public void journalsAdd(Map<String, String> map, Callback<ResponseJournal> callback) {
+        apiConnect.journalsAdd(map).enqueue(callback);
+    }
+
+    public void getHealthAspectCategories(Callback<ResponseHealthAspect> callback) {
+        apiConnect.getHealthAspectCategories(Token.toMap()).enqueue(callback);
     }
 }

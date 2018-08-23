@@ -74,42 +74,58 @@
 
         </android.support.design.widget.AppBarLayout>
 
-        <LinearLayout
+        <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
+            android:layout_weight="0"
+            android:fillViewport="true">
 
-            <ImageView
-                android:id="@+id/imageView12"
-                android:layout_width="@dimen/icon_size_regular"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical|start"
-                android:layout_margin="@dimen/lay_regular_margin"
-                android:layout_weight="0"
-                android:tint="@color/blue"
-                app:srcCompat="@drawable/ic_timer" />
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/textView25"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:text="Timer" />
-        </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
-        <com.fightbackfoods.view.BannerFeatured
-            android:id="@+id/banner"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+                    <ImageView
+                        android:id="@+id/imageView12"
+                        android:layout_width="@dimen/icon_size_regular"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical|start"
+                        android:layout_margin="@dimen/lay_regular_margin"
+                        android:layout_weight="0"
+                        android:tint="@color/blue"
+                        app:srcCompat="@drawable/ic_timer" />
 
-        </com.fightbackfoods.view.BannerFeatured>
+                    <TextView
+                        android:id="@+id/textView25"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:text="Timer" />
 
-        <ImageView
-            android:id="@+id/imageView14"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/lifestyle_mind_details" />
+                </LinearLayout>
+
+                <com.fightbackfoods.view.BannerFeatured
+                    android:id="@+id/banner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:category="lifestyle"
+                    app:subCategory="mind">
+
+                </com.fightbackfoods.view.BannerFeatured>
+
+                <com.fightbackfoods.view.LifestyleScoreDetail
+                    android:id="@+id/lsd"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
 
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

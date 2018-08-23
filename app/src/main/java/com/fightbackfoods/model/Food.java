@@ -42,6 +42,11 @@ public class Food implements Item, Serializable {
     @SerializedName("nutrients")
     private List<Nutrients> nutrients;
 
+    public Food(String id, String name) {
+        this.ndbno = id;
+        this.name=name;
+    }
+
     public String getOffset() {
         return offset;
     }

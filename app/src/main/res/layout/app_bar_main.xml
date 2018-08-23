@@ -16,7 +16,6 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:paddingBottom="5dp"
             android:background="@color/toolbar_bg"
 
             app:popupTheme="@style/AppTheme.PopupOverlay">
@@ -62,8 +61,6 @@
                         android:textSize="8sp" />
                 </LinearLayout>
             </RelativeLayout>
-
-
 
 
         </android.support.v7.widget.Toolbar>

@@ -90,6 +90,8 @@
 
     </style>
 
+
+
     <style name="PauseDialog" parent="@android:style/Theme.Dialog">
         <item name="android:windowAnimationStyle">@style/PauseDialogAnimation</item>
     </style>
@@ -278,4 +280,9 @@
 
     <string name="body">Body</string>
     <string name="soul">Soul</string>
+
+
+
+
+
 </resources>

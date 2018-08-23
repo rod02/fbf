@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="50dp"
-    android:paddingTop="@dimen/lay_regular_padding"
     tools:context=".activity.LifestyleFragment">
 
     <android.support.v4.widget.NestedScrollView
@@ -22,7 +22,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/lay_regular_margin"
-                android:layout_weight="0" />
+                android:layout_weight="0"
+                app:category="lifestyle" />
 
 
             <LinearLayout
@@ -63,7 +64,8 @@
                 android:layout_marginBottom="5dp"
                 android:layout_weight="0"
                 android:clickable="true"
-                android:theme="@style/Mind.Lifestyle" />
+                android:theme="@style/Mind.Lifestyle"
+                app:subCategory="mind" />
 
             <com.fightbackfoods.view.LifeStyleItemScore
                 android:id="@+id/body"
@@ -72,6 +74,7 @@
                 android:layout_marginBottom="5dp"
                 android:layout_weight="0"
                 android:clickable="true"
+                app:subCategory="body"
                 android:theme="@style/Body.Lifestyle" />
 
             <com.fightbackfoods.view.LifeStyleItemScore
@@ -81,6 +84,7 @@
                 android:layout_marginBottom="@dimen/lay_regular_margin"
                 android:layout_weight="0"
                 android:clickable="true"
+                app:subCategory="soul"
                 android:theme="@style/Soul.Lifestyle" />
 
         </LinearLayout>

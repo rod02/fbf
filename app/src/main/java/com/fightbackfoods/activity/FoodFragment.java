@@ -1,9 +1,12 @@
 package com.fightbackfoods.activity;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +20,7 @@ import com.fightbackfoods.interfaces.OnFragmentInteractionListener;
 import com.fightbackfoods.interfaces.SerializableListener;
 import com.fightbackfoods.model.UserDiet;
 import com.fightbackfoods.view.BannerFeatured;
+import com.fightbackfoods.view.MyFoods;
 import com.google.android.gms.vision.text.Line;
 
 
@@ -26,11 +30,15 @@ import butterknife.Unbinder;
 
 public class FoodFragment extends MyFragment implements View.OnClickListener {
     private static final String TAG = FoodFragment.class.getSimpleName();
+    public static final String ACTION_MY_FOOD_NEW_ITEM = "my_food_new_item";
 
     Unbinder unbinder;
 
     @BindView(R.id.btn_add_food)
     Button btnAddFood;
+
+    @BindView(R.id.my_food)
+    MyFoods myFoods;
 
     @BindView(R.id.btn_add_drink)
     Button btnAddDrink;
@@ -43,10 +51,13 @@ public class FoodFragment extends MyFragment implements View.OnClickListener {
 
 
     private OnFragmentInteractionListener mListener;
+    LocalBroadcastManager localBroadcastManager;
+    BroadcastReceiver receiver;
 
     public FoodFragment() {
         // Required empty public constructor
     }
+
 
     public static FoodFragment newInstance(int id) {
         FoodFragment fragment = new FoodFragment();
@@ -62,6 +73,27 @@ public class FoodFragment extends MyFragment implements View.OnClickListener {
         if (getArguments() != null) {
             pos = getArguments().getInt(TAG_KEY);
         }
+        localBroadcastManager = LocalBroadcastManager.getInstance(getContext());
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(ACTION_MY_FOOD_NEW_ITEM);
+        receiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                Log.d(TAG, "broadcast received ");
+                if(intent.getAction().equals(ACTION_MY_FOOD_NEW_ITEM)){
+                    try {
+                        myFoods.refresh();
+
+                    }catch (NullPointerException e){
+                        e.printStackTrace();
+                    }
+                }
+
+            }
+        };
+
+        localBroadcastManager.registerReceiver(receiver, intentFilter);
+
     }
 
     @Override
@@ -105,7 +137,13 @@ public class FoodFragment extends MyFragment implements View.OnClickListener {
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
+        try {
+            mListener = null;
+            localBroadcastManager.unregisterReceiver(receiver);
+        }catch (NullPointerException e){
+            e.printStackTrace();
+        }
+
     }
 
 
@@ -114,8 +152,11 @@ public class FoodFragment extends MyFragment implements View.OnClickListener {
         super.onDestroyView();
         try {
             unbinder.unbind();
-        }catch (NullPointerException e){
+            localBroadcastManager.unregisterReceiver(receiver);
+            mListener = null;
 
+        }catch (NullPointerException e){
+            e.printStackTrace();
         }
     }
 
