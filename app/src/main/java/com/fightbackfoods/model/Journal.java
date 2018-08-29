@@ -1,5 +1,6 @@
 package com.fightbackfoods.model;
 
+import android.content.SharedPreferences;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -10,7 +11,9 @@ import com.fightbackfoods.Api;
 import com.fightbackfoods.R;
 import com.fightbackfoods.api.ResponseJournal;
 import com.fightbackfoods.utils.ConfigPrefHelper;
+import com.fightbackfoods.utils.PrefHelper;
 import com.fightbackfoods.utils.TextUtils;
+import com.fightbackfoods.utils.Validate;
 import com.fightbackfoods.view.SpinnerHealthAspectCategory;
 import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
@@ -24,8 +27,11 @@ import static com.fightbackfoods.model.Journal.Rating.HAPPY;
 import static com.fightbackfoods.model.Journal.Rating.NEUTRAL;
 import static com.fightbackfoods.model.Journal.Rating.SAD;
 
-public class Journal {
-
+public class Journal extends PrefHelper {
+    private static final String SHARED_PREF = "shared_pref_journal";
+    private static final String SHARED_PREF_KEY = "key_journal";
+    public static final int PHYSICAL = 2;
+    public static final int EMOTIONAL = 1;
 
 
     @SerializedName("userId")
@@ -183,9 +189,53 @@ public class Journal {
         return new Gson().toJson(this);
     }
 
+    public void save(boolean cache) {
+        Journal.j =this;
+        if(cache){
+            SharedPreferences.Editor editor = getEditor();
+            editor.putString(SHARED_PREF_KEY, toString());
+            editor.commit();
+            editor.apply();
+        }
+    }
 
+    public static Journal fromCache(){
+        try {
+            if(j!=null) return j;
+            return  new Gson().fromJson(getPref().getString(SHARED_PREF_KEY,null), Journal.class);
+        }catch (NullPointerException e){
+            e.printStackTrace();
+        }
+        return null;
+    }
 
+    public static int ratingToRes(int category) {
+        String emoRating = "0";
+        switch (category){
+            case EMOTIONAL:
+                emoRating = Journal.fromCache().getMentalRating();
 
+                break;
+            case PHYSICAL:
+                emoRating = Journal.fromCache().getPhysicalRating();
+
+                break;
+        }
+        int rating = Integer.parseInt(Validate.isNullString(emoRating)? "0":emoRating);
+        switch (rating){
+            case 3:
+                return R.drawable.ic_face_happy_checked;
+
+            case 2:
+                return R.drawable.ic_face_neutral_checked;
+            case 1:
+                return R.drawable.ic_face_neutral_checked;
+                default:
+                    return R.drawable.ic_face_happy;
+
+        }
+
+    }
 
     public static class State {
 
@@ -194,6 +244,8 @@ public class Journal {
 
 
     }
+
+    private static Journal j;
 
     public static class Rating {
          static final int SAD = 2;

@@ -2,7 +2,9 @@ package com.fightbackfoods.model;
 
 import com.google.gson.annotations.SerializedName;
 
-public abstract class Item implements com.fightbackfoods.interfaces.Item {
+import java.io.Serializable;
+
+public abstract class Item implements com.fightbackfoods.interfaces.Item, Serializable {
     @SerializedName("created_at")
     private String createdAt;
     @SerializedName("updated_at")

@@ -18,6 +18,7 @@ import android.support.design.widget.Snackbar;
 import android.support.transition.Slide;
 import android.support.transition.Visibility;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
@@ -44,6 +45,7 @@ import com.fightbackfoods.interfaces.SerializableListener;
 import com.fightbackfoods.model.Article;
 import com.fightbackfoods.model.Banner;
 import com.fightbackfoods.model.Journal;
+import com.fightbackfoods.model.JournalSuggestion;
 import com.fightbackfoods.model.User;
 import com.fightbackfoods.model.UserDiet;
 import com.fightbackfoods.utils.TokenManager;
@@ -51,10 +53,12 @@ import com.fightbackfoods.utils.Validate;
 import com.fightbackfoods.view.ArticleFeatured;
 import com.fightbackfoods.view.FeedContextMenu;
 import com.fightbackfoods.view.FeedContextMenuManager;
+import com.fightbackfoods.view.ImFeelingDialogFragment;
 import com.makeramen.roundedimageview.RoundedImageView;
 
 import java.io.Serializable;
 import java.util.Calendar;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -103,6 +107,9 @@ public class MainActivity extends BaseDrawerActivity implements FeedAdapter.OnFe
     private boolean pendingIntroAnimation;
 
     RoundedImageView ivAvatar;
+
+    private boolean showJournalSuggestions = true;
+
 
 
 
@@ -155,7 +162,7 @@ public class MainActivity extends BaseDrawerActivity implements FeedAdapter.OnFe
             @Override
             public void onClick(View v) {
 
-                Journal j = Journal.getFromViews((View) v.getTag());
+                final Journal j = Journal.getFromViews((View) v.getTag());
 
                // Toast.makeText(MainActivity.this, j.getMessage()+ " save", Toast.LENGTH_LONG).show();
                 Log.d(TAG, "journal: "+ j.toString());
@@ -169,6 +176,10 @@ public class MainActivity extends BaseDrawerActivity implements FeedAdapter.OnFe
                             Toast.makeText(MainActivity.this, "Journal Save", Toast.LENGTH_SHORT).show();
 
                             dialog.dismiss();
+                            j.save(true);
+                            if(showJournalSuggestions) imFeeling();
+                            if(Journal.fromCache()!=null)ivToolbarFace.setImageResource(Journal.ratingToRes(Journal.EMOTIONAL));
+
                         }catch (NullPointerException e){
                             e.printStackTrace();
                         }
@@ -186,6 +197,7 @@ public class MainActivity extends BaseDrawerActivity implements FeedAdapter.OnFe
             }
         });
         ivToolbarFace.setSelected(true);
+        if(Journal.fromCache()!=null)ivToolbarFace.setImageResource(Journal.ratingToRes(Journal.EMOTIONAL));
     }
 
     private void init() {

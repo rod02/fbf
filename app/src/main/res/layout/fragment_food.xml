@@ -40,12 +40,17 @@
             android:id="@+id/my_food"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
-
-        <include
-            layout="@layout/container_my_drinks"
+        <com.fightbackfoods.view.MyDrinks
+            android:id="@+id/my_drinks"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/lay_regular_margin" />
+            android:layout_height="wrap_content" />
+
+        <!--
+                <include
+                    layout="@layout/container_my_drinks"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/lay_regular_margin" />-->
 
         <include
             layout="@layout/layout_daily_goals"

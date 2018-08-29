@@ -20,6 +20,7 @@ import com.fightbackfoods.interfaces.OnFragmentInteractionListener;
 import com.fightbackfoods.interfaces.SerializableListener;
 import com.fightbackfoods.model.UserDiet;
 import com.fightbackfoods.view.BannerFeatured;
+import com.fightbackfoods.view.MyDrinks;
 import com.fightbackfoods.view.MyFoods;
 import com.google.android.gms.vision.text.Line;
 
@@ -31,6 +32,7 @@ import butterknife.Unbinder;
 public class FoodFragment extends MyFragment implements View.OnClickListener {
     private static final String TAG = FoodFragment.class.getSimpleName();
     public static final String ACTION_MY_FOOD_NEW_ITEM = "my_food_new_item";
+    public static final String ACTION_MY_DRINKS_NEW_ITEM = "my_drinks_new_item";
 
     Unbinder unbinder;
 
@@ -39,7 +41,8 @@ public class FoodFragment extends MyFragment implements View.OnClickListener {
 
     @BindView(R.id.my_food)
     MyFoods myFoods;
-
+    @BindView(R.id.my_drinks)
+    MyDrinks myDrinks;
     @BindView(R.id.btn_add_drink)
     Button btnAddDrink;
     @BindView(R.id.article_preview)
@@ -76,6 +79,8 @@ public class FoodFragment extends MyFragment implements View.OnClickListener {
         localBroadcastManager = LocalBroadcastManager.getInstance(getContext());
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(ACTION_MY_FOOD_NEW_ITEM);
+        intentFilter.addAction(ACTION_MY_DRINKS_NEW_ITEM);
+
         receiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
@@ -83,6 +88,13 @@ public class FoodFragment extends MyFragment implements View.OnClickListener {
                 if(intent.getAction().equals(ACTION_MY_FOOD_NEW_ITEM)){
                     try {
                         myFoods.refresh();
+
+                    }catch (NullPointerException e){
+                        e.printStackTrace();
+                    }
+                }else if(intent.getAction().equals(ACTION_MY_DRINKS_NEW_ITEM)){
+                    try {
+                        myDrinks.refresh();
 
                     }catch (NullPointerException e){
                         e.printStackTrace();

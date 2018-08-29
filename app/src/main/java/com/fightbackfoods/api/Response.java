@@ -30,6 +30,26 @@ public class Response {
     @Expose
     List<String> required;
 
+    @SerializedName("success")
+    @Expose
+    String success;
+
+
+    public List<String> getErrorMessage() {
+        return errorMessage;
+    }
+
+    public void setErrorMessage(List<String> errorMessage) {
+        this.errorMessage = errorMessage;
+    }
+
+    public String getSuccess() {
+        return success;
+    }
+
+    public void setSuccess(String success) {
+        this.success = success;
+    }
 
     public String getStatus() {
         return status;
@@ -73,7 +93,9 @@ public class Response {
 
     public boolean isSuccessful() {
         try {
-            return status.equalsIgnoreCase("success");
+            if(success == null)
+                return status.equalsIgnoreCase("success");
+            else return success.equalsIgnoreCase("true");
         }catch (NullPointerException e){
             e.printStackTrace();
             return false;

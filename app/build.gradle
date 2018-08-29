@@ -62,5 +62,8 @@ dependencies {
     implementation 'com.nineoldandroids:library:2.4.0'
     implementation 'com.daimajia.slider:library:1.1.5@aar'
 
+    implementation 'org.apache.commons:commons-text:1.4'
+
+
 
 }

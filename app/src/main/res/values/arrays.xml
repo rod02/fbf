@@ -47,6 +47,12 @@
         <item>Share with friends / followers</item>
         </string-array>
 
+    <string-array name="units">
+        <item></item>
+        <item>ml</item>
+        <item>l</item>
+        <item>oz</item>
+    </string-array>
 
     <string-array name="user_photos">
         <item>http://scontent-a-fra.cdninstagram.com/hphotos-xpf1/t51.2885-15/s306x306/e15/10665483_429615813855717_1490926670_n.jpg</item>

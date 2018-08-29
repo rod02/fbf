@@ -11,9 +11,7 @@ public class ResponseNutrients extends Response {
     @SerializedName("nutrients")
     @Expose
     List<Nutrients> nutrients;
-    @SerializedName("success")
-    @Expose
-    String success;
+
 
     public List<Nutrients> getNutrients() {
         return nutrients;

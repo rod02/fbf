@@ -12,7 +12,7 @@ public class MyGlide {
 
     final static RequestOptions options = new RequestOptions()
             .placeholder(R.drawable.no_image)
-            .fitCenter()
+            .centerCrop()
             //.dontAnimate()
             .error(R.drawable.no_image);
 
