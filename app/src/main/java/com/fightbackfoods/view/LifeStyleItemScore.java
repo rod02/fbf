@@ -65,7 +65,7 @@ public class LifeStyleItemScore extends FrameLayout {
             public void onClick(View v) {
                 Log.d(TAG, "onclick");
 
-                LifestyleDetailsActivity.open((BaseActivity) getRootView().getContext(),
+                LifestyleDetailsActivity.open((BaseActivity) getRootView().getRootView().getContext(),
                        category,subCategory,null );
             }
         });

@@ -54,9 +54,19 @@ public class Journal extends PrefHelper {
 
     @SerializedName("message")
     private String message;
+
+    @SerializedName("optionalEntry")
+    private String optionalEntry;
     @SerializedName("shareToFb")
     private String shareToFb;
 
+    public String getOptionalEntry() {
+        return optionalEntry;
+    }
+
+    public void setOptionalEntry(String optionalEntry) {
+        this.optionalEntry = optionalEntry;
+    }
 
     public String getUserId() {
         return userId;
@@ -141,6 +151,7 @@ public class Journal extends PrefHelper {
         RadioGroup rgPhysical = view.findViewById(R.id.rg_physical);
         j.setPhysicalRating(ratingValueOfIndex(rgPhysical.indexOfChild(view.findViewById(rgPhysical.getCheckedRadioButtonId()))));
         j.setMessage(((EditText)view.findViewById(R.id.et_message)).getText().toString());
+        j.setOptionalEntry(((EditText)view.findViewById(R.id.et_optional_entry)).getText().toString());
         j.setShareToFb(((CheckBox)view.findViewById(R.id.cb_fb)).isChecked()? "1":"0");
         SpinnerHealthAspectCategory spMental = view.findViewById(R.id.sp_mental);
         j.setMentalCategory(String.valueOf(spMental.getSelectedItemId()));

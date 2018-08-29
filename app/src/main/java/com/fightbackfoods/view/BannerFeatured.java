@@ -198,7 +198,7 @@ public class BannerFeatured extends FrameLayout implements SwipeRefreshLayout.On
                 @Override
                 public void onSliderClick(SliderView sliderView) {
                     Log.d(TAG,"onSliderClick " );
-                    if(listener!=null && !Banner.getCache().isEmpty()){
+                    if(listener!=null && !Banner.getCache2().isEmpty()){
 
                         listener.onClick(a, (View) BannerFeatured.this);
                     }else

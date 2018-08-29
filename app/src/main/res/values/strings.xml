@@ -89,7 +89,10 @@
     <string name="physically_i_am">Physically I am</string>
     <string name="today_could_use_some">Today I could use some:</string>
     <string name="jor_could_use_some_hint_text">ex. Encouragement, Help with groceries</string>
-    <string name="add_journal_entry">+ Add Journal Entry optional)</string>
+    <string name="add_journal_entry">+ Add Journal Entry (optional)</string>
+    <string name="close_journal_entry">+ Close Journal Entry Window</string>
+    <string name="log_journal_update">Log a daily Journal update</string>
+
     <string name="post_to_fb">Post to FB</string>
     <string name="action_post">Post</string>
 
@@ -205,5 +208,6 @@ Take cancer prevention into your own hands, starting today. The rewards will las
     <string name="you_earned_n_badge">You Earned a %1$s Badge!</string>
     <string name="weekly_challenge">Weekly Challenge</string>
     <string name="add_activity">Add Activity</string>
+    <string name="write_whatever">Write whatever you want</string>
 
 </resources>

@@ -63,6 +63,7 @@
                     android:layout_below="@+id/tv_header"
                     android:layout_margin="@dimen/text_margin"
                     android:background="@android:color/transparent"
+                    android:animateLayoutChanges="true"
                     android:orientation="vertical">
 
                     <LinearLayout
@@ -209,6 +210,38 @@
                         android:text="@string/add_journal_entry"
                         android:textColor="@color/text_link"
                         android:textSize="@dimen/jor_label_txt_size" />
+
+                    <LinearLayout
+                        android:id="@+id/ll_journal_update"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/lay_regular_margin"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="5dp"
+                            android:text="@string/log_journal_update"
+                            android:textSize="@dimen/jor_label_txt_size"
+                            android:textStyle="italic" />
+
+                        <EditText
+                            android:id="@+id/et_optional_entry"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+
+                            android:background="@drawable/edit_text_border_color"
+                            android:ems="10"
+                            android:gravity="left|center_vertical"
+                            android:hint="@string/write_whatever"
+                            android:imeOptions="actionDone"
+                            android:inputType="textCapSentences|textMultiLine"
+                            android:lines="3"
+                            android:maxLines="6"
+                            android:paddingLeft="20dp" />
+                    </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"

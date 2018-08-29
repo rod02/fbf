@@ -147,5 +147,11 @@ public class Banner implements Serializable {
         Api.getInstance().banners(map,callback);
     }
 
+    public static Map<String, List<Banner>> getCache2() {
+        return cache2;
+    }
 
+    public static void setCache2(Map<String, List<Banner>> cache2) {
+        Banner.cache2 = cache2;
+    }
 }

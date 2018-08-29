@@ -142,6 +142,17 @@ public class MainActivity extends BaseDrawerActivity implements FeedAdapter.OnFe
         builder.setView(view);
         builder.setCancelable(false);
         layPost.setTag(view);
+        final LinearLayout layOptionalEntry = view.findViewById(R.id.ll_journal_update);
+        final TextView tvAddJournal = view.findViewById(R.id.tv_add_journal);
+
+        tvAddJournal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                layOptionalEntry.setVisibility(layOptionalEntry.getVisibility()==View.VISIBLE? View.GONE : View.VISIBLE);
+                tvAddJournal.setText(layOptionalEntry.getVisibility()==View.VISIBLE?
+                                       R.string.close_journal_entry: R.string.add_journal_entry);
+            }
+        });
 
         final AlertDialog dialog = builder.show();
 
