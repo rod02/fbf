@@ -12,7 +12,7 @@ import java.util.Map;
 
 import retrofit2.Callback;
 
-public class Banner implements Serializable {
+public class Banner extends Item {
     @SerializedName("banner_id")
     String id;
     @SerializedName("name")
@@ -28,9 +28,6 @@ public class Banner implements Serializable {
     @SerializedName("created_by")
     private String createdBy;
     @SerializedName("created_at")
-    private String createdAt;
-    @SerializedName("updated_at")
-    private String updatedAt;
 
     private static List<Banner> cache = new ArrayList<>();
 
@@ -53,6 +50,11 @@ public class Banner implements Serializable {
     }
 
     public String getName() {
+        return name;
+    }
+
+    @Override
+    public String getDescription() {
         return name;
     }
 
@@ -98,22 +100,6 @@ public class Banner implements Serializable {
 
     public void setCreatedBy(String createdBy) {
         this.createdBy = createdBy;
-    }
-
-    public String getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(String createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public String getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(String updatedAt) {
-        this.updatedAt = updatedAt;
     }
 
 

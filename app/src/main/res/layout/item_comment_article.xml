@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?><!-- item_feed.xml -->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+
+    android:paddingTop="@dimen/lay_regular_padding"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:id="@+id/ivUserProfile"
+        android:layout_width="@dimen/user_profile_avatar_community"
+        android:layout_height="@dimen/user_profile_avatar_community"
+        android:layout_gravity="top"
+        android:layout_marginEnd="@dimen/lay_regular_margin"
+        android:layout_weight="0"
+        android:src="@drawable/love_lace" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/lay_regular_margin"
+        android:layout_marginEnd="@dimen/lay_regular_margin"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_user"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:text="Ada Lovelace"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/tv_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Aug 8, 2018"
+            android:textSize="@dimen/comment_date_text" />
+
+        <TextView
+            android:id="@+id/tv_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:autoText="false"
+            android:elegantTextHeight="true"
+            android:ellipsize="end"
+            android:fontFamily="sans-serif"
+            android:maxLines="4"
+            android:text="@dimen/nav_text_title_size"
+            android:textColor="@color/text_dark"
+            android:textStyle="normal" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="5dp"
+            android:paddingRight="8dp">
+
+            <TextView
+                android:id="@+id/tv_like"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:paddingEnd="@dimen/lay_regular_margin"
+                android:text="@string/like"
+                android:textColor="@color/text_like_counter" />
+
+            <TextView
+                android:id="@+id/tv_reply"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:text="@string/reply"
+                android:textColor="@color/text_like_counter" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>
+

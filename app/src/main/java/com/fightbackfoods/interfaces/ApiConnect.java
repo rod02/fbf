@@ -100,6 +100,9 @@ public interface ApiConnect {
     @GET("articles")
     Call<ResponseArticle> articles(@QueryMap Map<String, String> map);
 
+    @GET("articles/v2")
+    Call<ResponseArticle> articlesV2(@QueryMap Map<String, String> map);
+
     @FormUrlEncoded
     @POST("user/diet/add")
     Call<ResponseDiet> userDietAdd(@FieldMap Map<String, String> map);
@@ -134,4 +137,7 @@ public interface ApiConnect {
 
     @GET("drink/units")
     Call<ResponseDrink.Units> drinkUnits(@QueryMap Map<String, String> map);
+
+    @GET("articles/education")
+    Call<ResponseArticle.Category> articlesEducation(@QueryMap Map<String, String> map);
 }

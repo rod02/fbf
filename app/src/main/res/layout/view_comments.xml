@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/lay_regular_padding"
+    tools:context=".activity.ArticleFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/lay_regular_padding">
+
+
+        <include
+            layout="@layout/comment_box"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+        <!--<android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/srl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/lay_regular_margin"
+                android:layout_marginTop="@dimen/lay_regular_margin"
+                android:layout_weight="1"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:layoutMode="clipBounds"
+                android:paddingBottom="30dp"
+
+                app:layoutManager="LinearLayoutManager"
+                tools:listitem="@layout/item_comment_article">
+
+            </android.support.v7.widget.RecyclerView>
+
+            <TextView
+                android:id="@+id/tv_show_more"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="@string/show_more"
+                android:visibility="gone" />
+        </LinearLayout>
+        <!--
+        </android.support.v4.widget.SwipeRefreshLayout>
+-->
+
+    </LinearLayout>
+
+</FrameLayout>

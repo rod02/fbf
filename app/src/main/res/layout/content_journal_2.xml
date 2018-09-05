@@ -15,10 +15,10 @@
 
 
         android:layout_margin="@dimen/lay_regular_margin"
-        android:alpha="0.8"
         card_view:cardCornerRadius="@dimen/dialog_journal_radius"
         card_view:cardElevation="@dimen/dialog_journal_elevation">
 
+        android:alpha="0.8"
 
         <ScrollView
             android:layout_width="match_parent"
@@ -118,7 +118,7 @@
                         android:layout_marginBottom="@dimen/lay_regular_margin"
                         android:layout_weight="0"
                         android:scaleType="centerCrop"
-                        card_view:srcCompat="@drawable/raw_img_journal_1" />
+                        card_view:srcCompat="@drawable/bg_login_lady" />
 
                     <TextView
                         android:id="@+id/tv_emotion_content"

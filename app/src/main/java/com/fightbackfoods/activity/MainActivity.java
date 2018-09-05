@@ -44,6 +44,7 @@ import com.fightbackfoods.interfaces.OnFragmentInteractionListener;
 import com.fightbackfoods.interfaces.SerializableListener;
 import com.fightbackfoods.model.Article;
 import com.fightbackfoods.model.Banner;
+import com.fightbackfoods.model.EducationItem;
 import com.fightbackfoods.model.Journal;
 import com.fightbackfoods.model.JournalSuggestion;
 import com.fightbackfoods.model.User;
@@ -133,6 +134,12 @@ public class MainActivity extends BaseDrawerActivity implements FeedAdapter.OnFe
     }
 
     private void showJournal() {
+        replaceFragment(DashboardFragment.newInstance(0));
+        if(Journal.fromCache()!=null)ivToolbarFace.setImageResource(Journal.ratingToRes(Journal.EMOTIONAL));
+        if(Journal.doneToday()) {
+            return;
+        }
+
 
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this, R.style.PauseDialog);
         View view = LayoutInflater.from(MainActivity.this).inflate(R.layout.content_journal,
@@ -157,12 +164,12 @@ public class MainActivity extends BaseDrawerActivity implements FeedAdapter.OnFe
         final AlertDialog dialog = builder.show();
 
         dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+      /*  dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialog) {
-                replaceFragment(DashboardFragment.newInstance(0));
+               // replaceFragment(DashboardFragment.newInstance(0));
             }
-        });
+        });*/
         ivClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -208,7 +215,7 @@ public class MainActivity extends BaseDrawerActivity implements FeedAdapter.OnFe
             }
         });
         ivToolbarFace.setSelected(true);
-        if(Journal.fromCache()!=null)ivToolbarFace.setImageResource(Journal.ratingToRes(Journal.EMOTIONAL));
+       // if(Journal.fromCache()!=null)ivToolbarFace.setImageResource(Journal.ratingToRes(Journal.EMOTIONAL));
     }
 
     private void init() {
@@ -561,7 +568,13 @@ public class MainActivity extends BaseDrawerActivity implements FeedAdapter.OnFe
 
 
     @Override
-    public void onFragmentInteraction(Object uri) {
+    public void onFragmentInteraction(Object item) {
+        Log.d(TAG, "onFragmentInteraction");
+
+        if(item instanceof EducationItem){
+            Log.d(TAG, "onFragmentInteraction: educationItem");
+            replaceFragmentWithAnimation(ArticleFragment.newInstance(((EducationItem) item).getId(), 5));
+        }
 
     }
     private Visibility buildReturnTransition() {
@@ -578,6 +591,9 @@ public class MainActivity extends BaseDrawerActivity implements FeedAdapter.OnFe
 
         switch (v.getId()){
             case R.layout.view_article_featured:
+                openArticleActivity(s,v);
+                break;
+            case R.id.cardView:
                 openArticleActivity(s,v);
                 break;
             case R.id.banner:

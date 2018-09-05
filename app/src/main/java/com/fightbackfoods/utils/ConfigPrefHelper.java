@@ -30,4 +30,10 @@ public class ConfigPrefHelper  {
     }
 
 
+    public static void journalUpdate(String date) {
+        SharedPreferences.Editor e = getEditor();
+        e.putString(JOURNAL_LAST_UPDATE, date);
+        e.apply();
+
+    }
 }

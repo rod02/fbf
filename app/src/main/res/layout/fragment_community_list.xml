@@ -82,6 +82,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scrollbars="none"
+            tools:listitem="@layout/item_feed"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
 

@@ -43,6 +43,7 @@ public class ProgressNutrientSimple extends FrameLayout {
                 ProgressBarAnimation anim = new ProgressBarAnimation(pb, 0, 60);
                 anim.setDuration(1000);
                 pb.startAnimation(anim);
+
             }
         });
 

@@ -195,6 +195,10 @@ public class Api {
         apiConnect.articles(map).enqueue(callback);
     }
 
+    public void articlesV2(Map<String, String> map, Callback<ResponseArticle> callback) {
+        apiConnect.articlesV2(map).enqueue(callback);
+    }
+
     public void userDietAdd(Map<String, String> map, Callback<ResponseDiet> callback) {
         apiConnect.userDietAdd(map).enqueue(callback);
 
@@ -237,5 +241,9 @@ public class Api {
     public void userDrinks(Map<String, String> map, Callback<ResponseDrink> callback) {
         apiConnect.userDrinks(map).enqueue(callback);
 
+    }
+
+    public void articlesEducation(Callback<ResponseArticle.Category> callback) {
+        apiConnect.articlesEducation(Token.toMap()).enqueue(callback);
     }
 }

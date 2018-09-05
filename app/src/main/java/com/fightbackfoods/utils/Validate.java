@@ -33,8 +33,9 @@ public class Validate {
     public static String path(String path) {
         try {
             String http = "http";
+            if(isNullString(path)) return "";
             if (path.contains(http)) return path;
-            else path = http.concat(path);
+            else path = "http://".concat(path);
             return path;
         } catch (NullPointerException e) {
             return path;

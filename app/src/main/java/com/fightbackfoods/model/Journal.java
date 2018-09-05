@@ -207,6 +207,7 @@ public class Journal extends PrefHelper {
             editor.putString(SHARED_PREF_KEY, toString());
             editor.commit();
             editor.apply();
+            ConfigPrefHelper.journalUpdate(TextUtils.getDateFormatToday());
         }
     }
 

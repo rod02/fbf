@@ -79,7 +79,7 @@
     <dimen name="title_text_large">20sp</dimen>
     <dimen name="list_sub_text">10sp</dimen>
 
-    <dimen name="user_profile_avatar_community">40dp</dimen>
+    <dimen name="user_profile_avatar_community">30dp</dimen>
     <dimen name="text_score">70sp</dimen>
     <dimen name="text_score_percent">16sp</dimen>
     <dimen name="text_m_b_s_score_percent">9sp</dimen>
@@ -99,5 +99,8 @@
     <dimen name="lifestyle_detail_score_btn_text">10sp</dimen>
     <dimen name="lifestyle_detail_score_btn_height">30dp</dimen>
     <dimen name="icon_star_x_small">10dp</dimen>
+    <dimen name="search_box_text">10sp</dimen>
+    <dimen name="comment_date_text">10sp</dimen>
+    <dimen name="article_title_text">16sp</dimen>
 
 </resources>

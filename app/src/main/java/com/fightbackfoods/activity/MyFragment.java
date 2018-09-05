@@ -14,7 +14,7 @@ public class MyFragment extends Fragment {
 
 
     public int getPos() {
-        pos=getArguments().getInt(TAG_KEY);
+        pos=getArguments().getInt(TAG_KEY, 0);
         return pos;
     }
 

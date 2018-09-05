@@ -17,6 +17,7 @@ import android.widget.LinearLayout;
 
 import com.fightbackfoods.R;
 import com.fightbackfoods.Utils;
+import com.fightbackfoods.adapter.ArticleCommentAdapter;
 import com.fightbackfoods.adapter.CommentsAdapter;
 import com.fightbackfoods.view.SendCommentButton;
 

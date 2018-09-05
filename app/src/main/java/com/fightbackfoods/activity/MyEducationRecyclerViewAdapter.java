@@ -7,10 +7,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.fightbackfoods.R;
 import com.fightbackfoods.interfaces.OnFragmentInteractionListener;
 import com.fightbackfoods.model.EducationItem;
+import com.fightbackfoods.utils.Validate;
 
 import java.util.List;
 
@@ -33,20 +35,27 @@ public class MyEducationRecyclerViewAdapter extends RecyclerView.Adapter<MyEduca
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        Context mContext = holder.mView.getContext();
+        final Context mContext = holder.mView.getContext();
         holder.mItem = mValues.get(position);
         //MyGlide.load(mContext,holder.mItem.getImageUrl(),holder.ivThumb);
 
         holder.tvName.setText(holder.mItem.getName());
-        holder.tvDesc.setText(holder.mItem.getDescription());
+        String desc = holder.mItem.getDescription();
+        if(!Validate.isNullString(desc))
+            holder.tvDesc.setText(desc);
+        else holder.tvDesc.setVisibility(View.GONE);
         holder.tvTotal.setText(mContext.getResources().getQuantityString(R.plurals.articles,
-                holder.mItem.getTotal(), holder.mItem.getTotal()));
+                holder.mItem.getCount(), holder.mItem.getCount()));
         holder.ivThumb.setImageResource(holder.mItem.getImageRes());
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (null != mListener) {
+                    if(holder.mItem.getCount()<=0) {
+                        Toast.makeText(mContext, R.string.no_article, Toast.LENGTH_SHORT).show();
+                        return;
+                    }
                     mListener.onFragmentInteraction(holder.mItem);
                 }
             }

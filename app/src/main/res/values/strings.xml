@@ -209,5 +209,13 @@ Take cancer prevention into your own hands, starting today. The rewards will las
     <string name="weekly_challenge">Weekly Challenge</string>
     <string name="add_activity">Add Activity</string>
     <string name="write_whatever">Write whatever you want</string>
+    <string name="search_article">Search Article</string>
+    <string name="comment_date_text">10sp</string>
+    <string name="like">Like</string>
+    <string name="reply">Reply</string>
+    <string name="write_comment">Write a comment</string>
+    <string name="show_more">Show more</string>
+    <string name="liked">Liked</string>
+    <string name="no_article">No Article</string>
 
 </resources>
